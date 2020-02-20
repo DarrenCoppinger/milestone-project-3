@@ -20,8 +20,8 @@
 				<a href="#!" class="brand-logo">Karaokean</a>
 				<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 				<ul class="right hide-on-med-and-down">
-					<li><a href="{{ url_for('index') }}">Home</a></li>
-					<li><a href="#">Add Song</a></li>
+					<li><a href="{{ url_for('index')}}">Home</a></li>
+					<li><a href="{{ url_for('addtrack')}}">Add Song</a></li>
 					<li><a href="#">categories</a></li>
 					<li><a href="#">Leaderboard</a></li>
 					<li><a href="#">Playlist</a></li>
@@ -31,12 +31,12 @@
 		</nav>
 
 		<ul class="sidenav" id="mobile-demo">
-			<li><a href="{{ url_for('index') }}">Home</a></li>
-			<li><a href="#">Add Song</a></li>
+			<li><a href="{{ url_for('index')}}">Home</a></li>
+			<li><a href="{{ url_for('addtrack')}}">Add Song</a></li>
 			<li><a href="#">categories</a></li>
 			<li><a href="#">Leaderboard</a></li>
 			<li><a href="#">Playlist</a></li>
-			<li><a href="{{ url_for('loginpage') }}">Login</a></li>
+			<li><a href="{{ url_for('loginpage')}}">Login</a></li>
 		</ul>
 	</header>
 
@@ -57,6 +57,8 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
             $('.sidenav').sidenav();
+            $('.datepicker').datepicker(
+            {format: "yyyy"});
         });
 	</script>
 </body>

@@ -57,6 +57,15 @@ def register():
 
     return render_template('register.html')
 
+@app.route('/addtrack')
+def addsong():
+    return render_template('addtrack.html')
+
+@app.route('/insert_track', methods=['POST'])
+def insert_track():
+    tracks = mongo.db.tracks
+    tracks.insert_one(request.form.to_dict())
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.secret_key = 'mysecret'
