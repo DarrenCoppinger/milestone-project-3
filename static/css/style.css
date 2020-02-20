@@ -3,3 +3,13 @@
     /* background-color: rgb(234, 199, 255); */
     background-color: rgb(95, 170, 222); /* light pastel blue */
 }
+
+.login {
+  text-align: right;
+} 
+
+.container{
+    /* margin: 0;
+    padding: 0;
+    width: 100%; */
+}
