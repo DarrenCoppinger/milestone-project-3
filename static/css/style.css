@@ -13,3 +13,46 @@
     padding: 0;
     width: 100%; */
 }
+
+.panel {
+    align-items: center;
+    margin: 0 0px 5px 0px;
+    padding: 0;
+}
+
+.row-button {
+    width: 100%;
+    align-items: center;
+}
+
+.col-button {
+    padding: 0;
+}
+
+.button1 {
+    /* width: 165px; */
+    width: 100%;
+    padding: 0;
+    margin: 10px 0px;
+}
+
+.button2 {
+    /* width: 80px; */
+    width: 100%;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.button1 i {
+    padding: 0 5px 0 5px;
+    margin: 0;
+}
+
+.button2 i {
+    padding: 0 5px 0 5px;
+    margin: 0;
+}
+
+.video-container {
+    margin: 10px 0;
+}

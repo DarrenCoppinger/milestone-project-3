@@ -1,15 +1,51 @@
 {% extends "base.html" %} {% block content %}
-
-<h2>Catalogue</h2>
-<!-- <iframe width="560" height="315" data-embed="US0jUNjFgUg" frameborder="0"
-	allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+<div class="row">
+	<div class="col s12">
+		<h2>Catalogue</h2>
+	</div>
+</div>
 
 {% if tracks_total > 0 %}
 {% for track in tracks %}
+<div class="row">
+	<div class="col s12 m8">
+		<div class="video-container">
+			<iframe src="{{track.video|replace('https://www.youtube.com/watch?v=','https://www.youtube.com/embed/')}}"
+				frameborder="0" allowfullscreen></iframe>
+		</div>
+	</div>
+	<div class="col s12 m4">
+		<div class="panel">
+			<div class="row">
+				<div class="col s12">
+					<a class="waves-effect waves-light btn-small button1">Add to
+						Playlist<i class="material-icons right">add</i></a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-button col s6">
+					<a
+						class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_up</i>Edit</a>
+				</div>
+				<div class="col-button col s6">
+					<a
+						class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_down</i>Delete</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s6">
+					<a
+						class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_up</i>Like</a>
+				</div>
+				<div class="col s6">
+					<a
+						class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_down</i>Dislike</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-<iframe width="560" height="315"
-	src="{{track.video|replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/') }}"
-	frameborder="0"	allowfullscreen></iframe>
 {% else %}
 <p>No tracks available</p>
 <p>Add a karaoke track to the catalogue <a href="{{url_for('register')}}">here</a> </p>
