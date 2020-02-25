@@ -12,3 +12,35 @@
 #     stored_value = 'pbkdf2:sha256:150000$S4lF9VaW$5f7423d23f40d3c9c04d8ab0286bb9b93089e1b12dc6fa3594b01b54bbd6bf52'
 #     result = check_password_hash(stored_value, password)
 #     return str(result)
+
+
+    <!-- {% if tracks_total > 0 %} -->
+
+        <!-- <iframe width="560" height="315" src="{{tracks.video}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+
+        <!-- {% else %}
+
+        <p>No tracks available</p>
+        <p>Add a karaoke track to the catalogue <a href="{{url_for('register')}}" >here</a> </p>
+
+        {% endfor %}
+    {% endif %} -->
+
+
+        for track in track:
+        embeddedvideo= track.video.replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/') 
+
+
+
+            {% if tracks_total > 0 %}
+        {% for track in tracks %}    
+           
+            <iframe width="560" height="315" data-embed="{{ track.video|replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/') }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        {% else %}
+            <p>No tracks available</p>
+            <p>Add a karaoke track to the catalogue <a href="{{url_for('register')}}" >here</a> </p>
+        {% endfor %}
+    {% endif %}
+
+
+    src="{{track.video|replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/') }}"

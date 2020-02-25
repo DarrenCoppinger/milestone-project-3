@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% block content %}
+
+<h2>Catalogue</h2>
+<!-- <iframe width="560" height="315" data-embed="US0jUNjFgUg" frameborder="0"
+	allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+
+{% if tracks_total > 0 %}
+{% for track in tracks %}
+
+<iframe width="560" height="315"
+	src="{{track.video|replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/') }}"
+	frameborder="0"	allowfullscreen></iframe>
+{% else %}
+<p>No tracks available</p>
+<p>Add a karaoke track to the catalogue <a href="{{url_for('register')}}">here</a> </p>
+{% endfor %}
+{% endif %}
+
+{% endblock %}

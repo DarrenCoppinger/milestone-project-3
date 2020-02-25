@@ -49,6 +49,8 @@
 
 	{% endif %}
 	<div class="container">
+
+    <!-- Main Content Block -->
 		{% block content %}{% endblock %}
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
@@ -61,6 +63,10 @@
             {format: "yyyy"});
         });
 	</script>
+
+    <!-- Input form validation -->
+        {% block validation_js %}
+        {% endblock %}
 </body>
 
 </html>
