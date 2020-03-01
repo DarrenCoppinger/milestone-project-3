@@ -72,3 +72,165 @@
 {% endif %}
 
 <a class="btn-floating btn-medium waves-effect waves-light red"><i class="material-icons">add</i></a>
+
+{% extends "base.html" %} {% block content %}
+<div class="row">
+	<div class="col s12">
+		<h2>Catalogue</h2>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col s12 m8">
+		<div class="video-container">
+			<iframe src="https://www.youtube.com/embed/Ni94IhE1WeE" frameborder="0" allowfullscreen></iframe>
+		</div>
+	</div>
+	<div class="col s12 m4">
+		<div class="panel">
+			<div class="row">
+				<div class="col s12">
+					<a class="waves-effect waves-light btn-small button1">Add to
+						Playlist<i class="material-icons right">add</i></a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-button col s6">
+					<a
+						class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_up</i>Edit</a>
+				</div>
+				<div class="col-button col s6">
+					<a
+						class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_down</i>Delete</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s6">
+					<a
+						class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_up</i>Like</a>
+				</div>
+				<div class="col s6">
+					<a
+						class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_down</i>Dislike</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{{ users.playlist }}
+for x in range(len(a)): 
+    print a[x], 
+
+
+    <!--Youtube API Script-->
+<script src="https://www.youtube.com/iframe_api"></script>
+<!--My JavaScript Script-->
+<!-- <script type="text/javascript" src="assets/js/youtube-player-api.js"></script> -->
+<script>
+    
+    // create youtube player
+    var player;
+    function onYouTubePlayerAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: 'Ni94IhE1WeE',
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+    }
+
+    // autoplay video
+    function onPlayerReady(event) {
+        event.target.playVideo();
+    }
+
+    // when video ends
+    function onPlayerStateChange(event) {        
+        if(event.data === 0) {            
+            alert('done');
+        }
+    }
+    
+</script>
+
+
+//   function changeBorderColor(playerStatus) {
+//     var color;
+//     if (playerStatus == -1) {
+//       color = "#37474F"; // unstarted = gray
+//     } else if (playerStatus == 0) {
+//       color = "#FFFF00"; // ended = yellow
+//     } else if (playerStatus == 1) {
+//       color = "#33691E"; // playing = green
+//     } else if (playerStatus == 2) {
+//       color = "#DD2C00"; // paused = red
+//     } else if (playerStatus == 3) {
+//       color = "#AA00FF"; // buffering = purple
+//     } else if (playerStatus == 5) {
+//       color = "#FF6DOO"; // video cued = orange
+//     }
+//     if (color) {
+//       document.getElementById('existing-iframe-example').style.borderColor = color;
+//     }
+//   }
+
+    // when video ends
+    function onPlayerStateChange(event) {        
+        if(event.data == 0) {            
+            // alert('done');
+            player.loadVideoById ('{{users.playlist[1]}}');
+        }
+    }
+
+
+    			<!-- {% for song in users.playlist %}
+			{% if song==users.playlist[0] %}-->
+            <p>users.playlist[0]</p>
+			 <iframe src="https://www.youtube.com/embed/3jWRrafhO7M&t=7516s" frameborder="0" allow="autoplay"
+				allowfullscreen></iframe>
+			<!--{% endif %} {{track.video|replace('https://www.youtube.com/watch?v=','https://www.youtube.com/embed/')}}
+			{% endfor %} -->
+
+            var form = document.getElementsByTagName('form')[0],
+    track_name = document.getElementById('track_name'),
+    video_link = document.getElementById('video_link');
+/* Below solution found here on Stackoverflow: https://stackoverflow.com/questions/28735459/how-to-validate-youtube-url-in-client-side-in-text-box */
+function validateYouTubeUrl() {
+    var url = $('#video_link').val();
+
+    if (url != undefined || url != '') {
+        var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+        var match = url.match(regExp);
+        if (match && match[2].length == 11) {
+            // Do anything for being valid
+            // if need to change the url to embed url then use below line            
+            //$('#videoObject').attr('src', 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1&enablejsapi=1');
+            // alert(match[2]);
+            $('#video_link').attr('value', 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1');
+        } else {
+            $("#video_link").removeClass("valid");
+            $("#video_link").addClass("invalid");
+            $("#video_link").addClass("active");
+            $("#video_link").prop("aria-invalid", "true");
+            event.preventDefault();
+        }
+    }
+}
+
+form.addEventListener("submit", function (event) {
+    if (!track_name.validity.valid) {
+        $("#track_name").removeClass("valid");
+        $("#track_name").addClass("invalid");
+        $("#track_name_label").addClass("active");
+        $("#track_name").prop("aria-invalid", "true");
+        event.preventDefault();
+    }
+    
+    validateYouTubeUrl();
+
+}, false);
