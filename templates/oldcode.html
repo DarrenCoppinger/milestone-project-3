@@ -234,3 +234,32 @@ form.addEventListener("submit", function (event) {
     validateYouTubeUrl();
 
 }, false);
+
+
+
+    # video = request.form.get('video_link')
+    # youtube_regex = (r'(https?://)?(www\.)?''(youtube|youtu|youtube-nocookie)\.(com|be)/''(watch\?v=|embed/|v/|.+\?v=)?([^&=%\?]{11})')
+
+    # youtube_regex_match = re.match(youtube_regex, video)
+    # print(youtube_regex_match[2])
+
+
+        # tracks.insert_one(request.form.to_dict())
+    # video=request.form.get('video_link')
+    # video.replace('https://www.youtube.com/watch?v=','https://www.youtube.com/embed/')
+    # video_auto="?autoplay=1"
+    # new_video=video + video_auto
+
+
+    # @app.route('/playlist_delete/<track_id>', methods=['POST'])
+# def playlist_delete(track_id):
+#     """ Delete the _id of a video link to a list called playlist"""
+#     users = mongo.db.users
+#     username = session['username']
+#     the_user = mongo.db.users.find_one({"name": username})
+#     pl = the_user["playlist"]
+#     mongo.db.categories.remove({'_id': ObjectId(category_id)})
+#     users.find_one_and_update({"name": username},
+#         {"$pull": {'playlist': track_id}})
+#     return redirect(url_for('catalogue'))
+

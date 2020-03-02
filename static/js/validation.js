@@ -10,7 +10,7 @@ function validateYouTubeUrl() {
         var match = url.match(regExp);
         if (match && match[2].length == 11) {
             // alert(match[2]);
-            $('#video_link').attr('value', 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1');
+            $('#video_link').attr('value', match[2]);
         } else {
             $("#video_link").removeClass("valid");
             $("#video_link").addClass("invalid");

@@ -1,4 +1,5 @@
 import os
+import re
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
@@ -70,11 +71,16 @@ def addtrack():
 @app.route('/insert_track', methods=['POST'])
 def insert_track():
     tracks = mongo.db.tracks
-    # tracks.insert_one(request.form.to_dict())
-    # video=request.form.get('video_link')
-    # video.replace('https://www.youtube.com/watch?v=','https://www.youtube.com/embed/')
-    # video_auto="?autoplay=1"
-    # new_video=video + video_auto
+    video = request.form.get('video_link')
+    youtube_regex = (
+        r'(https?://)?(www\.)?'
+        '(youtube|youtu|youtube-nocookie)\.(com|be)/'
+        '(watch\?v=|embed/|v/|.+\?v=)?([^&=%\?]{11})')
+
+    youtube_regex_match = re.match(youtube_regex, video)
+    print(youtube_regex_match)
+    print(youtube_regex_match[6])
+
     try:
         tracks.insert_one(
             {
@@ -82,16 +88,18 @@ def insert_track():
                 'artist': request.form.get('artist_name'),
                 'year': int(request.form.get('year')),
                 'genre': request.form.get('genre_name'),
-                'lyrics': request.form.get('lyrics_link'),
-                'video': request.form.get('video_link'),
+                'lyrics': request.form.get('youtube_link'),
+                'video': youtube_regex_match[6],
                 'likes': 0,
                 'dislikes': 0
             }
-        )         
+        )
+        
         return redirect(url_for('index'))
 
     except pymongo.errors.DuplicateKeyError:
-        return redirect(url_for('addtrack'))
+
+        return redirect('addtrack')
 
 @app.route('/catalogue')
 def catalogue():
@@ -119,19 +127,6 @@ def playlist_addto(track_id):
     users.find_one_and_update({"name": username},
         {"$push": {'playlist': ytv}})
     return redirect(url_for('catalogue'))
-
-# @app.route('/playlist_delete/<track_id>', methods=['POST'])
-# def playlist_delete(track_id):
-#     """ Delete the _id of a video link to a list called playlist"""
-#     users = mongo.db.users
-#     username = session['username']
-#     the_user = mongo.db.users.find_one({"name": username})
-#     pl = the_user["playlist"]
-#     mongo.db.categories.remove({'_id': ObjectId(category_id)})
-#     users.find_one_and_update({"name": username},
-#         {"$pull": {'playlist': track_id}})
-#     return redirect(url_for('catalogue'))
-
 
 if __name__ == '__main__':
     app.secret_key = 'secret_key'
