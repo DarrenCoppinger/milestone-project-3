@@ -24,6 +24,7 @@ def index():
     #     return render_template("index.html", message=message)
     return render_template("index.html") 
 
+
 @app.route('/loginpage')
 def loginpage():
     return render_template("loginpage.html")
@@ -34,12 +35,10 @@ def login():
     users = mongo.db.users
     login_user = users.find_one({'name': request.form['username']})
 
-
     if login_user:
         if check_password_hash(login_user['password'], request.form['password']):
             session['username'] = request.form['username']
             """ Add empty list called playlist """
-            playlist = {} 
             return redirect(url_for('index'))
 
         return 'Invalid username/password combination'
@@ -108,6 +107,7 @@ def catalogue():
     tracks_total = all_tracks.count()
     return render_template('catalogue.html', tracks=tracks, tracks_total=tracks_total)
 
+
 @app.route('/playlist_page')
 def playlist_page():
     """ Show Users Playlist"""
@@ -116,17 +116,21 @@ def playlist_page():
     the_user = users.find_one({"name": username})
     return render_template('playlist_page.html', users=the_user)
 
+
 @app.route('/playlist_addto/<track_id>', methods=['POST'])
 def playlist_addto(track_id):
     """ Add the youtube_id of a video link to a list called playlist"""
     users = mongo.db.users
     username = session['username']
+
     the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
     ytv = the_track["video"]
     print(ytv)
+
     users.find_one_and_update({"name": username},
         {"$push": {'playlist': ytv}})
     return redirect(url_for('catalogue'))
+
 
 if __name__ == '__main__':
     app.secret_key = 'secret_key'
