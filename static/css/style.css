@@ -56,3 +56,14 @@
 .video-container {
     margin: 10px 0;
 }
+
+.upcoming-list {
+    height: 300px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.upcoming-list li:first-child {
+    position: sticky;
+    top: 0;
+}

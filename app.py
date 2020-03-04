@@ -1,7 +1,7 @@
 import os
 import re
-from flask import Flask, render_template, request, url_for, session, redirect
-from flask_pymongo import PyMongo
+from flask import Flask, render_template, request, url_for, session, redirect, jsonify
+from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 from os import path
@@ -53,7 +53,7 @@ def register():
         if existing_user is None:
             hashed_value = generate_password_hash(request.form['password'])
             users.insert(
-                {'name': request.form['username'], 'password': hashed_value, 'playlist': [] })
+                {'name': request.form['username'], 'password': hashed_value, 'playlist': [], 'playlist_name': [] })
             session['username'] = request.form['username']
             return redirect(url_for('index'))
 
@@ -114,7 +114,17 @@ def playlist_page():
     users = mongo.db.users
     username = session['username']
     the_user = users.find_one({"name": username})
-    return render_template('playlist_page.html', users=the_user)
+    playlist_ids = []
+    playlist_names = []
+    for ytv in the_user["playlist"]:
+        playlist_ids.append(ytv)
+    for pl_name in the_user["playlist_name"]:
+        playlist_names.append(pl_name)
+    # tracks = mongo.db.tracks.find()
+    # pl = the_user.playlist
+    # the_track = mongo.db.tracks.find_one({"video": pl})
+
+    return render_template('playlist_page.html', users=the_user, playlist=zip(playlist_ids, playlist_names))
 
 
 @app.route('/playlist_addto/<track_id>', methods=['POST'])
@@ -125,10 +135,21 @@ def playlist_addto(track_id):
 
     the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
     ytv = the_track["video"]
-    print(ytv)
+    pl_name = the_track["name"]
 
+    users.find_one_and_update(
+        {"name": username}, {"$push": {'playlist': ytv, 'playlist_name': pl_name}})
+
+    return redirect(url_for('catalogue'))
+
+
+@app.route('/playlist_delete/<track_id>', methods=['POST'])
+def playlist_delete(track_id):
+    """ Delete the _id of a video link from the array playlist in the database"""
+    users = mongo.db.users
+    username = session['username']
     users.find_one_and_update({"name": username},
-        {"$push": {'playlist': ytv}})
+        {"$pull": {'playlist': track_id}})
     return redirect(url_for('catalogue'))
 
 
