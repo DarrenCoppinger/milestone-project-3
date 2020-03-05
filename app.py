@@ -1,6 +1,6 @@
 import os
 import re
-from flask import Flask, render_template, request, url_for, session, redirect, jsonify
+from flask import Flask, render_template, request, url_for, session, redirect
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -102,9 +102,27 @@ def insert_track():
 
 @app.route('/catalogue')
 def catalogue():
-    tracks = mongo.db.tracks.find()
     all_tracks = mongo.db.tracks
     tracks_total = all_tracks.count()
+    # tracks = all_tracks.find()
+    
+
+    # tracks = mongo.db.tracks.find()
+    # all_tracks = mongo.db.tracks
+    # tracks_total = all_tracks.count()
+
+    limit = int(request.args['limit'])
+    offset =  int(request.args['offset'])
+
+    starting_id = all_tracks.find()
+    last_id = starting_id[offset]['_id']
+
+    tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit)
+    # tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).limit(limit)
+    
+   next_url = '/catalogue?limit=' + str(limit) + '&offset=' + str(offset + limit)
+   prev_url = '/catalogue?limit=' + str(limit) + '&offset=' + str(offset - limit)
+
     return render_template('catalogue.html', tracks=tracks, tracks_total=tracks_total)
 
 

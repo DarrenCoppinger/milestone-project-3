@@ -14,59 +14,58 @@
 </div> -->
 
 {% if tracks_total > 0 %}
-{% for track in tracks %}
-<div class="row">
-	<div class="col s12 m8">
-		<div class="video-container">
-			<iframe src="{{'https://www.youtube.com/embed/' ~ track.video ~ '?autoplay=1'}}" frameborder="0"
-				allowfullscreen></iframe>
-		</div>
-	</div>
-	<div class="col s12 m4">
-		<div class="panel">
-			<div class="row">
-				<div class="col s12">
-					<form action="{{url_for('playlist_addto', track_id=track._id)}}" method="POST">
-						<button type="submit" class="waves-effect waves-light btn-small button1">Add to
-							Playlist<i class="material-icons right">add</i></button>
-					</form>
-				</div>
-			</div>
-            <a href=""></a>
-			<div class="row">
-				<div class="col-button col s6">
-					<a
-						class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_up</i>Edit</a>
-				</div>
-				<div class="col-button col s6">
-					<a
-						class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_down</i>Delete</a>
-				</div>
-			</div>
-			<div class="row">
+    {% for track in tracks %}
+    <div class="row">
+        <div class="col s12 m8">
+            <div class="video-container">
+                <iframe src="{{'https://www.youtube.com/embed/' ~ track.video ~ '?autoplay=1'}}" frameborder="0"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <div class="panel">
+                <div class="row">
+                    <div class="col s12">
+                        <form action="{{url_for('playlist_addto', track_id=track._id)}}" method="POST">
+                            <button type="submit" class="waves-effect waves-light btn-small button1">Add to
+                                Playlist<i class="material-icons right">add</i></button>
+                        </form>
+                    </div>
+                </div>
+                <a href=""></a>
+                <div class="row">
+                    <div class="col-button col s6">
+                        <a
+                            class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_up</i>Edit</a>
+                    </div>
+                    <div class="col-button col s6">
+                        <a
+                            class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_down</i>Delete</a>
+                    </div>
+                </div>
+                <div class="row">
 
-				<div class="col s6">
-					<form action="" method="">
-						<a
-							class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_up</i>Like</a>
-					</form>
-				</div>
-				<div class="col s6">
-					<form action="" method="">
-						<a
-							class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_down</i>Dislike</a>
-					</form>
-				</div>
+                    <div class="col s6">
+                        <form action="" method="">
+                            <a
+                                class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_up</i>Like</a>
+                        </form>
+                    </div>
+                    <div class="col s6">
+                        <form action="" method="">
+                            <a
+                                class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_down</i>Dislike</a>
+                        </form>
+                    </div>
 
-			</div>
-		</div>
-	</div>
-</div>
-
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 {% else %}
-<p>No tracks available</p>
-<p>Add a karaoke track to the catalogue <a href="{{url_for('register')}}">here</a> </p>
-{% endfor %}
+    <p>No tracks available</p>
+    <p>Add a karaoke track to the catalogue <a href="{{url_for('register')}}">here</a> </p>
 {% endif %}
 
 {% endblock %}
