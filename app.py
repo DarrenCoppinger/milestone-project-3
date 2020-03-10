@@ -106,22 +106,21 @@ def catalogue():
     tracks_total = all_tracks.count()
     # tracks = all_tracks.find()
     
+    # arg variables
+    args = request.args.get
 
-    # tracks = mongo.db.tracks.find()
-    # all_tracks = mongo.db.tracks
-    # tracks_total = all_tracks.count()
-
-    limit = int(request.args['limit'])
-    offset =  int(request.args['offset'])
-
-    starting_id = all_tracks.find()
-    last_id = starting_id[offset]['_id']
-
-    tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit)
-    # tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).limit(limit)
+    page_args = 0
+    limit_args = 3
     
-   next_url = '/catalogue?limit=' + str(limit) + '&offset=' + str(offset + limit)
-   prev_url = '/catalogue?limit=' + str(limit) + '&offset=' + str(offset - limit)
+    starting_id = all_tracks.find()
+    last_id = starting_id[page_args]['_id']
+
+    tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
+    # tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).limit(limit)   
+    next_url = '/catalogue?limit_args=' + str(limit_args) + '&page_args=' + str(page_args + limit_args)
+    print(next_url)
+    prev_url = '/catalogue?limit_args=' + str(limit_args) + '&page_args=' + str(page_args - limit_args)
+    print(prev_url)
 
     return render_template('catalogue.html', tracks=tracks, tracks_total=tracks_total)
 
