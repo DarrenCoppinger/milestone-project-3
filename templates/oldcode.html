@@ -357,16 +357,3 @@ form.addEventListener("submit", function (event) {
     # limit_args = int(args("limit")) if args("limit") else int(args("limit")) if args("limit") else 5
 
 
-    <div class="row center-align">
-	<!-- Previous -->
-	<a
-		href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, next_url=next_url,  prev_url= prev_url)}}">
-		<i class="material-icons">navigate_before</i>
-	</a>
-
-    	<!-- Next -->
-	<a
-		href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, next_url=next_url,  prev_url= prev_url)}}">
-		<i class="material-icons">navigate_next</i>
-	</a>
-</div>

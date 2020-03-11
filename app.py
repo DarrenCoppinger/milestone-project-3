@@ -1,5 +1,6 @@
 import os
 import re
+import math
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
@@ -104,25 +105,35 @@ def insert_track():
 def catalogue():
     all_tracks = mongo.db.tracks
     tracks_total = all_tracks.count()
+    print('tracks_total=' + str(tracks_total))
     # tracks = all_tracks.find()
     
     # arg variables
     args = request.args.get
 
-    page_args = 0
+    # page_args = int(args("page")) if args("page") else 0
+    # page_args = int(request.args['page_args'])
+    page_args = int(args("page")) if args("page") else 0
+    print('page_args=' + str(page_args))
     limit_args = 3
-    
+
+    all_track_count = (range(1, (math.ceil(tracks_total / limit_args)) + 1))
+    print('all_track_count=' + str(all_track_count))
+    all_track_pages = [page for page in all_track_count]
+    print('all_track_pages=' + str(all_track_pages))
+
     starting_id = all_tracks.find()
     last_id = starting_id[page_args]['_id']
 
     tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
     # tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).limit(limit)   
-    next_url = '/catalogue?limit_args=' + str(limit_args) + '&page_args=' + str(page_args + limit_args)
+    
+    next_url = page_args + limit_args
     print(next_url)
-    prev_url = '/catalogue?limit_args=' + str(limit_args) + '&page_args=' + str(page_args - limit_args)
-    print(prev_url)
+    
+    prev_url = page_args - limit_args
 
-    return render_template('catalogue.html', tracks=tracks, tracks_total=tracks_total)
+    return render_template('catalogue.html', tracks=tracks, tracks_total=tracks_total, page=page_args, all_track_pages=all_track_pages, prev_url=prev_url, next_url=next_url)
 
 
 @app.route('/playlist_page')
