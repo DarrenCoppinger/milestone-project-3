@@ -119,7 +119,19 @@ def catalogue():
 
     all_track_count = (range(1, (math.ceil(tracks_total / limit_args)) + 1))
     print('all_track_count=' + str(all_track_count))
-    all_track_pages = [page for page in all_track_count]
+
+    # all_track_pages = [page for page in all_track_count]
+    # print('all_track_pages=' + str(all_track_pages))
+
+    all_track_pages=[]
+    all_track_page_args=[]
+    
+    for page in all_track_count:
+        all_track_pages.append(page)
+        p_args = (page*3)-3
+        print('p_args=' + str(p_args))
+        all_track_page_args.append(p_args)
+
     print('all_track_pages=' + str(all_track_pages))
 
     starting_id = all_tracks.find()
@@ -129,12 +141,11 @@ def catalogue():
     # tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).limit(limit)   
     
     next_url = page_args + limit_args
-    print(next_url)
-    
+    print('next_url ' + str(next_url))
     prev_url = page_args - limit_args
+    print('prev_url ' + str(prev_url))
 
-    return render_template('catalogue.html', tracks=tracks, tracks_total=tracks_total, page=page_args, all_track_pages=all_track_pages, prev_url=prev_url, next_url=next_url)
-
+    return render_template('catalogue.html', tracks=tracks, tracks_total=tracks_total, page=page_args, prev_url=prev_url, next_url=next_url, all_track_pages_id=zip(all_track_pages, all_track_page_args))
 
 @app.route('/playlist_page')
 def playlist_page():
