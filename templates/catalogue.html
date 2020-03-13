@@ -80,7 +80,7 @@
 
 		<!-- Page Number -->
 		{% for track_page, track_page_args in all_track_pages_id %}
-		<li class="waves-effect waves-purple blue accent-1">
+		<li {% if page == "1" %} class="disabled" {% else %} class="waves-effect waves-purple blue accent-1" {% endif %} >
 			<a href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=track_page_args)}}">{{ loop.index }}</a>
 		</li>
 		{% endfor %}

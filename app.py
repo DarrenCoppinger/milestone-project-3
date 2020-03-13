@@ -192,6 +192,10 @@ def playlist_delete(track_id):
     return redirect(url_for('catalogue'))
 
 
+@app.route('/add_genre')
+def add_genre():
+    return render_template('addgenre.html')
+
 if __name__ == '__main__':
     app.secret_key = 'secret_key'
     app.run(host=os.environ.get('IP'),
