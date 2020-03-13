@@ -101,6 +101,30 @@ def insert_track():
 
         return redirect('addtrack')
 
+@app.route('/addgenre')
+def add_genre():
+    """ Template to add new genre to database"""
+    return render_template('addgenre.html')
+
+@app.route('/insert_genre', methods=['POST'])
+def insert_genre():
+    """ Insert new genre to database"""
+    genre = mongo.db.genre
+
+    try:
+        genre.insert_one(
+            {
+                'genre': request.form.get('genre_name'),
+            }
+        )
+
+        return redirect(url_for('addtrack'))
+
+    except pymongo.errors.DuplicateKeyError:
+    
+        return redirect(url_for('addtrack'))
+
+
 @app.route('/catalogue')
 def catalogue():
     all_tracks = mongo.db.tracks
@@ -190,11 +214,6 @@ def playlist_delete(track_id):
     users.find_one_and_update({"name": username},
         {"$pull": {'playlist': track_id}})
     return redirect(url_for('catalogue'))
-
-
-@app.route('/add_genre')
-def add_genre():
-    return render_template('addgenre.html')
 
 if __name__ == '__main__':
     app.secret_key = 'secret_key'
