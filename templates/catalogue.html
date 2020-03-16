@@ -1,10 +1,11 @@
 {% extends "base.html" %} {% block content %}
-<div class="row">
-	<div class="col s12">
-		<h2>Catalogue</h2>
+<div class="container">
+	<div class="row">
+		<div class="col s12">
+			<h2>Catalogue</h2>
+		</div>
 	</div>
-</div>
-<!-- <div class="col s12 m8">
+	<!-- <div class="col s12 m8">
 	<div class="video-container">
 		<iframe src="https://www.youtube.com/embed/US0jUNjFgUg?autoplay=1"
 				frameborder="0" allowfullscreen></iframe>
@@ -13,103 +14,104 @@
 	</div>
 </div> -->
 
-{% if tracks_total > 0 %}
-{% for track in tracks %}
-<div class="row">
-	<div class="col s12 m8">
-		<div class="video-container">
-			<iframe src="{{'https://www.youtube.com/embed/' ~ track.video ~ '?autoplay=1'}}" frameborder="0"
-				allowfullscreen></iframe>
+	{% if tracks_total > 0 %}
+	{% for track in tracks %}
+	<div class="row">
+		<div class="col s12 m8">
+			<div class="video-container">
+				<iframe src="{{'https://www.youtube.com/embed/' ~ track.video ~ '?autoplay=1'}}" frameborder="0"
+					allowfullscreen></iframe>
+			</div>
 		</div>
-	</div>
-	<div class="col s12 m4">
-		<div class="panel">
-			<div class="row">
-                <!-- ADD TO PLAYLIST button -->
-				<div class="col s12">
-                    <button id="{{ track._id }}" class="waves-effect waves-light btn-small button1 btn-playlist-add">
+		<div class="col s12 m4">
+			<div class="panel">
+				<div class="row">
+					<!-- ADD TO PLAYLIST button -->
+					<div class="col s12">
+						<button id="{{ track._id }}" class="waves-effect waves-light btn-small button1 btn-playlist-add">
                         Add to Playlist<i class="material-icons right">add</i>
                     </button>
+					</div>
 				</div>
-			</div>
 
-			<div class="row">
-                <!-- EDIT button -->
-				<div class="col-button col s6">
-					<a class="waves-effect waves-light btn-small button2">
-                        <i class="material-icons right">thumb_up</i>Edit
-                    </a>
+				<div class="row">
+					<!-- EDIT button -->
+					<div class="col-button col s6">
+						<a class="waves-effect waves-light btn-small button2">
+							<i class="material-icons right">thumb_up</i>Edit
+						</a>
+					</div>
+					<!-- DELETE button -->
+					<div class="col-button col s6">
+						<a class="waves-effect waves-light btn-small button2">
+							<i class="material-icons right">thumb_down</i>Delete
+						</a>
+					</div>
 				</div>
-                <!-- DELETE button -->
-				<div class="col-button col s6">
-					<a class="waves-effect waves-light btn-small button2">
-                        <i class="material-icons right">thumb_down</i>Delete
-                    </a>
-				</div>
-			</div>
-			<div class="row">
-                <!-- LIKE button -->
-				<div class="col s6">
-                    <button id="{{ track._id }}" class="waves-effect waves-light btn-small button2 btn-like">
+				<div class="row">
+					<!-- LIKE button -->
+					<div class="col s6">
+						<button id="{{ track._id }}" class="waves-effect waves-light btn-small button2 btn-like">
                         Like<i class="material-icons right">thumb_up</i>
                     </button>
-				</div>
-                <!-- DISLIKE button -->
-				<div class="col s6">
-                    <button id="{{ track._id }}" class="waves-effect waves-light btn-small button2 btn-dislike">
+					</div>
+					<!-- DISLIKE button -->
+					<div class="col s6">
+						<button id="{{ track._id }}" class="waves-effect waves-light btn-small button2 btn-dislike">
                         Dislike<i class="material-icons right">thumb_down</i>
                     </button>
-				</div>
+					</div>
 
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-{% endfor %}
-{% else %}
-<p>No tracks available</p>
-<p>Add a karaoke track to the catalogue <a href="{{url_for('register')}}">here</a> </p>
-{% endif %}
+	{% endfor %}
+	{% else %}
+	<p>No tracks available</p>
+	<p>Add a karaoke track to the catalogue <a href="{{url_for('register')}}">here</a> </p>
+	{% endif %}
 
-<p>
-{{ page }}
-</p>
-<!-- Pagination -->
-<div class="row center-align">
-	<ul class="pagination">
-		<!-- Previous -->
-        
-		<li {% if all_track_pages == 0 %} class="disabled" {% else %} class="waves-effect waves-light purple accent-1"
-			{% endif %}>
-			<a href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=prev_url)}}">
-				<i class="material-icons">chevron_left</i>
-			</a>
-		</li>
+	<p>
+		{{ page }}
+	</p>
+	<!-- Pagination -->
+	<div class="row center-align">
+		<ul class="pagination">
+			<!-- Previous -->
 
-		<!-- Page Number -->
-        <!-- {% if all_track_pages == 1 %} class="disabled" {% else %} class="waves-effect waves-purple blue accent-1"
+			<li {% if all_track_pages == 0 %} class="disabled" {% else %}
+				class="waves-effect waves-light purple accent-1" {% endif %}>
+				<a href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=prev_url)}}">
+					<i class="material-icons">chevron_left</i>
+				</a>
+			</li>
+
+			<!-- Page Number -->
+			<!-- {% if all_track_pages == 1 %} class="disabled" {% else %} class="waves-effect waves-purple blue accent-1"
 			{% endif %} -->
-		{% for track_page, track_page_args in all_track_pages_id %}
-		<li class="waves-effect waves-purple blue accent-1">
-			<a
-				href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=track_page_args)}}">{{ loop.index }}</a>
-		</li>
-		{% endfor %}
+			{% for track_page, track_page_args in all_track_pages_id %}
+			<li class="waves-effect waves-purple blue accent-1">
+				<a
+					href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=track_page_args)}}">{{ loop.index }}</a>
+			</li>
+			{% endfor %}
 
-		<!-- Next -->
-		<li class="waves-effect waves-light purple accent-1">
-			<a href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=next_url)}}">
-				<i class="material-icons">chevron_right</i>
-			</a>
-		</li>
-	</ul>
+			<!-- Next -->
+			<li class="waves-effect waves-light purple accent-1">
+				<a href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=next_url)}}">
+					<i class="material-icons">chevron_right</i>
+				</a>
+			</li>
+		</ul>
+	</div>
 </div>
 {% endblock %}
 
 
 {% block js %}
 <script>
-    $(".btn-like, .btn-dislike, .btn-playlist-add").on("click", function() {
+	$(".btn-like, .btn-dislike, .btn-playlist-add").on("click", function() {
         let urlFor;
         let toastMsg;
         let trackID = $(this).attr("id");  // get .btn ID (track._id)
@@ -131,3 +133,4 @@
     });
 </script>
 {% endblock %}
+

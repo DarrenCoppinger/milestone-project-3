@@ -25,7 +25,11 @@
 					<li><a href="{{ url_for('catalogue')}}">catalogue</a></li>
 					<li><a href="#">Leaderboard</a></li>
 					<li><a href="{{ url_for('playlist_page') }}">Playlist</a></li>
-					<li><a class="waves-effect waves-light btn" href="{{ url_for('loginpage') }}">Login</a></li>
+                    {%  if 'username' in session %}
+                        <li><a class="waves-effect waves-light btn" href="{{ url_for('loginpage') }}">Logged in as {{session['username']}}</a></li>
+                    {% else %}
+					    <li><a class="waves-effect waves-light btn" href="{{ url_for('loginpage') }}">Login</a></li>
+                    {% endif %}
 				</ul>
 			</div>
 		</nav>
@@ -40,20 +44,18 @@
 		</ul>
 	</header>
 
-	{%  if 'username' in session %}
+	<!-- {%  if 'username' in session %}
 	<div class="row">
 		<div class="col s12">
 			<p class="login">You are logged in as {{session['username']}}</p>
-			<!-- <p class="login">You are logged in as {{ message }}</p> -->
+			<p class="login">You are logged in as {{ message }}</p> 
 		</div>
 	</div>
-
-	{% endif %}
-	<div class="container">
+	{% endif %} -->
 
 		<!-- Main Content Block -->
 		{% block content %}{% endblock %}
-	</div>
+
 
 	<footer class="page-footer">
 		<div class="container">

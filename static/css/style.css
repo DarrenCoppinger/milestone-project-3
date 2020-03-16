@@ -1,3 +1,27 @@
+/* ------------ home image ------------ */
+
+.home-image{
+    height: 100vh;
+    color: #ffffff;
+
+    /* background: url("{{ url_for('static', filename='images/background.jpg') }}") no-repeat top left scroll; */
+    /* background: url("./images/background.jpg") no-repeat top left scroll; */
+
+    /* this works */
+     background: url("https://images.squarespace-cdn.com/content/v1/5c742ebf77b903aae24633c0/1555274334268-PM0TDCZPGB86MNWAI0BL/ke17ZwdGBToddI8pDm48kCBllW3mxJGcM2njMWtAmMd7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0jAoOkRmPE63FUjiJOEKAz5U9gHNL46iYHU_few7p1U0Xt2TpVAeM6sT-baJRoygHA/DSC_0012.jpg?format=2500w") no-repeat top left scroll; 
+ 
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-bottom: 0
+}
+
+
 /* ------------ navbar ------------ */
 
 .nav-wrapper {
