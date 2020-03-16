@@ -23,7 +23,7 @@ def index():
     # if 'username' in session:
     #     message = session['username']
     #     return render_template("index.html", message=message)
-    return render_template("index.html") 
+    return render_template("index.html")
 
 
 @app.route('/loginpage')
@@ -54,7 +54,7 @@ def register():
         if existing_user is None:
             hashed_value = generate_password_hash(request.form['password'])
             users.insert(
-                {'name': request.form['username'], 'password': hashed_value, 'playlist': [], 'playlist_name': [] })
+                {'name': request.form['username'], 'password': hashed_value, 'playlist': [], 'playlist_name': []})
             session['username'] = request.form['username']
             return redirect(url_for('index'))
 
@@ -88,23 +88,25 @@ def insert_track():
                 'artist': request.form.get('artist_name'),
                 'year': int(request.form.get('year')),
                 'genre': request.form.get('genre_name'),
-                'lyrics': request.form.get('youtube_link'),
+                'lyrics': request.form.get('lyrics_link'),
                 'video': youtube_regex_match[6],
-                'likes': 0,
+                'likes': int(0),
                 'dislikes': 0
             }
         )
-        
+
         return redirect(url_for('index'))
 
     except pymongo.errors.DuplicateKeyError:
 
         return redirect('addtrack')
 
+
 @app.route('/addgenre')
 def add_genre():
     """ Template to add new genre to database"""
     return render_template('addgenre.html')
+
 
 @app.route('/insert_genre', methods=['POST'])
 def insert_genre():
@@ -121,7 +123,7 @@ def insert_genre():
         return redirect(url_for('addtrack'))
 
     except pymongo.errors.DuplicateKeyError:
-    
+
         return redirect(url_for('addtrack'))
 
 
@@ -129,47 +131,48 @@ def insert_genre():
 def catalogue():
     all_tracks = mongo.db.tracks
     tracks_total = all_tracks.count()
-    print('tracks_total=' + str(tracks_total))
+    # print('tracks_total=' + str(tracks_total))
     # tracks = all_tracks.find()
-    
+
     # arg variables
     args = request.args.get
 
     # page_args = int(args("page")) if args("page") else 0
     # page_args = int(request.args['page_args'])
     page_args = int(args("page")) if args("page") else 0
-    print('page_args=' + str(page_args))
-    limit_args = 3
+    # print('page_args=' + str(page_args))
+    limit_args = 5
 
     all_track_count = (range(1, (math.ceil(tracks_total / limit_args)) + 1))
-    print('all_track_count=' + str(all_track_count))
+    # print('all_track_count=' + str(all_track_count))
 
     # all_track_pages = [page for page in all_track_count]
     # print('all_track_pages=' + str(all_track_pages))
 
-    all_track_pages=[]
-    all_track_page_args=[]
-    
+    all_track_pages = []
+    all_track_page_args = []
+
     for page in all_track_count:
         all_track_pages.append(page)
         p_args = (page*3)-3
-        print('p_args=' + str(p_args))
+        # print('p_args=' + str(p_args))
         all_track_page_args.append(p_args)
 
-    print('all_track_pages=' + str(all_track_pages))
+    # print('all_track_pages=' + str(all_track_pages))
 
     starting_id = all_tracks.find()
     last_id = starting_id[page_args]['_id']
 
     tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
-    # tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).limit(limit)   
-    
+    # tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).limit(limit)
+
     next_url = page_args + limit_args
-    print('next_url ' + str(next_url))
+    # print('next_url ' + str(next_url))
     prev_url = page_args - limit_args
-    print('prev_url ' + str(prev_url))
+    # print('prev_url ' + str(prev_url))
 
     return render_template('catalogue.html', tracks=tracks, tracks_total=tracks_total, page=page_args, prev_url=prev_url, next_url=next_url, all_track_pages_id=zip(all_track_pages, all_track_page_args))
+
 
 @app.route('/playlist_page')
 def playlist_page():
@@ -212,12 +215,28 @@ def playlist_delete(track_id):
     users = mongo.db.users
     username = session['username']
     users.find_one_and_update({"name": username},
-        {"$pull": {'playlist': track_id}})
+                              {"$pull": {'playlist': track_id}})
     return redirect(url_for('catalogue'))
+
 
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+
+@app.route('/like/<track_id>', methods=['POST'])
+def like(track_id):
+    tracks = mongo.db.tracks
+    the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
+    likes = the_track["likes"]
+    print('likes=' + str(likes))
+    tracks.update(
+        {"_id": ObjectId(track_id)}, {"$inc": {'likes': 1}})
+    # tracks.find_one_and_update(
+    #     {"_id": ObjectId(track_id)}, {"$inc": {'likes': 1}})
+
+    return redirect(url_for('catalogue'))
+
 
 if __name__ == '__main__':
     app.secret_key = 'secret_key'

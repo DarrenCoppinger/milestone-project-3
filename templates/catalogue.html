@@ -27,12 +27,21 @@
 			<div class="row">
 				<div class="col s12">
 					<form action="{{url_for('playlist_addto', track_id=track._id)}}" method="POST">
-						<button type="submit" class="waves-effect waves-light btn-small button1">Add to
-                                Playlist<i class="material-icons right">add</i></button>
+						<!-- <button track_id="{{track._id}}" type="submit" class="waves-effect waves-light btn-small button1">Add to Playlist<i class="material-icons right">add</i></button> -->
+						<button type="submit" class="waves-effect waves-light btn-small button1">Add to Playlist<i class="material-icons right">add</i></button>
 					</form>
 				</div>
 			</div>
-			<a href=""></a>
+
+			<!-- <div class="row">
+				<div class="col s12">
+					<a href="{{url_for('playlist_addto', track_id=track._id)}}"  method="POST" type="submit"
+						class="waves-effect waves-light btn-small button1">Add to
+						Playlist<i class="material-icons right">add</i></a>
+				</div>
+			</div> -->
+			<!-- onclick="M.toast({html: 'Added to Playlist'})" -->
+
 			<div class="row">
 				<div class="col-button col s6">
 					<a
@@ -46,9 +55,12 @@
 			<div class="row">
 
 				<div class="col s6">
-					<form action="" method="">
-						<a
-							class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_up</i>Like</a>
+					<form action="{{url_for('like', track_id=track._id)}}" method="POST">
+						<!-- <a
+							class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_up</i>Like</a> -->
+
+						<button type="submit" class="waves-effect waves-light btn-small button2">Like<i class="material-icons right">thumb_up</i></button>
+
 					</form>
 				</div>
 				<div class="col s6">
@@ -72,16 +84,18 @@
 <div class="row center-align">
 	<ul class="pagination">
 		<!-- Previous -->
-		<li  class="waves-effect waves-light purple accent-1">
-            <a href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=prev_url)}}">
+		<li class="waves-effect waves-light purple accent-1">
+			<a href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=prev_url)}}">
 				<i class="material-icons">chevron_left</i>
 			</a>
 		</li>
 
 		<!-- Page Number -->
 		{% for track_page, track_page_args in all_track_pages_id %}
-		<li {% if page == "1" %} class="disabled" {% else %} class="waves-effect waves-purple blue accent-1" {% endif %} >
-			<a href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=track_page_args)}}">{{ loop.index }}</a>
+		<li {% if page == "1" %} class="disabled" {% else %} class="waves-effect waves-purple blue accent-1"
+			{% endif %}>
+			<a
+				href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=track_page_args)}}">{{ loop.index }}</a>
 		</li>
 		{% endfor %}
 
@@ -95,16 +109,27 @@
 </div>
 
 
-<div class="row">
+<!-- <script type="text/javascript">
+	$(document).ready(function() {
+        $('.Button1').on('click', function() {
 
-	<ul class="pagination">
-		<li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-		<li class="active"><a href="#!">1</a></li>
-		<li class="waves-effect"><a href="#!">2</a></li>
-		<li class="waves-effect"><a href="#!">3</a></li>
-		<li class="waves-effect"><a href="#!">4</a></li>
-		<li class="waves-effect"><a href="#!">5</a></li>
-		<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-	</ul>
-</div>
+            var track_id = $(this).attr('track_id');
+            console.log(track_id);
+
+            req = $.ajax({
+                url : '/playlist_addto',
+                type : 'POST',
+                data : {track_id : track_id}
+            });
+
+            event.preventDefault();
+        });
+    });
+
+</script> -->
+
+{% endblock %}
+
+{% block playlist_js %}
+<script src="{{ url_for('static', filename='js/playlist-ajax.js') }}"></script>
 {% endblock %}
