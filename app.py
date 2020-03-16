@@ -238,6 +238,18 @@ def like(track_id):
     return redirect(url_for('catalogue'))
 
 
+@app.route('/dislike/<track_id>', methods=['POST'])
+def dislike(track_id):
+    tracks = mongo.db.tracks
+    the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
+    dislikes = the_track["dislikes"]
+    # tracks.update(
+    #     {"_id": ObjectId(track_id)}, {"$inc": {'likes': 1}})
+    tracks.find_one_and_update(
+        {"_id": ObjectId(track_id)}, {"$inc": {'dislikes': 1}})
+
+    return redirect(url_for('catalogue'))
+
 if __name__ == '__main__':
     app.secret_key = 'secret_key'
     app.run(host=os.environ.get('IP'),

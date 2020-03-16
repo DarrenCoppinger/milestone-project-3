@@ -64,9 +64,9 @@
 					</form>
 				</div>
 				<div class="col s6">
-					<form action="" method="">
-						<a
-							class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_down</i>Dislike</a>
+					<form action="{{url_for('dislike', track_id=track._id)}}" method="POST">
+						<!-- <a class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_down</i>Dislike</a> -->
+						<button type="submit" class="waves-effect waves-light btn-small button2">Dislike<i class="material-icons right">thumb_down</i></button>
 					</form>
 				</div>
 
