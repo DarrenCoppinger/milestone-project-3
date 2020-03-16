@@ -25,49 +25,40 @@
 	<div class="col s12 m4">
 		<div class="panel">
 			<div class="row">
+                <!-- ADD TO PLAYLIST button -->
 				<div class="col s12">
-					<form action="{{url_for('playlist_addto', track_id=track._id)}}" method="POST">
-						<!-- <button track_id="{{track._id}}" type="submit" class="waves-effect waves-light btn-small button1">Add to Playlist<i class="material-icons right">add</i></button> -->
-						<button type="submit" class="waves-effect waves-light btn-small button1">Add to Playlist<i class="material-icons right">add</i></button>
-					</form>
+                    <button id="{{ track._id }}" class="waves-effect waves-light btn-small button1 btn-playlist-add">
+                        Add to Playlist<i class="material-icons right">add</i>
+                    </button>
 				</div>
 			</div>
 
-			<!-- <div class="row">
-				<div class="col s12">
-					<a href="{{url_for('playlist_addto', track_id=track._id)}}"  method="POST" type="submit"
-						class="waves-effect waves-light btn-small button1">Add to
-						Playlist<i class="material-icons right">add</i></a>
-				</div>
-			</div> -->
-			<!-- onclick="M.toast({html: 'Added to Playlist'})" -->
-
 			<div class="row">
+                <!-- EDIT button -->
 				<div class="col-button col s6">
-					<a
-						class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_up</i>Edit</a>
+					<a class="waves-effect waves-light btn-small button2">
+                        <i class="material-icons right">thumb_up</i>Edit
+                    </a>
 				</div>
+                <!-- DELETE button -->
 				<div class="col-button col s6">
-					<a
-						class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_down</i>Delete</a>
+					<a class="waves-effect waves-light btn-small button2">
+                        <i class="material-icons right">thumb_down</i>Delete
+                    </a>
 				</div>
 			</div>
 			<div class="row">
-
+                <!-- LIKE button -->
 				<div class="col s6">
-					<form action="{{url_for('like', track_id=track._id)}}" method="POST">
-						<!-- <a
-							class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_up</i>Like</a> -->
-
-						<button type="submit" class="waves-effect waves-light btn-small button2">Like<i class="material-icons right">thumb_up</i></button>
-
-					</form>
+                    <button id="{{ track._id }}" class="waves-effect waves-light btn-small button2 btn-like">
+                        Like<i class="material-icons right">thumb_up</i>
+                    </button>
 				</div>
+                <!-- DISLIKE button -->
 				<div class="col s6">
-					<form action="{{url_for('dislike', track_id=track._id)}}" method="POST">
-						<!-- <a class="waves-effect waves-light btn-small button2"><i class="material-icons right">thumb_down</i>Dislike</a> -->
-						<button type="submit" class="waves-effect waves-light btn-small button2">Dislike<i class="material-icons right">thumb_down</i></button>
-					</form>
+                    <button id="{{ track._id }}" class="waves-effect waves-light btn-small button2 btn-dislike">
+                        Dislike<i class="material-icons right">thumb_down</i>
+                    </button>
 				</div>
 
 			</div>
@@ -80,20 +71,26 @@
 <p>Add a karaoke track to the catalogue <a href="{{url_for('register')}}">here</a> </p>
 {% endif %}
 
+<p>
+{{ page }}
+</p>
 <!-- Pagination -->
 <div class="row center-align">
 	<ul class="pagination">
 		<!-- Previous -->
-		<li class="waves-effect waves-light purple accent-1">
+        
+		<li {% if all_track_pages == 0 %} class="disabled" {% else %} class="waves-effect waves-light purple accent-1"
+			{% endif %}>
 			<a href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=prev_url)}}">
 				<i class="material-icons">chevron_left</i>
 			</a>
 		</li>
 
 		<!-- Page Number -->
+        <!-- {% if all_track_pages == 1 %} class="disabled" {% else %} class="waves-effect waves-purple blue accent-1"
+			{% endif %} -->
 		{% for track_page, track_page_args in all_track_pages_id %}
-		<li {% if page == "1" %} class="disabled" {% else %} class="waves-effect waves-purple blue accent-1"
-			{% endif %}>
+		<li class="waves-effect waves-purple blue accent-1">
 			<a
 				href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=track_page_args)}}">{{ loop.index }}</a>
 		</li>
@@ -107,29 +104,30 @@
 		</li>
 	</ul>
 </div>
-
-
-<!-- <script type="text/javascript">
-	$(document).ready(function() {
-        $('.Button1').on('click', function() {
-
-            var track_id = $(this).attr('track_id');
-            console.log(track_id);
-
-            req = $.ajax({
-                url : '/playlist_addto',
-                type : 'POST',
-                data : {track_id : track_id}
-            });
-
-            event.preventDefault();
-        });
-    });
-
-</script> -->
-
 {% endblock %}
 
-{% block playlist_js %}
-<script src="{{ url_for('static', filename='js/playlist-ajax.js') }}"></script>
+
+{% block js %}
+<script>
+    $(".btn-like, .btn-dislike, .btn-playlist-add").on("click", function() {
+        let urlFor;
+        let toastMsg;
+        let trackID = $(this).attr("id");  // get .btn ID (track._id)
+        if ($(this).hasClass("btn-like")) {  // if clicking "LIKE" button
+            // create url_for path
+            urlFor = "{{ url_for('like', track_id='fakeID') }}".replace("fakeID", trackID);
+            toastMsg = "You Like this Song!";
+        } else if ($(this).hasClass("btn-dislike")) {  // if clicking "DISLIKE" button
+            // create url_for path
+            urlFor = "{{ url_for('dislike', track_id='fakeID') }}".replace("fakeID", trackID);
+            toastMsg = "You Dislike this Song!";
+        } else if ($(this).hasClass("btn-playlist-add")) {  // if clicking "ADD TO PLAYLIST" button
+            urlFor = "{{ url_for('playlist_addto', track_id='fakeID') }}".replace("fakeID", trackID);
+            toastMsg = "Song added to your Playlist!";
+        };
+        $.ajax({type: "POST", url: urlFor}).done(function () {  // ajax without page reload
+            M.toast({html: toastMsg});  // flash message to user
+        });
+    });
+</script>
 {% endblock %}

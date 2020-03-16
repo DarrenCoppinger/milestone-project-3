@@ -153,9 +153,10 @@ def catalogue():
     all_track_page_args = []
 
     for page in all_track_count:
+        print('page=' + str(page))
         all_track_pages.append(page)
-        p_args = (page*3)-3
-        # print('p_args=' + str(p_args))
+        p_args = (page*limit_args)-limit_args
+        print('p_args=' + str(p_args))
         all_track_page_args.append(p_args)
 
     # print('all_track_pages=' + str(all_track_pages))
@@ -227,13 +228,13 @@ def about():
 @app.route('/like/<track_id>', methods=['POST'])
 def like(track_id):
     tracks = mongo.db.tracks
-    the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
-    likes = the_track["likes"]
-    print('likes=' + str(likes))
-    tracks.update(
-        {"_id": ObjectId(track_id)}, {"$inc": {'likes': 1}})
-    # tracks.find_one_and_update(
+    # the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
+    # likes = the_track["likes"]
+    # print('likes=' + str(likes))
+    # tracks.update(
     #     {"_id": ObjectId(track_id)}, {"$inc": {'likes': 1}})
+    tracks.find_one_and_update(
+        {"_id": ObjectId(track_id)}, {"$inc": {'likes': 1}})
 
     return redirect(url_for('catalogue'))
 
@@ -243,10 +244,7 @@ def dislike(track_id):
     tracks = mongo.db.tracks
     the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
     dislikes = the_track["dislikes"]
-    # tracks.update(
-    #     {"_id": ObjectId(track_id)}, {"$inc": {'likes': 1}})
-    tracks.find_one_and_update(
-        {"_id": ObjectId(track_id)}, {"$inc": {'dislikes': 1}})
+    tracks.find_one_and_update({"_id": ObjectId(track_id)}, {"$inc": {'dislikes': 1}})
 
     return redirect(url_for('catalogue'))
 
