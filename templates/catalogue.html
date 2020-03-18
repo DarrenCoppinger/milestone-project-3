@@ -10,10 +10,10 @@
 			<span>Sorting Options | </span>
 			<a class="dropdown-trigger btn" href="#" data-target="dropdown"><span class="sort-description"></span><i class="material-icons">arrow_drop_down</i></a>
 			<ul id="dropdown" class="dropdown-content">
-				<li><a href="#!">Newest Tracks</a></li>
-				<li><a href="#!">Oldest Tracks</a></li>
-				<li><a href="#!">Most Liked</a></li>
-				<li><a href="#!">Most Disliked</a></li>
+				<li><a href="{{url_for('sort_by_newest')}}">Newest Tracks</a></li>
+				<li><a href="{{url_for('sort_by_oldest')}}">Oldest Tracks</a></li>
+				<li><a href="{{url_for('sort_by_likes')}}">Most Liked</a></li>
+				<li><a href="{{url_for('sort_by_dislikes')}}">Most Disliked</a></li>
 			</ul>
         </div>
 	</div>
@@ -134,7 +134,7 @@
         });
     });
 
-    // Would of preferred a switch statment here but for some reason that didn't work
+    // This solution was inspired by https://github.com/Code-Institute-Submissions/dhamma1991-milestone-project-3/blob/master/templates/tracks.html
     if ('{{ sorting_order }}' == 1) {
          $('.dropdown-trigger span').text("Newest Tracks");
     } else if ('{{ sorting_order }}' == 2) {

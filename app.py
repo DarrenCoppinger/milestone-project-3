@@ -131,40 +131,28 @@ def insert_genre():
 def catalogue():
     all_tracks = mongo.db.tracks
     tracks_total = all_tracks.count()
-    # print('tracks_total=' + str(tracks_total))
     # tracks = all_tracks.find()
-
     # arg variables
     args = request.args.get
 
-    # page_args = int(args("page")) if args("page") else 0
-    # page_args = int(request.args['page_args'])
-    page_args = int(args("page")) if args("page") else 0
-    # print('page_args=' + str(page_args))
+    page_args = int(args("page")) if args("page") else 0 #page_args are initial set to 0
     sorting_order = int(args("sorting_order")) if args("sorting_order") else 1
     print('sorting_order=' + str(sorting_order))
     limit_args = 5
 
     all_track_count = (range(1, (math.ceil(tracks_total / limit_args)) + 1))
-    # print('all_track_count=' + str(all_track_count))
-
-    # all_track_pages = [page for page in all_track_count]
-    # print('all_track_pages=' + str(all_track_pages))
 
     all_track_pages = []
     all_track_page_args = []
 
     for page in all_track_count:
-        # print('page=' + str(page))
         all_track_pages.append(page)
         p_args = (page*limit_args)-limit_args
-        # print('p_args=' + str(p_args))
         all_track_page_args.append(p_args)
 
-    # print('all_track_pages=' + str(all_track_pages))
 
-    starting_id = all_tracks.find()
-    last_id = starting_id[page_args]['_id']
+    # starting_id = all_tracks.find()
+    # last_id = starting_id[page_args]['_id']
 
     # ---------- SORTING ORDER ---------- 
     
@@ -184,12 +172,35 @@ def catalogue():
         tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).limit(limit_args)
 
     next_url = page_args + limit_args
-    # print('next_url ' + str(next_url))
     prev_url = page_args - limit_args
-    # print('prev_url ' + str(prev_url))
 
     return render_template('catalogue.html', tracks=tracks, tracks_total=tracks_total, page=page_args, prev_url=prev_url, next_url=next_url, all_track_pages_id=zip(all_track_pages, all_track_page_args),sorting_order=sorting_order)
 
+
+@app.route('/sort_by_newest')
+def sort_by_newest():
+    """ Change sort order of Tracks on catalogue page to ASCENDING date added """
+    sorting_order = 1
+    return redirect(url_for('catalogue', sorting_order=sorting_order))
+
+
+@app.route('/sort_by_oldest')
+def sort_by_oldest():
+    """ Change sort order of Tracks on catalogue page to DESCENDING date added """
+    sorting_order = 2
+    return redirect(url_for('catalogue', sorting_order=sorting_order))
+
+@app.route('/sort_by_likes')
+def sort_by_likes():
+    """ Change sort order of Tracks on catalogue page to ASCENDING Likes """
+    sorting_order = 3
+    return redirect(url_for('catalogue', sorting_order=sorting_order))
+
+@app.route('/sort_by_dislikes')
+def sort_by_dislikes():
+    """ Change sort order of Tracks on catalogue page to ASCENDING Dislikes """
+    sorting_order = 4
+    return redirect(url_for('catalogue', sorting_order=sorting_order))
 
 @app.route('/playlist_page')
 def playlist_page():
