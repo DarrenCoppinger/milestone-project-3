@@ -5,18 +5,22 @@
 			<h2>Catalogue</h2>
 		</div>
 	</div>
-	<!-- <div class="col s12 m8">
-	<div class="video-container">
-		<iframe src="https://www.youtube.com/embed/US0jUNjFgUg?autoplay=1"
-				frameborder="0" allowfullscreen></iframe>
-		<iframe width="560" height="315" src="https://www.youtube.com/embed/US0jUNjFgUg?autoplay=1" frameborder="0"
-			allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	</div>
-</div> -->
-
-	{% if tracks_total > 0 %}
-	{% for track in tracks %}
 	<div class="row">
+		<div class="col s12">
+			<h5>Sorting Options</h5>
+			<div class="input-field col s12">
+				<select>
+                    <option value="1">Newest Tracks</option>
+                    <option value="2">Oldest Tracks</option>
+                    <option value="3">Most Liked</option>
+                    <option value="4">Most Disliked</option>
+                </select>
+				<label>Sorting Options</label>
+			</div>
+		</div>
+	</div>
+
+	{% if tracks_total > 0 %} {% for track in tracks %} <div class="row">
 		<div class="col s12 m8">
 			<div class="video-container">
 				<iframe src="{{'https://www.youtube.com/embed/' ~ track.video ~ '?autoplay=1'}}" frameborder="0"
@@ -133,4 +137,3 @@
     });
 </script>
 {% endblock %}
-

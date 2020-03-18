@@ -164,8 +164,25 @@ def catalogue():
     starting_id = all_tracks.find()
     last_id = starting_id[page_args]['_id']
 
-    tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
-    # tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).limit(limit)
+    # ---------- SORTING ORDER ---------- 
+    sorting_order = 1
+    
+    if sorting_order == 1:
+        #Date added Newest Tracks
+        # tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
+        # tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
+        tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).limit(limit_args) 
+    elif sorting_order == 2:
+        #Date added Oldest Tracks
+        tracks = all_tracks.find().sort('_id', pymongo.DESCENDING).limit(limit_args) 
+        
+    elif sorting_order == 3: 
+        #Most Liked Tracks
+        tracks = all_tracks.find().sort('likes', pymongo.ASCENDING).limit(limit_args) 
+    elif sorting_order == 4: 
+        #Most Disliked Tracks
+        tracks = all_tracks.find().sort('dislikes', pymongo.ASCENDING).limit(limit_args)
+    
 
     next_url = page_args + limit_args
     # print('next_url ' + str(next_url))
