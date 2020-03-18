@@ -141,6 +141,8 @@ def catalogue():
     # page_args = int(request.args['page_args'])
     page_args = int(args("page")) if args("page") else 0
     # print('page_args=' + str(page_args))
+    sorting_order = int(args("sorting_order")) if args("sorting_order") else 1
+    print('sorting_order=' + str(sorting_order))
     limit_args = 5
 
     all_track_count = (range(1, (math.ceil(tracks_total / limit_args)) + 1))
@@ -153,10 +155,10 @@ def catalogue():
     all_track_page_args = []
 
     for page in all_track_count:
-        print('page=' + str(page))
+        # print('page=' + str(page))
         all_track_pages.append(page)
         p_args = (page*limit_args)-limit_args
-        print('p_args=' + str(p_args))
+        # print('p_args=' + str(p_args))
         all_track_page_args.append(p_args)
 
     # print('all_track_pages=' + str(all_track_pages))
@@ -165,31 +167,28 @@ def catalogue():
     last_id = starting_id[page_args]['_id']
 
     # ---------- SORTING ORDER ---------- 
-    sorting_order = 1
     
-    if sorting_order == 1:
-        #Date added Newest Tracks
-        # tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
-        # tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
-        tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).limit(limit_args) 
-    elif sorting_order == 2:
+    if sorting_order == 2:
         #Date added Oldest Tracks
         tracks = all_tracks.find().sort('_id', pymongo.DESCENDING).limit(limit_args) 
-        
     elif sorting_order == 3: 
         #Most Liked Tracks
         tracks = all_tracks.find().sort('likes', pymongo.ASCENDING).limit(limit_args) 
     elif sorting_order == 4: 
         #Most Disliked Tracks
         tracks = all_tracks.find().sort('dislikes', pymongo.ASCENDING).limit(limit_args)
-    
+    else:
+        #Date added Newest Tracks
+        # tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
+        # tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
+        tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).limit(limit_args)
 
     next_url = page_args + limit_args
     # print('next_url ' + str(next_url))
     prev_url = page_args - limit_args
     # print('prev_url ' + str(prev_url))
 
-    return render_template('catalogue.html', tracks=tracks, tracks_total=tracks_total, page=page_args, prev_url=prev_url, next_url=next_url, all_track_pages_id=zip(all_track_pages, all_track_page_args))
+    return render_template('catalogue.html', tracks=tracks, tracks_total=tracks_total, page=page_args, prev_url=prev_url, next_url=next_url, all_track_pages_id=zip(all_track_pages, all_track_page_args),sorting_order=sorting_order)
 
 
 @app.route('/playlist_page')
