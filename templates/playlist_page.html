@@ -16,7 +16,7 @@
 			<li class="collection-header">
 				<h5>Upcoming songs</h5>
 			</li>
-			<br>
+			<!-- <br> -->
             {% for id, song in playlist %}
                 <li class="collection-item" id="{{id}}">
                     {{loop.index}}. {{song}}
@@ -58,7 +58,7 @@
     }
 
     function onPlayerReady(event) {
-        document.getElementById('player').style.border = '5px solid #FF6D00';
+        document.getElementById('player').style.border = '5px solid #e487d8';
     }
 
     function onPlayerStateChange(event) {

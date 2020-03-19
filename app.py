@@ -23,7 +23,9 @@ def index():
     # if 'username' in session:
     #     message = session['username']
     #     return render_template("index.html", message=message)
-    return render_template("index.html")
+    all_tracks = mongo.db.tracks
+    tracks = all_tracks.find().sort('likes', pymongo.DESCENDING).skip(0).limit(5)
+    return render_template("index.html", tracks=tracks)
 
 
 @app.route('/loginpage')
@@ -151,35 +153,42 @@ def catalogue():
         p_args = (page*limit_args)-limit_args
         all_track_page_args.append(p_args)
 
-    starting_id = all_tracks.find().sort('_id', pymongo.ASCENDING)
-    last_id = starting_id[page_args]['_id']
+    # starting_id = all_tracks.find().sort('_id', pymongo.ASCENDING)
+    # last_id = starting_id[page_args]['_id']
 
     # ---------- SORTING ORDER ----------
 
     if sorting_order == 2:
         # Date added Oldest Tracks
-        starting_id = all_tracks.find().sort('_id', pymongo.DESCENDING)
-        last_id = starting_id[page_args]['_id']
-        tracks = all_tracks.find({'_id': {'$lte': last_id}}).sort('_id', pymongo.DESCENDING).limit(limit_args)
-        next_url = page_args + limit_args
-        prev_url = page_args - limit_args
+        ##starting_id = all_tracks.find().sort('_id', pymongo.DESCENDING)
+        ##last_id = starting_id[page_args]['_id']
+        ##tracks = all_tracks.find({'_id': {'$lte': last_id}}).sort('_id', pymongo.DESCENDING).limit(limit_args)
+        tracks = all_tracks.find().sort('_id', pymongo.DESCENDING).skip(page_args).limit(limit_args)
+
     elif sorting_order == 3:
         # Most Liked Tracks
-        tracks = all_tracks.find().sort('likes', pymongo.ASCENDING).limit(limit_args)
+        ##starting_id = all_tracks.find().sort('likes', pymongo.ASCENDING)
+        ##print('starting like'+ str(starting_id))
+        ##last_id = starting_id[page_args]['likes']
+        ##print('last like'+ str(last_id))
+        ##tracks = all_tracks.find({'likes': {'$gte': last_id}}).sort('likes', pymongo.ASCENDING).limit(limit_args)
+        tracks = all_tracks.find().sort('likes', pymongo.DESCENDING).skip(page_args).limit(limit_args)
     elif sorting_order == 4:
         # Most Disliked Tracks
-        tracks = all_tracks.find().sort('dislikes', pymongo.ASCENDING).limit(limit_args)
+        starting_id = all_tracks.find().sort('dislikes', pymongo.ASCENDING)
+        last_id = starting_id[page_args]['dislikes']
+        tracks = all_tracks.find({'dislikes': {'$gte': last_id}}).sort('dislikes', pymongo.DESCENDING).limit(limit_args)
     else:
         # Date added Newest Tracks
-        starting_id = all_tracks.find().sort('_id', pymongo.ASCENDING)
-        last_id = starting_id[page_args]['_id']
+        ##starting_id = all_tracks.find().sort('_id', pymongo.ASCENDING)
+        ##last_id = starting_id[page_args]['_id']
         # tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
         # tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
-        tracks = all_tracks.find({'_id': {'$gte': last_id}}).sort('_id', pymongo.ASCENDING).limit(limit_args)
-        next_url = page_args + limit_args
-        prev_url = page_args - limit_args
+        ##tracks = all_tracks.find({'_id': {'$gte': last_id}}).sort('_id', pymongo.ASCENDING).limit(limit_args)
+        tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).skip(page_args).limit(limit_args)
 
-
+    next_url = page_args + limit_args
+    prev_url = page_args - limit_args
 
     return render_template('catalogue.html', tracks=tracks, tracks_total=tracks_total, page=page_args, prev_url=prev_url, next_url=next_url, all_track_pages_id=zip(all_track_pages, all_track_page_args), sorting_order=sorting_order)
 

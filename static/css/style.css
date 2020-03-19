@@ -1,14 +1,13 @@
 /* ------------ home image ------------ */
 
-.home-image{
+.background-image{
     height: 100vh;
-    color: #ffffff;
 
     /* background: url("{{ url_for('static', filename='images/background.jpg') }}") no-repeat top left scroll; */
     /* background: url("./images/background.jpg") no-repeat top left scroll; */
 
     /* this works */
-     background: url("https://images.squarespace-cdn.com/content/v1/5c742ebf77b903aae24633c0/1555274334268-PM0TDCZPGB86MNWAI0BL/ke17ZwdGBToddI8pDm48kCBllW3mxJGcM2njMWtAmMd7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0jAoOkRmPE63FUjiJOEKAz5U9gHNL46iYHU_few7p1U0Xt2TpVAeM6sT-baJRoygHA/DSC_0012.jpg?format=2500w") no-repeat top left scroll; 
+     background: url("https://images.squarespace-cdn.com/content/v1/5c742ebf77b903aae24633c0/1555274334268-PM0TDCZPGB86MNWAI0BL/ke17ZwdGBToddI8pDm48kCBllW3mxJGcM2njMWtAmMd7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0jAoOkRmPE63FUjiJOEKAz5U9gHNL46iYHU_few7p1U0Xt2TpVAeM6sT-baJRoygHA/DSC_0012.jpg?format=2500w") no-repeat bottom left scroll; 
  
 
     -webkit-background-size: cover;
@@ -21,13 +20,36 @@
     padding-bottom: 0
 }
 
+.collection {
+    margin: 0;
+    border-color: #79acfb;
+}
 
+.collection-item {
+    /* background-color: #e487d8 !important;  */
+    background-color: rgba(121, 172, 251, 0.75) !important; 
+    color: #ffffff;
+}
+
+.collection-header {
+    background-color: rgba(121, 172, 251, 0.75) !important; 
+    color: #ffffff;
+}
+
+.about {
+    background-color: rgba(228, 135, 216, 0.75);
+    color: #ffffff;
+}
+
+.secondary-content {
+    color: #ffffff;
+}
 /* ------------ navbar ------------ */
 
 .nav-wrapper {
     /* background-color: rosybrown; */
     /* background-color: rgb(234, 199, 255); */
-    background-color: rgb(95, 170, 222); /* light pastel blue */
+    background-color: #79acfb; /* light pastel blue */
 }
 
 .login {
@@ -35,15 +57,20 @@
 } 
 
 .container{
-    /* margin: 0;
-    padding: 0;
-    width: 100%; */
+    padding-top: 100px;
 }
 
+.video-container {
+    margin: 0 !important;
+}
 .panel {
     align-items: center;
     margin: 0 0px 5px 0px;
     padding: 0;
+}
+
+.btn-small {
+    background-color: #e487d8
 }
 
 .row-button {
@@ -96,5 +123,5 @@
 
 /* ------------ footer ------------ */
 .page-footer {
-    background-color: rgb(95, 170, 222);
+    background-color: #79acfb;
 }

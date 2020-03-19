@@ -1,11 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="home-image">
-	<div class="row">
-		<div class="col">
-			<!-- <img src="{{ url_for('static', filename='images/background.jpg') }}" alt="">
+<div class="background-image">
+	<div class="container">
+		<div class="row">
+			<div class="about col s12 m6">
+				<h2>About Karaokean</h2>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo delectus voluptatibus cumque
+					quaerat
+					nesciunt vero sed voluptas pariatur ullam esse sint accusamus animi debitis, architecto vel
+					voluptates
+					labore veritatis aut?</p>
+				<!-- <img src="{{ url_for('static', filename='images/background.jpg') }}" alt="">
 		</div> -->
+			</div>
+			<div class="col s12 m6">
+
+				<ul class="collection with-header">
+					<li class="collection-header">
+						<p><b>Most Liked Songs</b><span class="secondary-content">No. of Likes</span></p>
+					</li>
+					{% for track in tracks %}
+					<li class="collection-item">{{loop.index}}. {{track.name}} ({{track.year}})
+						<span class="secondary-content">{{track.likes}}</span></li>
+					{% endfor %}
+				</ul>
+
+			</div>
 		</div>
 	</div>
 </div>

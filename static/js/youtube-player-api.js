@@ -27,7 +27,7 @@
     }
 
     function onPlayerReady(event) {
-        document.getElementById('player').style.border = '5px solid #FF6D00';
+        document.getElementById('player').style.border = '5px solid #e487d8';
     }
 
     function onPlayerStateChange(event) {
