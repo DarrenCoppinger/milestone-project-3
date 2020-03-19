@@ -135,7 +135,8 @@ def catalogue():
     # arg variables
     args = request.args.get
 
-    page_args = int(args("page")) if args("page") else 0 #page_args are initial set to 0
+    page_args = int(args("page")) if args(
+        "page") else 0  # page_args are initial set to 0
     sorting_order = int(args("sorting_order")) if args("sorting_order") else 1
     print('sorting_order=' + str(sorting_order))
     limit_args = 5
@@ -150,31 +151,37 @@ def catalogue():
         p_args = (page*limit_args)-limit_args
         all_track_page_args.append(p_args)
 
+    starting_id = all_tracks.find().sort('_id', pymongo.ASCENDING)
+    last_id = starting_id[page_args]['_id']
 
-    # starting_id = all_tracks.find()
-    # last_id = starting_id[page_args]['_id']
+    # ---------- SORTING ORDER ----------
 
-    # ---------- SORTING ORDER ---------- 
-    
     if sorting_order == 2:
-        #Date added Oldest Tracks
-        tracks = all_tracks.find().sort('_id', pymongo.DESCENDING).limit(limit_args) 
-    elif sorting_order == 3: 
-        #Most Liked Tracks
-        tracks = all_tracks.find().sort('likes', pymongo.ASCENDING).limit(limit_args) 
-    elif sorting_order == 4: 
-        #Most Disliked Tracks
+        # Date added Oldest Tracks
+        starting_id = all_tracks.find().sort('_id', pymongo.DESCENDING)
+        last_id = starting_id[page_args]['_id']
+        tracks = all_tracks.find({'_id': {'$lte': last_id}}).sort('_id', pymongo.DESCENDING).limit(limit_args)
+        next_url = page_args + limit_args
+        prev_url = page_args - limit_args
+    elif sorting_order == 3:
+        # Most Liked Tracks
+        tracks = all_tracks.find().sort('likes', pymongo.ASCENDING).limit(limit_args)
+    elif sorting_order == 4:
+        # Most Disliked Tracks
         tracks = all_tracks.find().sort('dislikes', pymongo.ASCENDING).limit(limit_args)
     else:
-        #Date added Newest Tracks
+        # Date added Newest Tracks
+        starting_id = all_tracks.find().sort('_id', pymongo.ASCENDING)
+        last_id = starting_id[page_args]['_id']
         # tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
         # tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
-        tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).limit(limit_args)
+        tracks = all_tracks.find({'_id': {'$gte': last_id}}).sort('_id', pymongo.ASCENDING).limit(limit_args)
+        next_url = page_args + limit_args
+        prev_url = page_args - limit_args
 
-    next_url = page_args + limit_args
-    prev_url = page_args - limit_args
 
-    return render_template('catalogue.html', tracks=tracks, tracks_total=tracks_total, page=page_args, prev_url=prev_url, next_url=next_url, all_track_pages_id=zip(all_track_pages, all_track_page_args),sorting_order=sorting_order)
+
+    return render_template('catalogue.html', tracks=tracks, tracks_total=tracks_total, page=page_args, prev_url=prev_url, next_url=next_url, all_track_pages_id=zip(all_track_pages, all_track_page_args), sorting_order=sorting_order)
 
 
 @app.route('/sort_by_newest')
@@ -190,17 +197,20 @@ def sort_by_oldest():
     sorting_order = 2
     return redirect(url_for('catalogue', sorting_order=sorting_order))
 
+
 @app.route('/sort_by_likes')
 def sort_by_likes():
     """ Change sort order of Tracks on catalogue page to ASCENDING Likes """
     sorting_order = 3
     return redirect(url_for('catalogue', sorting_order=sorting_order))
 
+
 @app.route('/sort_by_dislikes')
 def sort_by_dislikes():
     """ Change sort order of Tracks on catalogue page to ASCENDING Dislikes """
     sorting_order = 4
     return redirect(url_for('catalogue', sorting_order=sorting_order))
+
 
 @app.route('/playlist_page')
 def playlist_page():
@@ -271,9 +281,11 @@ def dislike(track_id):
     tracks = mongo.db.tracks
     the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
     dislikes = the_track["dislikes"]
-    tracks.find_one_and_update({"_id": ObjectId(track_id)}, {"$inc": {'dislikes': 1}})
+    tracks.find_one_and_update({"_id": ObjectId(track_id)}, {
+                               "$inc": {'dislikes': 1}})
 
     return redirect(url_for('catalogue'))
+
 
 if __name__ == '__main__':
     app.secret_key = 'secret_key'

@@ -84,7 +84,7 @@
 
 			<li {% if all_track_pages == 0 %} class="disabled" {% else %}
 				class="waves-effect waves-light purple accent-1" {% endif %}>
-				<a href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=prev_url)}}">
+				<a href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=prev_url,sorting_order=sorting_order)}}">
 					<i class="material-icons">chevron_left</i>
 				</a>
 			</li>
@@ -95,13 +95,13 @@
 			{% for track_page, track_page_args in all_track_pages_id %}
 			<li class="waves-effect waves-purple blue accent-1">
 				<a
-					href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=track_page_args)}}">{{ loop.index }}</a>
+					href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=track_page_args,sorting_order=sorting_order)}}">{{ loop.index }}</a>
 			</li>
 			{% endfor %}
 
 			<!-- Next -->
 			<li class="waves-effect waves-light purple accent-1">
-				<a href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=next_url)}}">
+				<a href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=next_url,sorting_order=sorting_order)}}">
 					<i class="material-icons">chevron_right</i>
 				</a>
 			</li>
