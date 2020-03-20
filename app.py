@@ -147,8 +147,8 @@ def delete_track(track_id, page, sorting_order):
 @app.route('/genre')
 def genres():
     """ Template to see existing genres in database"""
-    genre = mongo.db.genre 
-    return render_template('genres.html')
+    genres = mongo.db.genre.find()
+    return render_template('genres.html', genres=genres)
 
 
 @app.route('/addgenre')

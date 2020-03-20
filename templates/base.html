@@ -23,7 +23,7 @@
 					<li><a href="{{ url_for('index')}}">Home</a></li>
 					<li><a href="{{ url_for('catalogue')}}">Catalogue</a></li>
 					<li><a href="{{ url_for('addtrack')}}">Add Song</a></li>
-					<li><a href="{{ url_for('addgenre')}}">Add Genre</a></li>
+					<li><a href="{{ url_for('genres')}}">Genres</a></li>
 					<li><a href="{{ url_for('playlist_page') }}">Playlist</a></li>
 					{%  if 'username' in session %}
 					<li><a class="waves-effect waves-light btn-small" href="{{ url_for('loginpage') }}">Logged in as
@@ -39,7 +39,7 @@
 			<li><a href="{{ url_for('index')}}">Home</a></li>
 			<li><a href="{{ url_for('catalogue')}}">Catalogue</a></li>
 			<li><a href="{{ url_for('addtrack')}}">Add Song</a></li>
-			<li><a href="{{ url_for('addgenre')}}">Add Genre</a></li>
+			<li><a href="{{ url_for('genres')}}">Genres</a></li>
 			<li><a href="{{ url_for('playlist_page')}}">Playlist</a></li>
 			{%  if 'username' in session %}
 			<li><a class="waves-effect waves-light btn-small" href="{{ url_for('loginpage') }}">Logged in as

@@ -29,6 +29,8 @@
     /* background-color: #e487d8 !important;  */
     background-color: rgba(121, 172, 251, 0.75) !important; 
     color: #ffffff;
+    line-height: 2.5rem !important;
+    padding: 0;
 }
 
 .collection-header {
@@ -73,7 +75,8 @@
 }
 
 .btn-small {
-    background-color: #e487d8
+    background-color: #e487d8;
+    /* padding: 0 5px 0 5px; */
 }
 
 .row-button {
