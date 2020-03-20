@@ -2,10 +2,9 @@
 
 {% block content %}
 <div class="container">
-	<h2>Add Genre</h2>
-
+	<h2>Edit Genre</h2>
 	<div class="row">
-		<form action="{{url_for('update_genre')}}" method="POST" class="col s12" novalidate>
+		<form action="{{url_for('update_genre',genre_id=genre._id)}}" method="POST" class="col s12" novalidate>
 			<!-- Genre Name -->
 			<div class="row">
 				<div class="input-field col s12">

@@ -177,9 +177,21 @@ def insert_genre():
 
 
 @app.route('/editgenre/<genre_id>')
-def edittrack(genre_id):
-    the_genre = mongo.db.genres.find_one({"_id": ObjectId(genre_id)})
-    return render_template('editgenre.html')
+def editgenre(genre_id):
+    the_genre = mongo.db.genre.find_one({"_id": ObjectId(genre_id)})
+    return render_template('editgenre.html', genre=the_genre)
+
+
+@app.route('/update_genre/<genre_id>', methods=['POST'])
+def update_genre(genre_id):
+    genres = mongo.db.genres
+
+    genres.update({'_id': ObjectId(genre_id)},
+                  {
+        'genre': request.form.get('genre_name'),
+    })
+    return redirect(url_for('genres'))
+
 
 @app.route('/catalogue')
 def catalogue():
