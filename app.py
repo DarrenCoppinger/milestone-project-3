@@ -93,7 +93,7 @@ def insert_track():
                 'lyrics': request.form.get('lyrics_link'),
                 'video': youtube_regex_match[6],
                 'likes': int(0),
-                'dislikes': 0
+                'dislikes': int(0)
             }
         )
 
@@ -104,10 +104,39 @@ def insert_track():
         return redirect('addtrack')
 
 
-@app.route('/edittrack/<track_id>')
-def edittrack(track_id):
+@app.route('/edittrack/<track_id>/<page>/<sorting_order>')
+def edittrack(track_id, page, sorting_order):
     the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
-    return render_template('edittrack.html', track=the_track)
+    return render_template('edittrack.html', track=the_track, page=page, sorting_order=sorting_order)
+
+
+@app.route('/update_track/<track_id>/<page>/<sorting_order>', methods=['POST'])
+def update_track(track_id, page, sorting_order):
+    tracks = mongo.db.tracks
+    video = request.form.get('video_link')
+    youtube_regex = (
+        r'(https?://)?(www\.)?'
+        '(youtube|youtu|youtube-nocookie)\.(com|be)/'
+        '(watch\?v=|embed/|v/|.+\?v=)?([^&=%\?]{11})')
+
+    youtube_regex_match = re.match(youtube_regex, video)
+
+    likes = request.values.get("likes")
+    dislikes = request.values.get("dislikes")
+
+    tracks.update({'_id': ObjectId(track_id)},
+                  {
+        'name': request.form.get('track_name'),
+        'artist': request.form.get('artist_name'),
+        'year': int(request.form.get('year')),
+        'genre': request.form.get('genre_name'),
+        'lyrics': request.form.get('lyrics_link'),
+        'video': youtube_regex_match[6],
+        'likes': likes,
+        'dislikes': dislikes
+    })
+    return redirect(url_for('catalogue', page=page, sorting_order=sorting_order))
+
 
 @app.route('/addgenre')
 def add_genre():
@@ -168,7 +197,8 @@ def catalogue():
         ##starting_id = all_tracks.find().sort('_id', pymongo.DESCENDING)
         ##last_id = starting_id[page_args]['_id']
         ##tracks = all_tracks.find({'_id': {'$lte': last_id}}).sort('_id', pymongo.DESCENDING).limit(limit_args)
-        tracks = all_tracks.find().sort('_id', pymongo.DESCENDING).skip(page_args).limit(limit_args)
+        tracks = all_tracks.find().sort(
+            '_id', pymongo.DESCENDING).skip(page_args).limit(limit_args)
 
     elif sorting_order == 3:
         # Most Liked Tracks
@@ -177,12 +207,14 @@ def catalogue():
         ##last_id = starting_id[page_args]['likes']
         ##print('last like'+ str(last_id))
         ##tracks = all_tracks.find({'likes': {'$gte': last_id}}).sort('likes', pymongo.ASCENDING).limit(limit_args)
-        tracks = all_tracks.find().sort('likes', pymongo.DESCENDING).skip(page_args).limit(limit_args)
+        tracks = all_tracks.find().sort(
+            'likes', pymongo.DESCENDING).skip(page_args).limit(limit_args)
     elif sorting_order == 4:
         # Most Disliked Tracks
         starting_id = all_tracks.find().sort('dislikes', pymongo.ASCENDING)
         last_id = starting_id[page_args]['dislikes']
-        tracks = all_tracks.find({'dislikes': {'$gte': last_id}}).sort('dislikes', pymongo.DESCENDING).limit(limit_args)
+        tracks = all_tracks.find({'dislikes': {'$gte': last_id}}).sort(
+            'dislikes', pymongo.DESCENDING).limit(limit_args)
     else:
         # Date added Newest Tracks
         ##starting_id = all_tracks.find().sort('_id', pymongo.ASCENDING)
@@ -190,9 +222,9 @@ def catalogue():
         # tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
         # tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
         ##tracks = all_tracks.find({'_id': {'$gte': last_id}}).sort('_id', pymongo.ASCENDING).limit(limit_args)
-        tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).skip(page_args).limit(limit_args)
+        tracks = all_tracks.find().sort(
+            '_id', pymongo.ASCENDING).skip(page_args).limit(limit_args)
 
-    
     prev_url = page_args - limit_args
     next_url = page_args + limit_args
 
