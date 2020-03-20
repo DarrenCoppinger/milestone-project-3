@@ -138,6 +138,12 @@ def update_track(track_id, page, sorting_order):
     return redirect(url_for('catalogue', page=page, sorting_order=sorting_order))
 
 
+@app.route('/delete_track/<track_id>/<page>/<sorting_order>')
+def delete_track(track_id, page, sorting_order):
+    mongo.db.tracks.remove( {'_id': ObjectId(track_id)})
+    return redirect(url_for('catalogue', page=page, sorting_order=sorting_order))
+
+
 @app.route('/addgenre')
 def add_genre():
     """ Template to add new genre to database"""
