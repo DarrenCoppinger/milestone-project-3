@@ -187,8 +187,9 @@ def catalogue():
         ##tracks = all_tracks.find({'_id': {'$gte': last_id}}).sort('_id', pymongo.ASCENDING).limit(limit_args)
         tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).skip(page_args).limit(limit_args)
 
-    next_url = page_args + limit_args
+    
     prev_url = page_args - limit_args
+    next_url = page_args + limit_args
 
     return render_template('catalogue.html', tracks=tracks, tracks_total=tracks_total, page=page_args, prev_url=prev_url, next_url=next_url, all_track_pages_id=zip(all_track_pages, all_track_page_args), sorting_order=sorting_order)
 

@@ -8,14 +8,15 @@
 	<div class="row">
 		<div class="col s12">
 			<span>Sorting Options | </span>
-			<a class="dropdown-trigger btn-small" href="#" data-target="dropdown"><span class="sort-description"></span><i class="material-icons">arrow_drop_down</i></a>
+			<a class="dropdown-trigger btn-small" href="#"
+				data-target="dropdown"><span class="sort-description"></span><i class="material-icons">arrow_drop_down</i></a>
 			<ul id="dropdown" class="dropdown-content">
 				<li><a href="{{url_for('sort_by_newest')}}">Newest Tracks</a></li>
 				<li><a href="{{url_for('sort_by_oldest')}}">Oldest Tracks</a></li>
 				<li><a href="{{url_for('sort_by_likes')}}">Most Liked</a></li>
 				<li><a href="{{url_for('sort_by_dislikes')}}">Most Disliked</a></li>
 			</ul>
-        </div>
+		</div>
 	</div>
 
 	{% if tracks_total > 0 %} {% for track in tracks %} <div class="row">
@@ -74,34 +75,40 @@
 	<p>Add a karaoke track to the catalogue <a href="{{url_for('register')}}">here</a> </p>
 	{% endif %}
 
-	<p>
-		{{ page }}
-	</p>
+
 	<!-- Pagination -->
 	<div class="row center-align">
 		<ul class="pagination">
 			<!-- Previous -->
 
-			<li {% if all_track_pages == 0 %} class="disabled" {% else %}
-				class="waves-effect waves-light purple accent-1" {% endif %}>
-				<a href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=prev_url,sorting_order=sorting_order)}}">
+			<li {% if prev_url < 0 %} class="disabled" {% else %} class="waves-effect waves-light purple accent-1"
+				{% endif %}>
+				<a
+					href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=prev_url,sorting_order=sorting_order)}}">
 					<i class="material-icons">chevron_left</i>
 				</a>
 			</li>
+
+			<!-- <li>
+				<a class="disabled" href="">
+					<i class="material-icons">chevron_left</i>
+				</a>
+			</li> -->
 
 			<!-- Page Number -->
 			<!-- {% if all_track_pages == 1 %} class="disabled" {% else %} class="waves-effect waves-purple blue accent-1"
 			{% endif %} -->
 			{% for track_page, track_page_args in all_track_pages_id %}
-			<li class="waves-effect waves-purple blue accent-1">
+			<li {% if track_page_args == page %} class="waves-effect waves-purple blue accent-1" {%else%}class="waves-effect waves-purple" {% endif %}>
 				<a
 					href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=track_page_args,sorting_order=sorting_order)}}">{{ loop.index }}</a>
 			</li>
 			{% endfor %}
 
 			<!-- Next -->
-			<li class="waves-effect waves-light purple accent-1">
-				<a href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=next_url,sorting_order=sorting_order)}}">
+			<li {% if next_url > tracks_total %} class="disabled" {% else %} class="waves-effect waves-light purple accent-1" {% endif %}>
+				<a
+					href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=next_url,sorting_order=sorting_order)}}">
 					<i class="material-icons">chevron_right</i>
 				</a>
 			</li>
