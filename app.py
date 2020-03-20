@@ -169,12 +169,17 @@ def insert_genre():
             }
         )
 
-        return redirect(url_for('addtrack'))
+        return redirect(url_for('genres'))
 
     except pymongo.errors.DuplicateKeyError:
 
-        return redirect(url_for('addtrack'))
+        return redirect(url_for('genres'))
 
+
+@app.route('/editgenre/<genre_id>')
+def edittrack(genre_id):
+    the_genre = mongo.db.genres.find_one({"_id": ObjectId(genre_id)})
+    return render_template('editgenre.html')
 
 @app.route('/catalogue')
 def catalogue():

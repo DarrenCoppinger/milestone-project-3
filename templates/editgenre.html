@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+	<h2>Add Genre</h2>
+
+	<div class="row">
+		<form action="{{url_for('update_genre')}}" method="POST" class="col s12" novalidate>
+			<!-- Genre Name -->
+			<div class="row">
+				<div class="input-field col s12">
+					<i class="material-icons prefix">assignment</i>
+					<input id="genre_name" name="genre_name" type="text" class="validate" value="{{genre.name}}">
+					<label for="genre_name">Genre Name</label>
+				</div>
+			</div>
+			<!-- Buttons -->
+			<div class="row">
+            <!-- Edit Button -->
+				<div class="input-field col s12 m6">
+					<button class="btn-small waves-effect waves-light" type="submit" name="action">
+                        Edit Genre<i class="material-icons right">edit</i>
+                    </button>
+				</div>
+
+				<!-- Cancel Add Button -->
+				<div class="input-field col s12 m6">
+					<a href="{{url_for('genres')}}"
+						class="btn-small waves-effect waves-light">Cancel
+						Edit<i class="material-icons right">cancel</i></a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}
+
+{% block validation_js %}
+<script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+{% endblock %}
