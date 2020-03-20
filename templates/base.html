@@ -22,7 +22,7 @@
 				<ul class="right hide-on-med-and-down">
 					<li><a href="{{ url_for('index')}}">Home</a></li>
 					<li><a href="{{ url_for('addtrack')}}">Add Song</a></li>
-					<li><a href="{{ url_for('catalogue')}}">catalogue</a></li>
+					<li><a href="{{ url_for('catalogue')}}">Catalogue</a></li>
 					<li><a href="{{ url_for('playlist_page') }}">Playlist</a></li>
                     {%  if 'username' in session %}
                         <li><a class="waves-effect waves-light btn-small" href="{{ url_for('loginpage') }}">Logged in as {{session['username']}}</a></li>

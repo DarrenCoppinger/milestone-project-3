@@ -104,6 +104,11 @@ def insert_track():
         return redirect('addtrack')
 
 
+@app.route('/edittrack/<track_id>')
+def edittrack(track_id):
+    the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
+    return render_template('edittrack.html', track=the_track)
+
 @app.route('/addgenre')
 def add_genre():
     """ Template to add new genre to database"""
