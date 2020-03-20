@@ -21,24 +21,32 @@
 				<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 				<ul class="right hide-on-med-and-down">
 					<li><a href="{{ url_for('index')}}">Home</a></li>
-					<li><a href="{{ url_for('addtrack')}}">Add Song</a></li>
 					<li><a href="{{ url_for('catalogue')}}">Catalogue</a></li>
+					<li><a href="{{ url_for('addtrack')}}">Add Song</a></li>
+					<li><a href="{{ url_for('addgenre')}}">Add Genre</a></li>
 					<li><a href="{{ url_for('playlist_page') }}">Playlist</a></li>
-                    {%  if 'username' in session %}
-                        <li><a class="waves-effect waves-light btn-small" href="{{ url_for('loginpage') }}">Logged in as {{session['username']}}</a></li>
-                    {% else %}
-					    <li><a class="waves-effect waves-light btn-small" href="{{ url_for('loginpage') }}">Login</a></li>
-                    {% endif %}
+					{%  if 'username' in session %}
+					<li><a class="waves-effect waves-light btn-small" href="{{ url_for('loginpage') }}">Logged in as
+							{{session['username']}}</a></li>
+					{% else %}
+					<li><a class="waves-effect waves-light btn-small" href="{{ url_for('loginpage') }}">Login</a></li>
+					{% endif %}
 				</ul>
 			</div>
 		</nav>
 
 		<ul class="sidenav" id="mobile-demo">
 			<li><a href="{{ url_for('index')}}">Home</a></li>
-			<li><a href="{{ url_for('addtrack')}}">Add Song</a></li>
 			<li><a href="{{ url_for('catalogue')}}">Catalogue</a></li>
+			<li><a href="{{ url_for('addtrack')}}">Add Song</a></li>
+			<li><a href="{{ url_for('addgenre')}}">Add Genre</a></li>
 			<li><a href="{{ url_for('playlist_page')}}">Playlist</a></li>
-			<li><a href="{{ url_for('loginpage')}}">Login</a></li>
+			{%  if 'username' in session %}
+			<li><a class="waves-effect waves-light btn-small" href="{{ url_for('loginpage') }}">Logged in as
+					{{session['username']}}</a></li>
+			{% else %}
+			<li><a class="waves-effect waves-light btn-small" href="{{ url_for('loginpage') }}">Login</a></li>
+			{% endif %}
 		</ul>
 	</header>
 
@@ -51,9 +59,9 @@
 	</div>
 	{% endif %} -->
 
-		<!-- Main Content Block -->
-        
-		{% block content %}{% endblock %}
+	<!-- Main Content Block -->
+
+	{% block content %}{% endblock %}
 
 
 
@@ -104,9 +112,9 @@
 	{% block youtube_api %}
 	{% endblock %}
 
-    <!-- JS block -->
-    {% block js %}
-    {% endblock %}
+	<!-- JS block -->
+	{% block js %}
+	{% endblock %}
 </body>
 
 </html>

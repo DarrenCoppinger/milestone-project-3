@@ -97,7 +97,7 @@ def insert_track():
             }
         )
 
-        return redirect(url_for('index'))
+        return redirect(url_for('catalogue'))
 
     except pymongo.errors.DuplicateKeyError:
 
@@ -144,8 +144,15 @@ def delete_track(track_id, page, sorting_order):
     return redirect(url_for('catalogue', page=page, sorting_order=sorting_order))
 
 
+@app.route('/genre')
+def genres():
+    """ Template to see existing genres in database"""
+    genre = mongo.db.genre 
+    return render_template('genres.html')
+
+
 @app.route('/addgenre')
-def add_genre():
+def addgenre():
     """ Template to add new genre to database"""
     return render_template('addgenre.html')
 
@@ -153,10 +160,10 @@ def add_genre():
 @app.route('/insert_genre', methods=['POST'])
 def insert_genre():
     """ Insert new genre to database"""
-    genre = mongo.db.genre
+    genres = mongo.db.genre
 
     try:
-        genre.insert_one(
+        genres.insert_one(
             {
                 'genre': request.form.get('genre_name'),
             }
