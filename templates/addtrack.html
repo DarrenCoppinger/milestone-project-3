@@ -10,53 +10,57 @@
 			<div class="row">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">assignment</i>
-					<input id="track_name" name="track_name" type="text" class="validate" maxlength="125" required>
+					<input id="track_name" name="track_name" type="text" class="validate" data-length="125" required>
 					<label id="track_name_label" for="track_name">Track Name</label>
-					<span class="helper-text" data-error="Please enter the name of the track" data-success="&#10004;"></span>
+					<span class="helper-text" data-error="Please enter the name of the track" data-success="Valid Entry"></span>
 				</div>
 			</div>
 			<!-- Artist Name -->
 			<div class="row">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">assignment</i>
-					<input id="artist_name" name="artist_name" type="text" class="validate">
-					<label for="artist_name">Artist Name</label>
+					<input id="artist_name" name="artist_name" type="text" class="validate" data-length="30" required>
+					<label id="artist_name_label" for="artist_name">Artist Name</label>
+					<span class="helper-text" data-error="Please enter the Artist name" data-success="Valid Entry"></span>
 				</div>
 			</div>
 			<!-- Date Picker -->
 			<div class="row">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">today</i>
-					<input id="year" name="year" type="text" class="validate">
-					<label for="year">Year</label>
+					<input id="year" name="year" type="text" class="validate" pattern="[12][0-9][0-9][0-9]" maxlength="4" required>
+					<label id="year_label" for="year">Year</label>
+					<span class="helper-text" data-error="Please enter a valid year e.g. 1966" data-success="Valid Entry"></span>
 				</div>
 			</div>
 			<!-- Genre Name -->
 			<div class="row">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">assignment</i>
-					<input id="genre_name" name="genre_name" type="text" class="validate">
-					<label for="genre_name">Genre Name</label>
+					<input id="genre_name" name="genre_name" type="text" class="validate" required>
+					<label id="genre_name_label" for="genre_name">Genre Name</label>
+					<span class="helper-text" data-error="Please select a genre a e.g. Rock" data-success="Valid Entry"></span>
 				</div>
 			</div>
 			<!-- Lyrics link -->
 			<div class="row">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">assignment</i>
-					<input id="lyrics_link" name="lyrics_link" type="text" class="validate">
-					<label for="lyrics_link">Lyrics Link</label>
+					<input id="lyrics_link" name="lyrics_link" type="text" class="validate" required> 
+					<label id="lyrics_link_label" for="lyrics_link">Lyrics Link</label>
+					<span class="helper-text" data-error="Please enter a valid youtube link e.g. https://www.azlyrics.com/lyrics/rickastley/nevergonnagiveyouup.html" data-success="Valid Link"></span>
 				</div>
 			</div>
 			<!-- Video link -->
-			<div class="row">
-				<div class="input-field col s12">
+			<div class="row"> 
+				<div class="input-field col s12"> 
 					<i class="material-icons prefix">assignment</i>
-					<input id="video_link" name="video_link" type="text" class="validate" value="" required>
+					<input id="video_link" name="video_link" type="text" class="validate" required>
 					<label id="video_link_label" for="video_link">Youtube Link</label>
-					<span data-error="wrong" data-success="&#10004;"></span>
+					<span class="helper-text" data-error="Please enter a valid youtube link e.g. 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' or 'https://youtu.be/dQw4w9WgXcQ'" data-success="Valid Link"></span>
 				</div>
 			</div>
-            <!-- Buttons -->
+			<!-- Buttons -->
 			<div class="row">
 				<!-- Add Track Button -->
 
@@ -67,7 +71,8 @@
 
 				<!-- Cancel Add Button -->
 				<div class="input-field col s12 m6">
-					<a href="{{url_for('catalogue')}}" class="btn-small waves-effect waves-light" >Cancel Submission<i class="material-icons right">cancel</i></a>
+					<a href="{{url_for('catalogue')}}" class="btn-small waves-effect waves-light">Cancel
+						Submission<i class="material-icons right">cancel</i></a>
 				</div>
 			</div>
 		</form>
