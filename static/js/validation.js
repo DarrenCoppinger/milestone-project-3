@@ -52,20 +52,13 @@ form.addEventListener("submit", function (event) {
         event.preventDefault();
     }
 
-    if (!track.validity.valid) {
-        $("#genre_name").removeClass("valid");
-        $("#genre_name").addClass("invalid");
-        $("#genre_name_label").addClass("active");
-        $("#genre_name").prop("aria-invalid", "true");
-        event.preventDefault();
-    }
-
     if (!genre.validity.valid) {
         $("#genre_name").removeClass("valid");
         $("#genre_name").addClass("invalid");
         $("#genre_name_label").addClass("active");
         $("#genre_name").prop("aria-invalid", "true");
         event.preventDefault();
+        $('select').material_select();
     }
 
     if (!lyrics.validity.valid) {
@@ -77,5 +70,5 @@ form.addEventListener("submit", function (event) {
     }
 
     validateYouTubeUrl();
-
 }, false);
+

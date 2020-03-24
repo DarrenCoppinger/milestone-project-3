@@ -67,13 +67,18 @@ def register():
 
 @app.route('/addtrack')
 def addtrack():
-    return render_template('addtrack.html')
+    genres = mongo.db.genre.find()
+    return render_template('addtrack.html',genres=genres)
 
 
 @app.route('/insert_track', methods=['POST'])
 def insert_track():
     tracks = mongo.db.tracks
     video = request.form.get('video_link')
+
+    # add the genre id
+    genre = request.form.get('genre_name')
+
     youtube_regex = (
         r'(https?://)?(www\.)?'
         '(youtube|youtu|youtube-nocookie)\.(com|be)/'
@@ -89,7 +94,7 @@ def insert_track():
                 'name': request.form.get('track_name'),
                 'artist': request.form.get('artist_name'),
                 'year': int(request.form.get('year')),
-                'genre': request.form.get('genre_name'),
+                'genre': genre,
                 'lyrics': request.form.get('lyrics_link'),
                 'video': youtube_regex_match[6],
                 'likes': int(0),
@@ -107,11 +112,22 @@ def insert_track():
 @app.route('/edittrack/<track_id>/<page>/<sorting_order>')
 def edittrack(track_id, page, sorting_order):
     the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
-    return render_template('edittrack.html', track=the_track, page=page, sorting_order=sorting_order)
+    print('the_track'+ str(the_track))
+    
+    the_track_id = ObjectId(the_track["_id"])
+    print('the_track_id '+ str(the_track_id))
+
+    likes = the_track["likes"]
+    print('likes = '+str(likes))
+    dislikes = the_track["dislikes"]
+    print('dislikes = '+str(dislikes))
+
+    genres = mongo.db.genre.find()
+    return render_template('edittrack.html', track=the_track, track_id=the_track_id, genres=genres, page=page, sorting_order=sorting_order, likes=likes, dislikes=dislikes)
 
 
-@app.route('/update_track/<track_id>/<page>/<sorting_order>', methods=['POST'])
-def update_track(track_id, page, sorting_order):
+@app.route('/update_track/<track_id>/<page>/<sorting_order>/<likes>/<dislikes>', methods=['POST'])
+def update_track(track_id, page, sorting_order, likes, dislikes):
     tracks = mongo.db.tracks
     video = request.form.get('video_link')
     youtube_regex = (
@@ -121,8 +137,14 @@ def update_track(track_id, page, sorting_order):
 
     youtube_regex_match = re.match(youtube_regex, video)
 
-    likes = request.values.get("likes")
-    dislikes = request.values.get("dislikes")
+    print('likes2 = '+str(likes))
+    print('dislikes2 = '+str(dislikes))
+    # likes = request.values.get("likes")
+    # dislikes = request.values.get("dislikes")
+    
+
+    # if likes null:
+    #     likes = int(0)
 
     tracks.update({'_id': ObjectId(track_id)},
                   {
@@ -165,7 +187,7 @@ def insert_genre():
     try:
         genres.insert_one(
             {
-                'genre': request.form.get('genre_name'),
+                'name': request.form.get('genre_name'),
             }
         )
 
@@ -188,7 +210,7 @@ def update_genre(genre_id):
 
     genres.update({'_id': ObjectId(genre_id)},
                   {
-        'genre': request.form.get('genre_name'),
+        'name': request.form.get('genre_name'),
     })
     return redirect(url_for('genres'))
 

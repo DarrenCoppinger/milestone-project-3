@@ -135,5 +135,9 @@
 /* ------------ pagination ------------ */
 
 .disabled {
-    pointer-events: none;
+    pointer-events: none ;
 }
+
+
+/* ------------ add track ------------ */
+

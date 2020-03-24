@@ -24,7 +24,7 @@
 					<span class="helper-text" data-error="Please enter the Artist name" data-success="Valid Entry"></span>
 				</div>
 			</div>
-			<!-- Date Picker -->
+			<!-- Year -->
 			<div class="row">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">today</i>
@@ -33,27 +33,34 @@
 					<span class="helper-text" data-error="Please enter a valid year e.g. 1966" data-success="Valid Entry"></span>
 				</div>
 			</div>
-			<!-- Genre Name -->
+			<!-- Genre -->
 			<div class="row">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">assignment</i>
-					<input id="genre_name" name="genre_name" type="text" class="validate" required>
-					<label id="genre_name_label" for="genre_name">Genre Name</label>
+					<select id="genre_name" name="genre_name" class="validate" required>
+                        <option value="" disabled selected>Choose a genre</option>
+                        {% for genre in genres %}                        
+                            <option value="{{genre._id}}">{{genre.name}}</option>                  
+                        {% endfor %}
+                        <option value="add-new-genre">Add a new genre</option>
+                    </select>
+					<label id="genre_name_label" for="genre_name">Genre</label>
 					<span class="helper-text" data-error="Please select a genre a e.g. Rock" data-success="Valid Entry"></span>
 				</div>
 			</div>
+
 			<!-- Lyrics link -->
 			<div class="row">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">assignment</i>
-					<input id="lyrics_link" name="lyrics_link" type="text" class="validate" required> 
+					<input id="lyrics_link" name="lyrics_link" type="text" class="validate" required>
 					<label id="lyrics_link_label" for="lyrics_link">Lyrics Link</label>
 					<span class="helper-text" data-error="Please enter a valid youtube link e.g. https://www.azlyrics.com/lyrics/rickastley/nevergonnagiveyouup.html" data-success="Valid Link"></span>
 				</div>
 			</div>
 			<!-- Video link -->
-			<div class="row"> 
-				<div class="input-field col s12"> 
+			<div class="row">
+				<div class="input-field col s12">
 					<i class="material-icons prefix">assignment</i>
 					<input id="video_link" name="video_link" type="text" class="validate" required>
 					<label id="video_link_label" for="video_link">Youtube Link</label>
@@ -78,6 +85,19 @@
 		</form>
 	</div>
 </div>
+{% endblock %}
+
+{% block new_genre %}
+<script>
+	$('#genre_name').change(function () {
+        var selectedValue = $('select').val()
+        // If the genre select box's value is equal to 'add-new-genre'
+        if (selectedValue == 'add-new-genre') {
+            // launch the addgenre.html page
+            window.location.href = "{{url_for('addgenre')}}";
+        }
+    });
+</script>
 {% endblock %}
 
 {% block validation_js %}

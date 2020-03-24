@@ -10,17 +10,27 @@
 			<div class="row">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">assignment</i>
-					<input id="genre_name" name="genre_name" type="text" class="validate">
+					<input id="genre_name" name="genre_name" type="text" class="validate" data-length="30" required>
 					<label for="genre_name">Genre Name</label>
+					<span id="genre_name_label" class="helper-text" data-error="Please select a genre a e.g. Rock" data-success="Valid Entry"></span>
 				</div>
 			</div>
 			<!-- Button -->
 			<div class="row">
-				<div class="input-field col s12">
-					<button class="btn-small waves-effect waves-light" type="submit" name="action">Add Genre
-                <i class="material-icons right">add_circle</i>
-            </button>
+				<!-- Add Track Button -->
+				<div class="input-field col s12 m6">
+					<button class="btn-small waves-effect waves-light" type="submit" name="action">
+                        Add Genre<i class="material-icons right">add_circle</i>
+                    </button>
 				</div>
+
+
+				<!-- Cancel Add Button -->
+				<div class="input-field col s12 m6">
+					<a href="{{url_for('addtrack')}}" class="btn-small waves-effect waves-light">Cancel
+						Submission<i class="material-icons right">cancel</i></a>
+				</div>
+
 			</div>
 		</form>
 	</div>
@@ -28,5 +38,5 @@
 {% endblock %}
 
 {% block validation_js %}
-<script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+<script src="{{ url_for('static', filename='js/genre-validation.js') }}"></script>
 {% endblock %}

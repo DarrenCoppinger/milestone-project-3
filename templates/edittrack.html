@@ -5,7 +5,8 @@
 	<h2>Edit Track</h2>
 
 	<div class="row">
-		<form action="{{url_for('update_track',track_id=track._id,page=page, sorting_order=sorting_order)}}" method="POST" class="col s12">
+		<form action="{{url_for('update_track',track_id=track._id, page=page, sorting_order=sorting_order, likes=likes, dislikes=dislikes)}}"
+			method="POST" class="col s12">
 
 			<!-- Track Name -->
 			<div class="row">
@@ -23,7 +24,7 @@
 					<label for="artist_name">Artist Name</label>
 				</div>
 			</div>
-			<!-- Date Picker -->
+			<!-- Year -->
 			<div class="row">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">today</i>
@@ -31,14 +32,27 @@
 					<label for="year">Year</label>
 				</div>
 			</div>
-			<!-- Genre Name -->
+
+			<!-- Genre -->
 			<div class="row">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">assignment</i>
-					<input id="genre_name" name="genre_name" type="text" class="validate" value="{{track.genre}}">
-					<label for="genre_name">Genre Name</label>
+					<select id="genre_name" name="genre_name" class="validate" required>
+                        <option value="" disabled>Choose a genre</option>
+                        {% for genre in genres %}
+                            {% if genre._id|string == track.genre|string %}             
+                                <option value="{{genre._id}}" selected>{{genre.name}}</option>      
+                            {% else %}
+                                <option value="{{genre._id}}">{{genre.name}}</option>  
+                            {% endif %}      
+                        {% endfor %}
+                        <option value="add-new-genre">Add a new genre</option>
+                    </select>
+					<label id="genre_name_label" for="genre_name">Genre</label>
+					<span class="helper-text" data-error="Please select a genre a e.g. Rock" data-success="Valid Entry"></span>
 				</div>
 			</div>
+
 			<!-- Lyrics link -->
 			<div class="row">
 				<div class="input-field col s12">
@@ -56,15 +70,7 @@
 				</div>
 			</div>
 
-			<!-- Button -->
-			<!-- <div class="row">
-				<div class="input-field col s12">
-					<button class="btn-small waves-effect waves-light" type="submit">Edit Track<i class="material-icons right">edit</i></button>
-				</div>
-			</div> -->
-
-
-            <!-- Buttons -->
+			<!-- Buttons -->
 			<div class="row">
 				<!-- Add Track Button -->
 
@@ -75,11 +81,26 @@
 
 				<!-- Cancel Add Button -->
 				<div class="input-field col s12 m6">
-					<a href="{{url_for('catalogue', page=page, sorting_order=sorting_order)}}" class="btn-small waves-effect waves-light" >Cancel Edit<i class="material-icons right">cancel</i></a>
+					<a href="{{url_for('catalogue', page=page, sorting_order=sorting_order)}}"
+						class="btn-small waves-effect waves-light">Cancel
+						Edit<i class="material-icons right">cancel</i></a>
 				</div>
 			</div>
 
 		</form>
 	</div>
 </div>
+{% endblock %}
+
+{% block new_genre %}
+<script>
+	$('#genre_name').change(function () {
+        var selectedValue = $('select').val()
+        // If the genre select box's value is equal to 'add-new-genre'
+        if (selectedValue == 'add-new-genre') {
+            // launch the addgenre.html page
+            window.location.href = "{{url_for('addgenre')}}";
+        }
+    });
+</script>
 {% endblock %}
