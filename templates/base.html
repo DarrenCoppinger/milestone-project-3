@@ -21,7 +21,7 @@
 	<header>
 		<nav>
 			<div class="nav-wrapper">
-				<a href="#!" class="brand-logo">Karaokean</a>
+				<a href="#!" class="brand-logo"> <img class="mr-3" src="{{ url_for('static', filename='images/icon-white-50.png') }}" alt=""> <span class="">Karaokean</span></a>
 				<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 				<ul class="right hide-on-med-and-down">
 					<li><a href="{{ url_for('index')}}">Home</a></li>
@@ -105,6 +105,7 @@
             $('select').formSelect();
             $('.modal').modal();
             $('input#track_name, input#artist_name,input#genre_name').characterCounter();
+            $('.parallax').parallax();
         });
 	</script>
 

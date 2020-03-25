@@ -1,15 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Do+Hyeon|East+Sea+Dokdo&display=swap');
+
+/* ------------ headings ------------ */
+
+.section-heading {
+    vertical-align: middle;
+    font-family: 'East Sea Dokdo', cursive;
+    font-weight: 400;
+    color:#ffffff;
+    font-size: 7rem;
+}
+
 /* ------------ home image ------------ */
 
 .background-image{
-    height: 100vh;
+    height: 120vh;
+    background-image: url("../images/background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+
+    /* height: 100vh; */
 
     /* background: url("{{ url_for('static', filename='images/background.jpg') }}") no-repeat top left scroll; */
     /* background: url("./images/background.jpg") no-repeat top left scroll; */
 
     /* this works */
-     background: url("https://images.squarespace-cdn.com/content/v1/5c742ebf77b903aae24633c0/1555274334268-PM0TDCZPGB86MNWAI0BL/ke17ZwdGBToddI8pDm48kCBllW3mxJGcM2njMWtAmMd7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0jAoOkRmPE63FUjiJOEKAz5U9gHNL46iYHU_few7p1U0Xt2TpVAeM6sT-baJRoygHA/DSC_0012.jpg?format=2500w") no-repeat bottom left scroll; 
+     /* background: url("../images/background.jpg") no-repeat bottom left scroll; 
  
-
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -17,7 +35,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    padding-bottom: 0
+    padding-bottom: 0 */
 }
 
 .collection {
@@ -48,6 +66,11 @@
 }
 /* ------------ navbar ------------ */
 
+.brand-logo {
+    margin: auto 15px;
+
+}
+
 .nav-wrapper {
     /* background-color: rosybrown; */
     /* background-color: rgb(234, 199, 255); */
@@ -59,7 +82,7 @@
 } 
 
 .container{
-    padding-top: 100px;
+    padding-top: 50px;
 }
 
 .video-container {
@@ -72,6 +95,14 @@
     align-items: center;
     margin: 0 0px 5px 0px;
     padding: 0;
+}
+
+.info-panel {
+    border-radius: 25px;
+    background: rgba(228, 135, 216, 1.0);
+    padding: 20px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+
 }
 
 .btn-small {
@@ -141,3 +172,12 @@
 
 /* ------------ add track ------------ */
 
+/* ------------ form styling ------------ */
+.form-panel {
+    color:#ffffff;
+    border-radius: 25px;
+    background: rgba(121, 172, 251, 0.75);
+    padding: 20px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+
+}

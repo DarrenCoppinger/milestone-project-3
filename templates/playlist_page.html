@@ -1,84 +1,85 @@
 {% extends "base.html" %} {% block content %}
+
 <div class="row">
-	<div class="col s12">
-		<h2>Playlist</h2>
-	</div>
+    <div class="col s12">
+        <h2>Playlist</h2>
+    </div>
 </div>
 
 <div class="row">
-	<div class="col s12 m8">
-		<div class="video-container">
-			<div id="player"></div>
-		</div>
-	</div>
-	<div class="col s12 m4">
-		<ul class="collection with-header upcoming-list">
-			<li class="collection-header">
-				<h5>Upcoming songs</h5>
-			</li>
-			<!-- <br> -->
+    <div class="col s12 m8">
+        <div class="video-container">
+            <div id="player"></div>
+        </div>
+    </div>
+    <div class="col s12 m4">
+        <ul class="collection with-header upcoming-list">
+            <li class="collection-header">
+                <h5>Upcoming songs</h5>
+            </li>
+            <!-- <br> -->
             {% for id, song in playlist_names %}
-                <li class="collection-item" id="{{id}}">
-                    {{loop.index}}. {{song}}
-                    <span class="current red-text"></span>
-                </li>
-			{% endfor %}
-		</ul>
-	</div>
+            <li class="collection-item" id="{{id}}">
+                {{loop.index}}. {{song}}
+                <span class="current red-text"></span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 
 
 <script type="text/javascript">
     // create playList array with each song ID
-    let playList = []
-    {% for id in playlist %}
-    console.log("{{id}}")
-        playList.push("{{id}}");
-    {% endfor %}
+let playList = []
+{% for id in playlist %}
+console.log("{{id}}")
+    playList.push("{{id}}");
+{% endfor %}
 
-    var tag = document.createElement('script');
-    tag.id = 'iframe-demo';
-    tag.src = 'https://www.youtube.com/iframe_api';
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+var tag = document.createElement('script');
+tag.id = 'iframe-demo';
+tag.src = 'https://www.youtube.com/iframe_api';
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    var player;
+var player;
 
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-            videoId: playList[0],
-            playerVars: {
-                'autoplay': 1,
-                'controls': 1
-            },
-            events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-            }
-        });
-    }
-
-    function onPlayerReady(event) {
-        document.getElementById('player').style.border = '5px solid #e487d8';
-    }
-
-    function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.ENDED) {
-            $("#" + playList[0]).hide(); // hide the first song from 'upcoming' list
-            playList.shift(); // remove first song from playList array
-            if (playList.length != 0) {
-                // play the next video in the playlist
-                player.loadVideoById(playList[0]);
-            } else {
-                // auto-call @app.route('/catalogue')
-                window.location.href = "/catalogue";
-            }
-        } else {
-            // show which song is currently playing
-            $("#" + playList[0] + " .current").text("(Currently Playing)");
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        videoId: playList[0],
+        playerVars: {
+            'autoplay': 1,
+            'controls': 1
+        },
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
         }
+    });
+}
+
+function onPlayerReady(event) {
+    document.getElementById('player').style.border = '5px solid #e487d8';
+}
+
+function onPlayerStateChange(event) {
+    if (event.data == YT.PlayerState.ENDED) {
+        $("#" + playList[0]).hide(); // hide the first song from 'upcoming' list
+        playList.shift(); // remove first song from playList array
+        if (playList.length != 0) {
+            // play the next video in the playlist
+            player.loadVideoById(playList[0]);
+        } else {
+            // auto-call @app.route('/catalogue')
+            window.location.href = "/catalogue";
+        }
+    } else {
+        // show which song is currently playing
+        $("#" + playList[0] + " .current").text("(Currently Playing)");
     }
+}
 </script>
 
 
-{% endblock %}
+	{% endblock %}

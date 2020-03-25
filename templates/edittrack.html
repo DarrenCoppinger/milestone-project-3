@@ -1,43 +1,45 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-	<h2>Edit Track</h2>
+<div class="background-image">
+	<div class="container">
+		<h2>Edit Track</h2>
 
-	<div class="row">
-		<form action="{{url_for('update_track',track_id=track._id, page=page, sorting_order=sorting_order, likes=likes, dislikes=dislikes)}}"
-			method="POST" class="col s12">
+		<div class="row">
+			<form
+				action="{{url_for('update_track',track_id=track._id, page=page, sorting_order=sorting_order, likes=likes, dislikes=dislikes)}}"
+				method="POST" class="col s12">
 
-			<!-- Track Name -->
-			<div class="row">
-				<div class="input-field col s12">
-					<i class="material-icons prefix">assignment</i>
-					<input id="track_name" name="track_name" type="text" class="validate" value="{{track.name}}">
-					<label for="track_name">Track Name</label>
+				<!-- Track Name -->
+				<div class="row">
+					<div class="input-field col s12">
+						<i class="material-icons prefix">assignment</i>
+						<input id="track_name" name="track_name" type="text" class="validate" value="{{track.name}}">
+						<label for="track_name">Track Name</label>
+					</div>
 				</div>
-			</div>
-			<!-- Artist Name -->
-			<div class="row">
-				<div class="input-field col s12">
-					<i class="material-icons prefix">assignment</i>
-					<input id="artist_name" name="artist_name" type="text" class="validate" value="{{track.artist}}">
-					<label for="artist_name">Artist Name</label>
+				<!-- Artist Name -->
+				<div class="row">
+					<div class="input-field col s12">
+						<i class="material-icons prefix">assignment</i>
+						<input id="artist_name" name="artist_name" type="text" class="validate" value="{{track.artist}}">
+						<label for="artist_name">Artist Name</label>
+					</div>
 				</div>
-			</div>
-			<!-- Year -->
-			<div class="row">
-				<div class="input-field col s12">
-					<i class="material-icons prefix">today</i>
-					<input id="year" name="year" type="text" class="validate" value="{{track.year}}">
-					<label for="year">Year</label>
+				<!-- Year -->
+				<div class="row">
+					<div class="input-field col s12">
+						<i class="material-icons prefix">today</i>
+						<input id="year" name="year" type="text" class="validate" value="{{track.year}}">
+						<label for="year">Year</label>
+					</div>
 				</div>
-			</div>
 
-			<!-- Genre -->
-			<div class="row">
-				<div class="input-field col s12">
-					<i class="material-icons prefix">assignment</i>
-					<select id="genre_name" name="genre_name" class="validate" required>
+				<!-- Genre -->
+				<div class="row">
+					<div class="input-field col s12">
+						<i class="material-icons prefix">assignment</i>
+						<select id="genre_name" name="genre_name" class="validate" required>
                         <option value="" disabled>Choose a genre</option>
                         {% for genre in genres %}
                             {% if genre._id|string == track.genre|string %}             
@@ -48,46 +50,47 @@
                         {% endfor %}
                         <option value="add-new-genre">Add a new genre</option>
                     </select>
-					<label id="genre_name_label" for="genre_name">Genre</label>
-					<span class="helper-text" data-error="Please select a genre a e.g. Rock" data-success="Valid Entry"></span>
-				</div>
-			</div>
-
-			<!-- Lyrics link -->
-			<div class="row">
-				<div class="input-field col s12">
-					<i class="material-icons prefix">assignment</i>
-					<input id="lyrics_link" name="lyrics_link" type="text" class="validate" value="{{track.lyrics}}">
-					<label for="lyrics_link">Lyrics Link</label>
-				</div>
-			</div>
-			<!-- Video link -->
-			<div class="row">
-				<div class="input-field col s12">
-					<i class="material-icons prefix">assignment</i>
-					<input id="video_link" name="video_link" type="text" class="validate" value="https://youtu.be/{{track.video}}">
-					<label for="video_link">Video Link</label>
-				</div>
-			</div>
-
-			<!-- Buttons -->
-			<div class="row">
-				<!-- Add Track Button -->
-
-				<div class="input-field col s12 m6">
-					<button class="btn-small waves-effect waves-light" type="submit" name="action">Edit Track<i class="material-icons right">playlist_add</i></button>
+						<label id="genre_name_label" for="genre_name">Genre</label>
+						<span class="helper-text" data-error="Please select a genre a e.g. Rock" data-success="Valid Entry"></span>
+					</div>
 				</div>
 
-
-				<!-- Cancel Add Button -->
-				<div class="input-field col s12 m6">
-					<a href="{{url_for('catalogue', page=page, sorting_order=sorting_order)}}"
-						class="btn-small waves-effect waves-light">Cancel
-						Edit<i class="material-icons right">cancel</i></a>
+				<!-- Lyrics link -->
+				<div class="row">
+					<div class="input-field col s12">
+						<i class="material-icons prefix">assignment</i>
+						<input id="lyrics_link" name="lyrics_link" type="text" class="validate" value="{{track.lyrics}}">
+						<label for="lyrics_link">Lyrics Link</label>
+					</div>
 				</div>
-			</div>
+				<!-- Video link -->
+				<div class="row">
+					<div class="input-field col s12">
+						<i class="material-icons prefix">assignment</i>
+						<input id="video_link" name="video_link" type="text" class="validate" value="https://youtu.be/{{track.video}}">
+						<label for="video_link">Video Link</label>
+					</div>
+				</div>
 
-		</form>
+				<!-- Buttons -->
+				<div class="row">
+					<!-- Add Track Button -->
+
+					<div class="input-field col s12 m6">
+						<button class="btn-small waves-effect waves-light" type="submit" name="action">Edit Track<i class="material-icons right">playlist_add</i></button>
+					</div>
+
+
+					<!-- Cancel Add Button -->
+					<div class="input-field col s12 m6">
+						<a href="{{url_for('catalogue', page=page, sorting_order=sorting_order)}}"
+							class="btn-small waves-effect waves-light">Cancel
+							Edit<i class="material-icons right">cancel</i></a>
+					</div>
+				</div>
+
+			</form>
+		</div>
 	</div>
 </div>
 {% endblock %}
