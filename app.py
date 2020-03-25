@@ -32,21 +32,41 @@ def index():
 def loginpage():
     return render_template("loginpage.html")
 
+# -------------------- LOGIN --------------------
 
 @app.route('/login', methods=['POST'])
 def login():
-    users = mongo.db.users
-    login_user = users.find_one({'name': request.form['username']})
+    """  """
 
-    if login_user:
-        if check_password_hash(login_user['password'], request.form['password']):
-            session['username'] = request.form['username']
-            """ Add empty list called playlist """
-            return redirect(url_for('index'))
+    if request.method == "POST":
+        users = mongo.db.users
+        login_user = users.find_one({'name': request.form['username']})
 
-        return 'Invalid username/password combination'
+        if login_user:
+            if check_password_hash(login_user['password'], request.form['password']):
+                session['username'] = request.form['username']
+                """ Add empty list called playlist """
+                return redirect(url_for('index'))
+
+            return 'Invalid username/password combination'
+    
+    else:
+        return redirect(url_for('login'))
+    
+    return render_template('register.html')
+
+# -------------------- LOGOUT --------------------
+
+@app.route('/logout')
+def logout():
+    """ Sign out a user by using session.pop() """
+    username = session["username"]
+    session.pop("username")
+    print("logged out")
+    return redirect(url_for("index"))
 
 
+# -------------------- REGISTER --------------------
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     if request.method == 'POST':
