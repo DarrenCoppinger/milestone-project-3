@@ -114,7 +114,7 @@ def edittrack(track_id, page, sorting_order):
     the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
     print('the_track'+ str(the_track))
     
-    the_track_id = ObjectId(the_track["_id"])
+    the_track_id = ObjectId(the_track["_id"]) # Need to remove this code
     print('the_track_id '+ str(the_track_id))
 
     likes = the_track["likes"]
@@ -135,13 +135,7 @@ def update_track(track_id, page, sorting_order, likes, dislikes):
         '(youtube|youtu|youtube-nocookie)\.(com|be)/'
         '(watch\?v=|embed/|v/|.+\?v=)?([^&=%\?]{11})')
 
-    youtube_regex_match = re.match(youtube_regex, video)
-
-    print('likes2 = '+str(likes))
-    print('dislikes2 = '+str(dislikes))
-    # likes = request.values.get("likes")
-    # dislikes = request.values.get("dislikes")
-    
+    youtube_regex_match = re.match(youtube_regex, video)   
 
     # if likes null:
     #     likes = int(0)
@@ -239,43 +233,22 @@ def catalogue():
         p_args = (page*limit_args)-limit_args
         all_track_page_args.append(p_args)
 
-    # starting_id = all_tracks.find().sort('_id', pymongo.ASCENDING)
-    # last_id = starting_id[page_args]['_id']
-
     # ---------- SORTING ORDER ----------
 
     if sorting_order == 2:
         # Date added Oldest Tracks
-        ##starting_id = all_tracks.find().sort('_id', pymongo.DESCENDING)
-        ##last_id = starting_id[page_args]['_id']
-        ##tracks = all_tracks.find({'_id': {'$lte': last_id}}).sort('_id', pymongo.DESCENDING).limit(limit_args)
-        tracks = all_tracks.find().sort(
-            '_id', pymongo.DESCENDING).skip(page_args).limit(limit_args)
+        tracks = all_tracks.find().sort('_id', pymongo.DESCENDING).skip(page_args).limit(limit_args)
 
     elif sorting_order == 3:
         # Most Liked Tracks
-        ##starting_id = all_tracks.find().sort('likes', pymongo.ASCENDING)
-        ##print('starting like'+ str(starting_id))
-        ##last_id = starting_id[page_args]['likes']
-        ##print('last like'+ str(last_id))
-        ##tracks = all_tracks.find({'likes': {'$gte': last_id}}).sort('likes', pymongo.ASCENDING).limit(limit_args)
         tracks = all_tracks.find().sort(
             'likes', pymongo.DESCENDING).skip(page_args).limit(limit_args)
     elif sorting_order == 4:
         # Most Disliked Tracks
-        starting_id = all_tracks.find().sort('dislikes', pymongo.ASCENDING)
-        last_id = starting_id[page_args]['dislikes']
-        tracks = all_tracks.find({'dislikes': {'$gte': last_id}}).sort(
-            'dislikes', pymongo.DESCENDING).limit(limit_args)
+        tracks = all_tracks.find().sort('dislikes', pymongo.DESCENDING).skip(page_args).limit(limit_args)
     else:
         # Date added Newest Tracks
-        ##starting_id = all_tracks.find().sort('_id', pymongo.ASCENDING)
-        ##last_id = starting_id[page_args]['_id']
-        # tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
-        # tracks = all_tracks.find({'_id': {'$gte': last_id}}).limit(limit_args)
-        ##tracks = all_tracks.find({'_id': {'$gte': last_id}}).sort('_id', pymongo.ASCENDING).limit(limit_args)
-        tracks = all_tracks.find().sort(
-            '_id', pymongo.ASCENDING).skip(page_args).limit(limit_args)
+        tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).skip(page_args).limit(limit_args)
 
     prev_url = page_args - limit_args
     next_url = page_args + limit_args
@@ -311,39 +284,74 @@ def sort_by_dislikes():
     return redirect(url_for('catalogue', sorting_order=sorting_order))
 
 
-@app.route('/playlist_page')
-def playlist_page():
-    """ Show Users Playlist"""
-    users = mongo.db.users
-    username = session['username']
-    the_user = users.find_one({"name": username})
-    playlist_ids = []
-    playlist_names = []
-    for ytv in the_user["playlist"]:
-        playlist_ids.append(ytv)
-    for pl_name in the_user["playlist_name"]:
-        playlist_names.append(pl_name)
-    # tracks = mongo.db.tracks.find()
-    # pl = the_user.playlist
-    # the_track = mongo.db.tracks.find_one({"video": pl})
-
-    return render_template('playlist_page.html', users=the_user, playlist=zip(playlist_ids, playlist_names))
-
-
 @app.route('/playlist_addto/<track_id>', methods=['POST'])
 def playlist_addto(track_id):
     """ Add the youtube_id of a video link to a list called playlist"""
     users = mongo.db.users
     username = session['username']
 
-    the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
-    ytv = the_track["video"]
-    pl_name = the_track["name"]
+    # the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
+
+    # ytv = the_track["video"] #working playlist code
+    # pl_name = the_track["name"]
+
+    # users.find_one_and_update(
+    #     {"name": username}, {"$push": {'playlist': ytv, 'playlist_name': pl_name}})
 
     users.find_one_and_update(
-        {"name": username}, {"$push": {'playlist': ytv, 'playlist_name': pl_name}})
+        {"name": username}, {"$push": {'playlist': track_id}})
 
     return redirect(url_for('catalogue'))
+
+
+@app.route('/playlist_page')
+def playlist_page():
+    """ Show Users Playlist"""
+    users = mongo.db.users
+    username = session['username']
+    the_user = users.find_one({"name": username})
+
+    playlist_ids = []
+    playlist_names = []
+
+    for track_id in the_user["playlist"]:
+        the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
+        ytv = the_track["video"]
+        print('video = '+str(ytv))
+        pl_name = the_track["name"]
+        print('name = '+str(pl_name))
+        playlist_ids.append(ytv)
+        playlist_names.append(pl_name)
+
+    # for ytv in the_user["playlist"]:
+    #      playlist_ytv_ids.append(ytv)
+
+    # playlist_ids = [] # working playlist code
+    # playlist_names = []
+    # for ytv in the_user["playlist"]:
+    #     playlist_ids.append(ytv)
+
+    # playlist_ids = [] # working playlist code
+    # playlist_names = []
+    # for ytv in the_user["playlist"]:
+    #     playlist_ids.append(ytv)
+    # for pl_name in the_user["playlist_name"]:
+    #     playlist_names.append(pl_name)
+
+    # the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
+
+    # ytv = the_track["video"]
+    # pl_name = the_track["name"]
+
+    # users.find_one_and_update(
+    #     {"name": username}, {"$push": {'playlist': ytv, 'playlist_name': pl_name}})
+
+    # tracks = mongo.db.tracks.find()
+    # pl = the_user.playlist
+    # the_track = mongo.db.tracks.find_one({"video": pl})
+
+    # return render_template('playlist_page.html', users=the_user, playlist=zip(playlist_ids, playlist_names))
+    return render_template('playlist_page.html', users=the_user, playlist=playlist_ids, playlist_names=zip(playlist_ids, playlist_names))
 
 
 @app.route('/playlist_delete/<track_id>', methods=['POST'])

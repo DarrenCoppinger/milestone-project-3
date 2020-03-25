@@ -58,7 +58,6 @@ form.addEventListener("submit", function (event) {
         $("#genre_name_label").addClass("active");
         $("#genre_name").prop("aria-invalid", "true");
         event.preventDefault();
-        $('select').material_select();
     }
 
     if (!lyrics.validity.valid) {
@@ -72,3 +71,29 @@ form.addEventListener("submit", function (event) {
     validateYouTubeUrl();
 }, false);
 
+ /* --------------------------------------------------------------
+        Custom validation on <select> if 'required' property.
+        This function is not supported by Materialize natively
+
+        Original code credit to: https://github.com/TravelTimN/ci-milestone04-dcd/
+    -------------------------------------------------------------- */
+
+    // $(".select-wrapper input.select-dropdown").on("focusin", function () {
+    //     $(this).parent(".select-wrapper").on("change", function () {
+    //         if ($(this).children("ul").children("li.selected:not(.disabled)").on("click", function () {})) {
+    //             $(this).children("input").css({"border-bottom": "1px solid #4caf50", "box-shadow": "0 1px 0 0 #4caf50"});
+    //         }
+    //     });
+    // }).on("click", function () {
+    //     if ($(this).parent(".select-wrapper").children("ul").children("li.selected:not(.disabled)").css("background-color") === "rgba(233, 30, 99, 0.15)") {
+    //         $(this).parent(".select-wrapper").children("input").css({"border-bottom": "1px solid #4caf50", "box-shadow": "0 1px 0 0 #4caf50"});
+    //     } else {
+    //         $(".select-wrapper input.select-dropdown").on("focusout", function () {
+    //             if ($(this).parent(".select-wrapper").children("select").prop("required")) {
+    //                 if ($(this).css("border-bottom") != "1px solid rgb(76, 175, 80)") {
+    //                     $(this).parent(".select-wrapper").children("input").css({"border-bottom": "1px solid #f44336", "box-shadow": "0 1px 0 0 #f44336"});
+    //                 }
+    //             }
+    //         });
+    //     }
+    // });

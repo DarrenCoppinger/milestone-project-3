@@ -17,7 +17,7 @@
 				<h5>Upcoming songs</h5>
 			</li>
 			<!-- <br> -->
-            {% for id, song in playlist %}
+            {% for id, song in playlist_names %}
                 <li class="collection-item" id="{{id}}">
                     {{loop.index}}. {{song}}
                     <span class="current red-text"></span>
@@ -31,8 +31,9 @@
 <script type="text/javascript">
     // create playList array with each song ID
     let playList = []
-    {% for song in users.playlist %}
-        playList.push("{{song}}");
+    {% for id in playlist %}
+    console.log("{{id}}")
+        playList.push("{{id}}");
     {% endfor %}
 
     var tag = document.createElement('script');
