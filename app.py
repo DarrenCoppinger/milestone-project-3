@@ -325,8 +325,8 @@ def playlist_addto(track_id):
     return redirect(url_for('catalogue'))
 
 
-@app.route('/playlist_page')
-def playlist_page():
+@app.route('/playlist_play')
+def playlist_play():
     
     if 'username' in session:
         """ Show Users Playlist"""
@@ -374,9 +374,9 @@ def playlist_page():
         # the_track = mongo.db.tracks.find_one({"video": pl})
 
         # return render_template('playlist_page.html', users=the_user, playlist=zip(playlist_ids, playlist_names))
-        return render_template('playlist_page.html', users=the_user, playlist=playlist_ids, playlist_names=zip(playlist_ids, playlist_names))
+        return render_template('playlist_play.html', users=the_user, playlist=playlist_ids, playlist_names=zip(playlist_ids, playlist_names))
     else:
-        return render_template('playlist_page.html')
+        return render_template('playlist_play.html')
 
 
 @app.route('/playlist_delete/<track_id>', methods=['POST'])

@@ -3,15 +3,13 @@
 {% block content %}
 <div class="background-image">
 	<div class="container">
-		<h2>Edit Track</h2>
-
 		<div class="row">
 			<form
 				action="{{url_for('update_track',track_id=track._id, page=page, sorting_order=sorting_order, likes=likes, dislikes=dislikes)}}"
-				method="POST" class="col s12">
-
+				method="POST" class="col s12 form-panel">
+		        <h1>Edit Track</h1>
 				<!-- Track Name -->
-				<div class="row">
+				<div class="row form-row">
 					<div class="input-field col s12">
 						<i class="material-icons prefix">assignment</i>
 						<input id="track_name" name="track_name" type="text" class="validate" value="{{track.name}}">
@@ -19,7 +17,7 @@
 					</div>
 				</div>
 				<!-- Artist Name -->
-				<div class="row">
+				<div class="row form-row">
 					<div class="input-field col s12">
 						<i class="material-icons prefix">assignment</i>
 						<input id="artist_name" name="artist_name" type="text" class="validate" value="{{track.artist}}">
@@ -27,7 +25,7 @@
 					</div>
 				</div>
 				<!-- Year -->
-				<div class="row">
+				<div class="row form-row">
 					<div class="input-field col s12">
 						<i class="material-icons prefix">today</i>
 						<input id="year" name="year" type="text" class="validate" value="{{track.year}}">
@@ -36,7 +34,7 @@
 				</div>
 
 				<!-- Genre -->
-				<div class="row">
+				<div class="row form-row">
 					<div class="input-field col s12">
 						<i class="material-icons prefix">assignment</i>
 						<select id="genre_name" name="genre_name" class="validate" required>
@@ -56,7 +54,7 @@
 				</div>
 
 				<!-- Lyrics link -->
-				<div class="row">
+				<div class="row form-row">
 					<div class="input-field col s12">
 						<i class="material-icons prefix">assignment</i>
 						<input id="lyrics_link" name="lyrics_link" type="text" class="validate" value="{{track.lyrics}}">
@@ -64,7 +62,7 @@
 					</div>
 				</div>
 				<!-- Video link -->
-				<div class="row">
+				<div class="row form-row">
 					<div class="input-field col s12">
 						<i class="material-icons prefix">assignment</i>
 						<input id="video_link" name="video_link" type="text" class="validate" value="https://youtu.be/{{track.video}}">
@@ -73,7 +71,7 @@
 				</div>
 
 				<!-- Buttons -->
-				<div class="row">
+				<div class="row form-row">
 					<!-- Add Track Button -->
 
 					<div class="input-field col s12 m6">

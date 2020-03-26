@@ -29,9 +29,9 @@
 					<li><a class="nav-text" href="{{ url_for('catalogue')}}">Catalogue</a></li>
 					<li><a class="nav-text" href="{{ url_for('addtrack')}}">Add Song</a></li>
 					<li><a class="nav-text" href="{{ url_for('genres')}}">Genres</a></li>
-					<li><a class="nav-text" href="{{ url_for('playlist_page') }}">Playlist</a></li>
+					<li><a class="nav-text" href="{{ url_for('playlist_play') }}">Playlist</a></li>
 					{%  if 'username' in session %}
-                        <li><a class="waves-effect waves-light btn-small nav-text" href="{{ url_for('loginpage') }}">Logged in as {{session['username']}}</a></li>
+                        <li><a class="waves-effect waves-light btn-small nav-text" href="{{ url_for('loginpage') }}">{{session['username']}}</a></li>
                         <li><a class="waves-effect waves-light btn-small nav-text" href="{{ url_for('logout') }}">Logout</a></li>
 					{% else %}
 					    <li><a class="waves-effect waves-light btn-small nav-text" href="{{ url_for('loginpage') }}">Login</a></li>
@@ -45,9 +45,9 @@
 			<li><a class="nav-text" href="{{ url_for('catalogue')}}">Catalogue</a></li>
 			<li><a class="nav-text" href="{{ url_for('addtrack')}}">Add Song</a></li>
 			<li><a class="nav-text" href="{{ url_for('genres')}}">Genres</a></li>
-			<li><a class="nav-text" href="{{ url_for('playlist_page')}}">Playlist</a></li>
+			<li><a class="nav-text" href="{{ url_for('playlist_play')}}">Playlist</a></li>
 			{%  if 'username' in session %}
-			<li><a class="waves-effect waves-light btn-small nav-text" href="{{ url_for('loginpage') }}">Logged in as
+			<li><a class="waves-effect waves-light btn-small nav-text" href="{{ url_for('loginpage') }}">
 					{{session['username']}}</a></li>
 			{% else %}
 			<li><a class="waves-effect waves-light btn-small nav-text" href="{{ url_for('loginpage') }}">Login</a></li>
