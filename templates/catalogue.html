@@ -20,8 +20,8 @@
 			</div>
 		</div>
 
-		{% if tracks_total > 0 %} {% for track in tracks %} <div class="row">
-			<div class="col s12 m8">
+		{% if tracks_total > 0 %} {% for track in tracks %} <div class="row ">
+			<div class="col s12 m8 info-row">
 				<div class="video-container">
 					<iframe src="{{'https://www.youtube.com/embed/' ~ track.video}}" frameborder="0"
 						allowfullscreen></iframe>
@@ -30,22 +30,22 @@
 			<div class="col s12 m4">
 				<div class="panel">
 					<div class="info-panel">
-						<div class="row">
+						<div class="row info-row">
 							<div class="col s12">
-								<p>Song title: {{track.name}} - {{track.year}}</p>
-								<p>Artist: {{track.artist}} </p>
+								<div>Song title: {{track.name}} - {{track.year}}</div>
+								<div>Artist: {{track.artist}} </div>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row info-row">
 							<div class="col s6">
-								<p>Likes: {{track.likes}}</p>
+								<div>Likes: {{track.likes}}</div>
 							</div>
 							<div class="col s6">
-								<p>Dislikes: {{track.dislikes}}</p>
+								<div>Dislikes: {{track.dislikes}}</div>
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row info-row">
 						<!-- ADD TO PLAYLIST button -->
 						<div class="col s12">
 							<button id="{{ track._id }}" class="waves-effect waves-light btn-small button1 btn-playlist-add">
@@ -54,7 +54,7 @@
 						</div>
 					</div>
 
-					<div class="row">
+					<div class="row info-row">
 						<!-- EDIT button -->
 						<div class="col-button col s6">
 							<a href="{{url_for('edittrack', track_id=track._id, page=page, sorting_order=sorting_order)}}"
@@ -70,7 +70,7 @@
 							</a>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row info-row">
 						<!-- LIKE button -->
 						<div class="col s6">
 							<button id="{{ track._id }}" class="waves-effect waves-light btn-small button2 btn-like">
