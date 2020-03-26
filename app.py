@@ -138,9 +138,9 @@ def edittrack(track_id, page, sorting_order):
     the_track_id = ObjectId(the_track["_id"]) # Need to remove this code
     print('the_track_id '+ str(the_track_id))
 
-    likes = the_track["likes"]
+    likes = int(the_track["likes"])
     print('likes = '+str(likes))
-    dislikes = the_track["dislikes"]
+    dislikes = int(the_track["dislikes"])
     print('dislikes = '+str(dislikes))
 
     genres = mongo.db.genre.find()
@@ -169,8 +169,8 @@ def update_track(track_id, page, sorting_order, likes, dislikes):
         'genre': request.form.get('genre_name'),
         'lyrics': request.form.get('lyrics_link'),
         'video': youtube_regex_match[6],
-        'likes': likes,
-        'dislikes': dislikes
+        'likes': int(likes),
+        'dislikes': int(dislikes)
     })
     return redirect(url_for('catalogue', page=page, sorting_order=sorting_order))
 
