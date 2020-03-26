@@ -241,7 +241,7 @@ def catalogue():
     page_args = int(args("page")) if args(
         "page") else 0  # page_args are initial set to 0
     sorting_order = int(args("sorting_order")) if args("sorting_order") else 1
-    print('sorting_order=' + str(sorting_order))
+    # print('sorting_order=' + str(sorting_order))
     limit_args = 5
 
     all_track_count = (range(1, (math.ceil(tracks_total / limit_args)) + 1))
@@ -310,6 +310,11 @@ def playlist_addto(track_id):
     """ Add the youtube_id of a video link to a list called playlist"""
     users = mongo.db.users
     username = session['username']
+
+    the_user = users.find_one({"name": username})
+    user_playlist = the_user["playlist"]
+    user_playlist_len = len(user_playlist)
+    print('user_playlist_len = ' +str(user_playlist_len))
 
     # the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
 
@@ -409,6 +414,7 @@ def playlist_delete(track_id):
     """ Delete the _id of a video link from the array playlist in the database"""
     users = mongo.db.users
     username = session['username']
+
     users.find_one_and_update({"name": username},
                               {"$pull": {'playlist': track_id}})
     return redirect(url_for('catalogue'))
