@@ -378,6 +378,31 @@ def playlist_play():
     else:
         return render_template('playlist_play.html')
 
+@app.route('/playlist_page')
+def playlist_page():
+    
+    if 'username' in session:
+        """ Show Users Playlist"""
+        username = session['username']
+        users = mongo.db.users
+        the_user = users.find_one({"name": username})
+
+        playlist_ids = []
+        playlist_names = []
+
+        for track_id in the_user["playlist"]:
+            the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
+            ytv = the_track["video"]
+            print('video = '+str(ytv))
+            pl_name = the_track["name"]
+            print('name = '+str(pl_name))
+            playlist_ids.append(ytv)
+            playlist_names.append(pl_name)
+
+        return render_template('playlist_page.html', users=the_user, playlist=playlist_ids, playlist_names=zip(playlist_ids, playlist_names))
+    else:
+        return render_template('playlist_page.html')
+
 
 @app.route('/playlist_delete/<track_id>', methods=['POST'])
 def playlist_delete(track_id):

@@ -30,8 +30,7 @@
 	</div>
 	<div class="row">
 		<div class="col s12 center-align">
-			<a id="skip-button" 
-				class="btn-large waves-effect waves-light">Skip<i class="material-icons right">skip_next</i></a>
+			<a id="skip-button" href="{{url_for('playlist_play')}}" class="btn-large waves-effect waves-light">Skip<i class="material-icons right">skip_next</i></a>
 		</div>
 	</div>
 
@@ -71,11 +70,11 @@ function onYouTubeIframeAPIReady() {
         videoId: playList[0],
         playerVars: {
             'autoplay': 1,
-            'controls': 1
+            'controls': 1,
+            playlist: 'US0jUNjFgUg, sKk-3wb9Djg, ex8xUxjI_Mo'
         },
         events: {
             'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
         }
     });
 }
@@ -86,35 +85,9 @@ function onPlayerReady(event) {
     document.getElementById('player').style.border = '5px solid #e487d8';
 }
 
-function onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.ENDED) {
-        $("#" + playList[0]).hide(); // hide the first song from 'upcoming' list
-        playList.shift(); // remove first song from playList array
-        if (playList.length != 0) {
-            // play the next video in the playlist
-            player.loadVideoById(playList[0]);
-        } else {
-            // auto-call @app.route('/catalogue')
-            window.location.href = "/catalogue";
-        }
-    } else {
-        // show which song is currently playing
-        $("#" + playList[0] + " .current").text("(Currently Playing)");
-    }
-}
-
 $('#skip-button').on('click', function () {
-    $("#" + playList[0]).hide(); // hide the first song from 'upcoming' list
-    playList.shift(); // remove first song from playList array
-    if (playList.length != 0) {
-        // play the next video in the playlist
-        player.loadVideoById(playList[0]);
-    } else {
-        // auto-call @app.route('/catalogue')
-        window.location.href = "/catalogue";
-    }
+    player.nextVideo();
 });
-
 </script>
 
 

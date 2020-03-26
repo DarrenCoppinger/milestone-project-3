@@ -10,6 +10,7 @@
     font-weight: 400;
     color:#ffffff;
     font-size: 7rem;
+    line-height: 1;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -134,6 +135,11 @@ h1, h2, h3, h4, h5, h6 {
     /* padding: 0 5px 0 5px; */
 }
 
+.btn-large {
+    background-color: #e487d8;
+    /* padding: 0 5px 0 5px; */
+}
+
 .row-button {
     width: 100%;
     align-items: center;
@@ -173,7 +179,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .upcoming-list {
     /* height: 300px; */
-    height: 50vh;
+    height: 400px;
     overflow: hidden;
     overflow-y: scroll;
 }
@@ -181,6 +187,7 @@ h1, h2, h3, h4, h5, h6 {
 .upcoming-list li:first-child {
     position: sticky;
     top: 0;
+    background-color: rgba(121, 172, 251, 1.0) !important;
 }
 
 /* ------------ footer ------------ */

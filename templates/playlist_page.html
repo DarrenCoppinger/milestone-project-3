@@ -1,36 +1,8 @@
 {% extends "base.html" %} {% block content %}
 <div class="background-image">
-	{%  if 'username' in session %}
-
-	<div class="row">
-		<div class="col s12">
-			<div class="section-heading">Playlist</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col s12 m8">
-			<div class="video-container">
-				<div id="player"></div>
-			</div>
-		</div>
-		<div class="col s12 m4">
-			<ul class="collection with-header upcoming-list">
-				<li class="collection-header">
-					<h3>Upcoming songs</h3>
-				</li>
-				<!-- <br> -->
-				{% for id, song in playlist_names %}
-				<li class="collection-item" id="{{id}}">
-					{{loop.index}}. {{song}}
-					<span class="current red-text"></span>
-				</li>
-				{% endfor %}
-			</ul>
-		</div>
-	</div>
-
-	{% else %}
 	<div class="container">
+		{%  if 'username' in session %}
+
 		<div class="row">
 			<div class="col s12">
 				<div class="section-heading">Playlist</div>
@@ -38,13 +10,48 @@
 		</div>
 		<div class="row">
 			<div class="col s12">
-				<p>To build your own playlist create your own account by signing up to our website</p>
-				<p><a class="waves-effect waves-light btn-small" href="{{ url_for('loginpage') }}">Login</a></p>
+				<ul class="collection with-header">
+					<li class="collection-header">
+						<h3>Your Playlist</h3>
+					</li>
+					<!-- <br> -->
+					{% for id, song in playlist_names %}
+					<li class="collection-item" id="{{id}}">
+						{{loop.index}}. {{song}}
+						<span class="current red-text"></span>
+						<a href="url_for('playlist_delete',trackid=id)" class="btn-small waves-effect waves-light right">Remove<i class="material-icons right">cancel</i></a>
+
+					</li>
+					{% endfor %}
+				</ul>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col s12 center-align">
+				<a href="{{url_for('playlist_play')}}" class="btn-large waves-effect waves-light">Play
+					Playlist<i class="material-icons right">play_circle_filled</i></a>
+			</div>
+		</div>
+
+
+		{% else %}
+		<div class="container">
+			<div class="row">
+				<div class="col s12">
+					<div class="section-heading">Playlist</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12">
+					<p>To build your own playlist create your own account by signing up to our website</p>
+					<p><a class="waves-effect waves-light btn-small" href="{{ url_for('loginpage') }}">Login</a></p>
+				</div>
+			</div>
+		</div>
+		{% endif %}
 	</div>
-	{% endif %}
 </div>
+
 <script type="text/javascript">
 	// create playList array with each song ID
 let playList = []
