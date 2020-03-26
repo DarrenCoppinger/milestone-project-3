@@ -34,26 +34,27 @@ def loginpage():
 
 # -------------------- LOGIN --------------------
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET','POST'])
 def login():
     """  """
-
     if request.method == "POST":
         users = mongo.db.users
         login_user = users.find_one({'name': request.form['username']})
-
+        """ Check that the username exists """
         if login_user:
             if check_password_hash(login_user['password'], request.form['password']):
+                """ If password correct create session variable username and redirect to index """
                 session['username'] = request.form['username']
-                """ Add empty list called playlist """
+                
                 return redirect(url_for('index'))
-
-            return 'Invalid username/password combination'
-    
-    else:
+            else:
+                """ Password was incorrect"""
+            return redirect(url_for('login'))
+        else:
+            """Username doesn't exist in database """
+            return redirect(url_for('login'))
         return redirect(url_for('login'))
-    
-    return render_template('register.html')
+    return render_template('loginpage.html')
 
 # -------------------- LOGOUT --------------------
 
@@ -326,52 +327,56 @@ def playlist_addto(track_id):
 
 @app.route('/playlist_page')
 def playlist_page():
-    """ Show Users Playlist"""
-    users = mongo.db.users
-    username = session['username']
-    the_user = users.find_one({"name": username})
+    
+    if 'username' in session:
+        """ Show Users Playlist"""
+        username = session['username']
+        users = mongo.db.users
+        the_user = users.find_one({"name": username})
 
-    playlist_ids = []
-    playlist_names = []
+        playlist_ids = []
+        playlist_names = []
 
-    for track_id in the_user["playlist"]:
-        the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
-        ytv = the_track["video"]
-        print('video = '+str(ytv))
-        pl_name = the_track["name"]
-        print('name = '+str(pl_name))
-        playlist_ids.append(ytv)
-        playlist_names.append(pl_name)
+        for track_id in the_user["playlist"]:
+            the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
+            ytv = the_track["video"]
+            print('video = '+str(ytv))
+            pl_name = the_track["name"]
+            print('name = '+str(pl_name))
+            playlist_ids.append(ytv)
+            playlist_names.append(pl_name)
 
-    # for ytv in the_user["playlist"]:
-    #      playlist_ytv_ids.append(ytv)
+        # for ytv in the_user["playlist"]:
+        #      playlist_ytv_ids.append(ytv)
 
-    # playlist_ids = [] # working playlist code
-    # playlist_names = []
-    # for ytv in the_user["playlist"]:
-    #     playlist_ids.append(ytv)
+        # playlist_ids = [] # working playlist code
+        # playlist_names = []
+        # for ytv in the_user["playlist"]:
+        #     playlist_ids.append(ytv)
 
-    # playlist_ids = [] # working playlist code
-    # playlist_names = []
-    # for ytv in the_user["playlist"]:
-    #     playlist_ids.append(ytv)
-    # for pl_name in the_user["playlist_name"]:
-    #     playlist_names.append(pl_name)
+        # playlist_ids = [] # working playlist code
+        # playlist_names = []
+        # for ytv in the_user["playlist"]:
+        #     playlist_ids.append(ytv)
+        # for pl_name in the_user["playlist_name"]:
+        #     playlist_names.append(pl_name)
 
-    # the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
+        # the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
 
-    # ytv = the_track["video"]
-    # pl_name = the_track["name"]
+        # ytv = the_track["video"]
+        # pl_name = the_track["name"]
 
-    # users.find_one_and_update(
-    #     {"name": username}, {"$push": {'playlist': ytv, 'playlist_name': pl_name}})
+        # users.find_one_and_update(
+        #     {"name": username}, {"$push": {'playlist': ytv, 'playlist_name': pl_name}})
 
-    # tracks = mongo.db.tracks.find()
-    # pl = the_user.playlist
-    # the_track = mongo.db.tracks.find_one({"video": pl})
+        # tracks = mongo.db.tracks.find()
+        # pl = the_user.playlist
+        # the_track = mongo.db.tracks.find_one({"video": pl})
 
-    # return render_template('playlist_page.html', users=the_user, playlist=zip(playlist_ids, playlist_names))
-    return render_template('playlist_page.html', users=the_user, playlist=playlist_ids, playlist_names=zip(playlist_ids, playlist_names))
+        # return render_template('playlist_page.html', users=the_user, playlist=zip(playlist_ids, playlist_names))
+        return render_template('playlist_page.html', users=the_user, playlist=playlist_ids, playlist_names=zip(playlist_ids, playlist_names))
+    else:
+        return render_template('playlist_page.html')
 
 
 @app.route('/playlist_delete/<track_id>', methods=['POST'])
