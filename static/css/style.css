@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Do+Hyeon|East+Sea+Dokdo|Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Do+Hyeon|East+Sea+Dokdo|Roboto:400,700&display=swap');
 /* ------------------------ fonts ------------------------ */
 
 /* ------------ headings fonts ------------ */
@@ -10,6 +10,13 @@
     color:#ffffff;
     font-size: 7rem;
     line-height: 1;
+}
+
+.song-title {
+    font-family: 'Do Hyeon', sans-serif;
+    font-weight: 400;
+    border-bottom: 1px solid #ffffff;
+    margin-bottom: 10px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -114,14 +121,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .info-panel {
-    border-radius: 25px;
+    border-radius: 2px;
     background: rgba(228, 135, 216, 1.0);
-    padding: 20px;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     color:#ffffff;
-    padding: 10px auto;
+    padding: 10px;
+    margin: 5px 0px;
     
 }
 
@@ -139,6 +146,9 @@ h1, h2, h3, h4, h5, h6 {
     /* padding: 0 5px 0 5px; */
 }
 
+.user-btn {
+}
+
 .row-button {
     width: 100%;
     align-items: center;
@@ -152,14 +162,14 @@ h1, h2, h3, h4, h5, h6 {
     /* width: 165px; */
     width: 100%;
     padding: 0;
-    margin: 10px 0px;
+    margin: 5px 0px;
 }
 
 .button2 {
     /* width: 80px; */
     width: 100%;
     padding: 0;
-    margin: 10px 0;
+    margin: 5px 0;
 }
 
 .button1 i {
@@ -168,6 +178,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .button2 i {
+    padding: 0 5px 0 5px;
+    margin: 0;
+}
+
+.sort-description {
+    vertical-align: middle;
+    text-align:center;
+    line-height: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-trigger i {
     padding: 0 5px 0 5px;
     margin: 0;
 }
