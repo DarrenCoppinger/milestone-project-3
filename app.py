@@ -77,7 +77,7 @@ def register():
         if existing_user is None:
             hashed_value = generate_password_hash(request.form['password'])
             users.insert(
-                {'name': request.form['username'], 'password': hashed_value, 'playlist': [], 'playlist_name': []})
+                {'name': request.form['username'], 'password': hashed_value, 'playlist': []})
             session['username'] = request.form['username']
             return redirect(url_for('index'))
 
@@ -157,10 +157,6 @@ def update_track(track_id, page, sorting_order, likes, dislikes):
         '(watch\?v=|embed/|v/|.+\?v=)?([^&=%\?]{11})')
 
     youtube_regex_match = re.match(youtube_regex, video)   
-
-    # if likes null:
-    #     likes = int(0)
-
     tracks.update({'_id': ObjectId(track_id)},
                   {
         'name': request.form.get('track_name'),
@@ -316,16 +312,16 @@ def playlist_addto(track_id):
     user_playlist_len = len(user_playlist)
     print('user_playlist_len = ' +str(user_playlist_len))
 
+    playlist_track_id = str(track_id + "_" + str(user_playlist_len))
+    print('playlist_track_id = ' +str(playlist_track_id))
     # the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
-
     # ytv = the_track["video"] #working playlist code
     # pl_name = the_track["name"]
-
     # users.find_one_and_update(
     #     {"name": username}, {"$push": {'playlist': ytv, 'playlist_name': pl_name}})
 
     users.find_one_and_update(
-        {"name": username}, {"$push": {'playlist': track_id}})
+        {"name": username}, {"$push": {'playlist': [user_playlist_len, track_id]}})
 
     return redirect(url_for('catalogue'))
 
@@ -340,46 +336,24 @@ def playlist_play():
         the_user = users.find_one({"name": username})
 
         playlist_ids = []
+        playlist_index = []
+        playlist_ytv = []
         playlist_names = []
 
-        for track_id in the_user["playlist"]:
+        for playlist_track_id, track_id in the_user["playlist"]:
             the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
             ytv = the_track["video"]
             print('video = '+str(ytv))
             pl_name = the_track["name"]
             print('name = '+str(pl_name))
-            playlist_ids.append(ytv)
+            
+            playlist_ids.append(track_id)
+            playlist_index.append(playlist_track_id)
+            playlist_ytv.append(ytv)
             playlist_names.append(pl_name)
 
-        # for ytv in the_user["playlist"]:
-        #      playlist_ytv_ids.append(ytv)
 
-        # playlist_ids = [] # working playlist code
-        # playlist_names = []
-        # for ytv in the_user["playlist"]:
-        #     playlist_ids.append(ytv)
-
-        # playlist_ids = [] # working playlist code
-        # playlist_names = []
-        # for ytv in the_user["playlist"]:
-        #     playlist_ids.append(ytv)
-        # for pl_name in the_user["playlist_name"]:
-        #     playlist_names.append(pl_name)
-
-        # the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
-
-        # ytv = the_track["video"]
-        # pl_name = the_track["name"]
-
-        # users.find_one_and_update(
-        #     {"name": username}, {"$push": {'playlist': ytv, 'playlist_name': pl_name}})
-
-        # tracks = mongo.db.tracks.find()
-        # pl = the_user.playlist
-        # the_track = mongo.db.tracks.find_one({"video": pl})
-
-        # return render_template('playlist_page.html', users=the_user, playlist=zip(playlist_ids, playlist_names))
-        return render_template('playlist_play.html', users=the_user, playlist=playlist_ids, playlist_names=zip(playlist_ids, playlist_names))
+        return render_template('playlist_play.html', users=the_user, playlist=playlist_ytv, playlist_names=zip(playlist_ids, playlist_names))
     else:
         return render_template('playlist_play.html')
 
@@ -393,31 +367,45 @@ def playlist_page():
         the_user = users.find_one({"name": username})
 
         playlist_ids = []
+        playlist_index = []
+        playlist_ytv = []
         playlist_names = []
 
-        for track_id in the_user["playlist"]:
+        playlist = the_user["playlist"]
+
+        for playlist_track_id, track_id in the_user["playlist"]:
+            print('track_id = ' + str(track_id))
             the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
             ytv = the_track["video"]
-            print('video = '+str(ytv))
+            # print('video = '+str(ytv))
             pl_name = the_track["name"]
-            print('name = '+str(pl_name))
-            playlist_ids.append(ytv)
+            # print('name = '+str(pl_name))
+            playlist_ids.append(track_id)
+            playlist_index.append(playlist_track_id)
+            
+            playlist_ytv.append(ytv)
             playlist_names.append(pl_name)
 
-        return render_template('playlist_page.html', users=the_user, playlist=playlist_ids, playlist_names=zip(playlist_ids, playlist_names))
+        return render_template('playlist_page.html', users=users, playlist=playlist, playlist_names=zip( playlist_index, playlist_ids, playlist_names))
     else:
         return render_template('playlist_page.html')
 
 
-@app.route('/playlist_delete/<track_id>', methods=['POST'])
-def playlist_delete(track_id):
+@app.route('/playlist_delete/<playlist_id>/<track_id>')
+def playlist_delete(playlist_id,track_id):
     """ Delete the _id of a video link from the array playlist in the database"""
     users = mongo.db.users
     username = session['username']
+    # print("Inside playlist_delete")
+
+    playlist_index = "playlist." + str(playlist_id)
+    # print("playlist_id = " + str(playlist_id))
+    # print("track_id = " + str(track_id))
 
     users.find_one_and_update({"name": username},
-                              {"$pull": {'playlist': track_id}})
-    return redirect(url_for('catalogue'))
+    {"$pull": {'playlist': { "$all":[int(playlist_id), track_id]} }})
+
+    return redirect(url_for('playlist_page'))
 
 
 @app.route('/about')

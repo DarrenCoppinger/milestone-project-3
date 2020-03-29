@@ -21,27 +21,18 @@
 	<header>
 		<nav>
 			<div class="nav-wrapper">
-				<a href="#!" class="brand-logo valign-wrapper">
-					<img class="logo" src="{{ url_for('static', filename='images/icon-white-50.png') }}" alt="microphone logo"><span class="title">Karaokean</span></a>
+				<a href="#!" class="brand-logo valign-wrapper"> <span class="hide-on-med-and-down"><img class="logo" src="{{ url_for('static', filename='images/icon-white-50.png') }}" alt="microphone logo"></span>
+                <span class="hide-on-large-only">
+					<img class="logo-m-s" src="{{ url_for('static', filename='images/icon-white-50.png') }}" alt="microphone logo"></span>Karaokean</a>
 				<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 				<ul class="right hide-on-med-and-down">
 					<li><a class="nav-text" href="{{ url_for('index')}}">Home</a></li>
 					<li><a class="nav-text" href="{{ url_for('catalogue')}}">Catalogue</a></li>
 					<li><a class="nav-text" href="{{ url_for('addtrack')}}">Add Song</a></li>
 					<li><a class="nav-text" href="{{ url_for('genres')}}">Genres</a></li>
-					<li><a class="nav-text" href="{{ url_for('playlist_play') }}">Playlist</a></li>
+					<li><a class="nav-text" href="{{ url_for('playlist_page') }}">Playlist</a></li>
 					{%  if 'username' in session %}
 					<li><a class="btn-flat nav-text teal lighten-2">{{session['username']}}</a></li>
-					<li><a class="waves-effect waves-light btn-small nav-text" href="{{ url_for('logout') }}">Logout</a>
-					</li>
-					{% else %}
-					<li><a class="waves-effect waves-light btn-small nav-text"
-							href="{{ url_for('loginpage') }}">Login</a></li>
-					{% endif %}
-				</ul>
-				<ul class="right hide-on-large-only">
-					{%  if 'username' in session %}
-					<li><a class="btn-small nav-text teal lighten-2">{{session['username']}}</a></li>
 					<li><a class="waves-effect waves-light btn-small nav-text" href="{{ url_for('logout') }}">Logout</a>
 					</li>
 					{% else %}
@@ -57,7 +48,14 @@
 			<li><a class="nav-text" href="{{ url_for('catalogue')}}">Catalogue</a></li>
 			<li><a class="nav-text" href="{{ url_for('addtrack')}}">Add Song</a></li>
 			<li><a class="nav-text" href="{{ url_for('genres')}}">Genres</a></li>
-			<li><a class="nav-text" href="{{ url_for('playlist_play')}}">Playlist</a></li>
+			<li><a class="nav-text" href="{{ url_for('playlist_page')}}">Playlist</a></li>
+			{%  if 'username' in session %}
+			<li><a class="btn-small nav-text teal lighten-2">{{session['username']}}</a></li>
+			<li><a class="waves-effect waves-light btn-small nav-text" href="{{ url_for('logout') }}">Logout</a>
+			</li>
+			{% else %}
+			<li><a class="waves-effect waves-light btn-small nav-text" href="{{ url_for('loginpage') }}">Login</a></li>
+			{% endif %}
 		</ul>
 	</header>
 

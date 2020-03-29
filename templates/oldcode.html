@@ -414,3 +414,47 @@ form.addEventListener("submit", function (event) {
                     <span class="current red-text"></span>
                 </li>
 			{% endfor %}
+
+    users.update({"name": username}, {"$unset" : {playlist_index : 1 }})
+    users.update({"name"}, {"$pull" : {playlist_index : "null" }})
+
+    users.find_one_and_update({"name": username},{"$pull": {'playlist': { "$in": [ playlist_id, index ] } }})
+
+    users.find_one_and_update(
+        {"name": username}, {"$push": {'playlist': [track_id, user_playlist_len]}})
+
+
+            # users.find_one_and_update({"name": username},{"$pull": {'playlist': [ playlist_id, index ] }})
+    # users.find_one_and_update({"name": username},{"$pull": {'playlist': playlist_id }})
+
+from playlist play
+            # for ytv in the_user["playlist"]:
+        #      playlist_ytv_ids.append(ytv)
+
+        # playlist_ids = [] # working playlist code
+        # playlist_names = []
+        # for ytv in the_user["playlist"]:
+        #     playlist_ids.append(ytv)
+
+        # playlist_ids = [] # working playlist code
+        # playlist_names = []
+        # for ytv in the_user["playlist"]:
+        #     playlist_ids.append(ytv)
+        # for pl_name in the_user["playlist_name"]:
+        #     playlist_names.append(pl_name)
+
+        # the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
+
+        # ytv = the_track["video"]
+        # pl_name = the_track["name"]
+
+        # users.find_one_and_update(
+        #     {"name": username}, {"$push": {'playlist': ytv, 'playlist_name': pl_name}})
+
+        # tracks = mongo.db.tracks.find()
+        # pl = the_user.playlist
+        # the_track = mongo.db.tracks.find_one({"video": pl})
+
+        # return render_template('playlist_page.html', users=the_user, playlist=zip(playlist_ids, playlist_names))
+
+        

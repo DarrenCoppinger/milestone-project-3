@@ -35,7 +35,7 @@
 					<!-- Genre -->
 					<div class="input-field col s12 m6">
 						<i class="material-icons prefix">assignment</i>
-						<select id="genre_name" name="genre_name" class="validate" required>
+						<select id="genre_name" name="genre_name" type="text" class="validate" required>
                         <option value="" disabled>Choose a genre</option>
                         {% for genre in genres %}
                             {% if genre._id|string == track.genre|string %}             
@@ -63,7 +63,7 @@
 				<div class="row form-row">
 					<div class="input-field col s12">
 						<i class="material-icons prefix">assignment</i>
-						<input id="video_link" name="video_link" type="text" class="validate" value="https://youtu.be/{{track.video}}">
+						<input id="video_link" name="video_link" type="text" class="validate" value="https://www.youtube.com/watch?v={{track.video}}">
 						<label for="video_link">Video Link</label>
 					</div>
 				</div>

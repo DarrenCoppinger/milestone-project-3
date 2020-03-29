@@ -15,12 +15,12 @@
 						<h3>Your Playlist</h3>
 					</li>
 					<!-- <br> -->
-					{% for id, song in playlist_names %}
-					<li class="collection-item" id="{{id}}">
-						{{loop.index}}. {{song}}
-						<span class="current red-text"></span>
-						<a href="url_for('playlist_delete',trackid=id)" class="btn-small waves-effect waves-light right">Remove<i class="material-icons right">cancel</i></a>
 
+					{% for idx, track_id, name in playlist_names %}
+					<li class="collection-item" id="{{idx}}">
+						{{loop.index}}. {{name}}
+						<span class="current red-text"></span>
+						<a href="{{url_for('playlist_delete', playlist_id=idx, track_id=track_id)}}" class="btn-small waves-effect waves-light right">Remove<i class="material-icons right">cancel</i></a>
 					</li>
 					{% endfor %}
 				</ul>

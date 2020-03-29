@@ -22,7 +22,6 @@
 h1, h2, h3, h4, h5, h6 {
     font-family: 'East Sea Dokdo', cursive;
     font-weight: 400;
-    color:#ffffff;
 }
 
 .info-heading {
@@ -81,15 +80,26 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
     color:#ffffff; 
     font-size: 3rem; 
-    margin: auto 15px;
 }
 
-.brand-logo>img {
+.logo {
+    margin: 5px 25px;
+}
+
+.logo-m-s {
+    margin: 0 8px;
+}
+
+nav.brand-logo {
+    display: inline-flex !important;
+}
+
+.brand-logo>span>img {
     vertical-align: middle;
 }
 
 .title{
-    text-align: center;
+ 
     padding: 5px;
 }
 
@@ -229,9 +239,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ------------ form styling ------------ */
 .form-panel {
-    color:#ffffff;
+    color:#000000;
     border-radius: 25px;
-    background: rgba(121, 172, 251, 0.75);
+    background: rgba(255, 255, 255, 0.75);
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
     margin: 20px auto;
 
@@ -247,7 +257,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .input-field>label {
-    color:#ffffff;
 }
 
 

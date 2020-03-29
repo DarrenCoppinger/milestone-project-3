@@ -19,9 +19,9 @@
 					<h3>Upcoming songs</h3>
 				</li>
 				<!-- <br> -->
-				{% for id, song in playlist_names %}
-				<li class="collection-item" id="{{id}}">
-					{{loop.index}}. {{song}}
+				{% for ytv, name in playlist_names %}
+				<li class="collection-item" id="{{ytv}}">
+					{{loop.index}}. {{name}}
 					<span class="current red-text"></span>
 				</li>
 				{% endfor %}
@@ -54,8 +54,8 @@
 <script type="text/javascript">
 	// create playList array with each song ID
 let playList = []
-{% for id in playlist %}
-    playList.push("{{id}}");
+{% for ytv in playlist %}
+    playList.push("{{ytv}}");
 {% endfor %}
 
 var tag = document.createElement('script');
@@ -86,7 +86,8 @@ function onPlayerReady(event) {
 
 function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.ENDED) {
-        $("#" + playList[0]).hide(); // hide the first song from 'upcoming' list
+        //  $("#" + playList[0]).hide(); // hide the first song from 'upcoming' list
+        $("#" + playList[0]).hide();
         playList.shift(); // remove first song from playList array
         if (playList.length != 0) {
             // play the next video in the playlist
