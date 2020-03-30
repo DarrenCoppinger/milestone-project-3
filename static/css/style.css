@@ -66,11 +66,14 @@ h1, h2, h3, h4, h5, h6 {
     color: #ffffff;
 }
 
-.about {
+.background {
     background-color: rgba(228, 135, 216, 0.75);
     color: #ffffff;
     border: 1px solid #e487d8;
     text-align: justify;
+    border-radius: 2px;
+    padding: 10px;
+    margin: 5px 0px;
 }
 
 .secondary-content {
@@ -207,11 +210,24 @@ nav.brand-logo {
     line-height: 20px;
     padding: 0;
     margin: 0;
+    color: #ffffff;
+}
+
+.sort-box {
+    background-color: rgba(228, 135, 216, 1.0);
+    color: #ffffff;
+    border: 1px solid #e487d8;
+    text-align: justify;
+    border-radius: 2px;
+    padding: 10px;
+    margin: 5px 0px;
+
 }
 
 .dropdown-trigger i {
     padding: 0 5px 0 5px;
     margin: 0;
+    color: #ffffff;
 }
 
 .video-container {

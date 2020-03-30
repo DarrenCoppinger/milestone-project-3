@@ -249,8 +249,8 @@ def catalogue():
     # ---------- SORTING ORDER ----------
 
     if sorting_order == 2:
-        # Date added Oldest Tracks
-        tracks = all_tracks.find().sort('_id', pymongo.DESCENDING).skip(page_args).limit(limit_args)
+        # Date added Newest Tracks
+        tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).skip(page_args).limit(limit_args)
 
     elif sorting_order == 3:
         # Most Liked Tracks
@@ -261,7 +261,7 @@ def catalogue():
         tracks = all_tracks.find().sort('dislikes', pymongo.DESCENDING).skip(page_args).limit(limit_args)
     else:
         # Date added Newest Tracks
-        tracks = all_tracks.find().sort('_id', pymongo.ASCENDING).skip(page_args).limit(limit_args)
+        tracks = all_tracks.find().sort('_id', pymongo.DESCENDING).skip(page_args).limit(limit_args)
 
     prev_url = page_args - limit_args
     next_url = page_args + limit_args
