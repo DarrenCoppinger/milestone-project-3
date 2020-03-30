@@ -93,7 +93,7 @@ function onPlayerStateChange(event) {
         //  $("#" + playList[0]).hide(); // hide the first song from 'upcoming' list
         $("#" + playListId[0]).hide();
         playList.shift(); // remove first song from playList array
-         playListId.shift(); // remove first song from playList array
+        playListId.shift(); // remove first id from playListId array
         // playListId.shift(); // remove first id from playListId array
         if (playList.length != 0) {
             // play the next video in the playlist
@@ -105,13 +105,13 @@ function onPlayerStateChange(event) {
     } else {
         // show which song is currently playing
         $("#" + playListId[0] + " .current").text("(Currently Playing)");
-        console.log(playListId[0])
     }
 }
 
 $('#skip-button').on('click', function () {
-    $("#" + playList[0]).hide(); // hide the first song from 'upcoming' list
+    $("#" + playListId[0]).hide(); // hide the first song from 'upcoming' list
     playList.shift(); // remove first song from playList array
+    playListId.shift(); // remove first id from playListId array
     if (playList.length != 0) {
         // play the next video in the playlist
         player.loadVideoById(playList[0]);
@@ -122,6 +122,5 @@ $('#skip-button').on('click', function () {
 });
 
 </script>
-
 
 {% endblock %}

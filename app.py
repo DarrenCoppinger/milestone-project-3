@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, url_for, session, redirect
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 # Import date and time library
-from datetime import datetime, timedelta
+from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from os import path
 if path.exists("env.py"):
@@ -22,9 +22,6 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def index():
-    # if 'username' in session:
-    #     message = session['username']
-    #     return render_template("index.html", message=message)
     all_tracks = mongo.db.tracks
     tracks = all_tracks.find().sort('likes', pymongo.DESCENDING).skip(0).limit(5)
     return render_template("index.html", tracks=tracks)
@@ -232,14 +229,11 @@ def update_genre(genre_id):
 def catalogue():
     all_tracks = mongo.db.tracks
     tracks_total = all_tracks.count()
-    # tracks = all_tracks.find()
-    # arg variables
     args = request.args.get
 
     page_args = int(args("page")) if args(
         "page") else 0  # page_args are initial set to 0
     sorting_order = int(args("sorting_order")) if args("sorting_order") else 1
-    # print('sorting_order=' + str(sorting_order))
     limit_args = 5
 
     all_track_count = (range(1, (math.ceil(tracks_total / limit_args)) + 1))
@@ -310,24 +304,9 @@ def playlist_addto(track_id):
     username = session['username']
 
     the_user = users.find_one({"name": username})
-    # user_playlist = the_user["playlist"]
-    # user_playlist_len = len(user_playlist)
-    
-    # print('user_playlist_len = ' +str(user_playlist_len))
 
     timestamp = datetime.now().strftime("%d-%m-%y-%H-%M-%S-%f")
-    print('timestamp = ' + timestamp)
 
-    # playlist_track_id = str(track_id + "_" + str(user_playlist_len))
-    # print('playlist_track_id = ' +str(playlist_track_id))
-    # the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
-    # ytv = the_track["video"] #working playlist code
-    # pl_name = the_track["name"]
-    # users.find_one_and_update(
-    #     {"name": username}, {"$push": {'playlist': ytv, 'playlist_name': pl_name}})
-
-    # users.find_one_and_update(
-    #     {"name": username}, {"$push": {'playlist': [user_playlist_len, track_id]}})
     users.find_one_and_update(
         {"name": username}, {"$push": {'playlist': [timestamp, track_id]}})
 
@@ -351,12 +330,9 @@ def playlist_page():
         playlist = the_user["playlist"]
 
         for playlist_id, track_id in the_user["playlist"]:
-            print('track_id = ' + str(track_id))
             the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
             ytv = the_track["video"]
-            # print('video = '+str(ytv))
             pl_name = the_track["name"]
-            # print('name = '+str(pl_name))
             playlist_ids.append(track_id)
             playlist_index.append(playlist_id)
             
@@ -385,9 +361,7 @@ def playlist_play():
         for playlist_id, track_id in the_user["playlist"]:
             the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
             ytv = the_track["video"]
-            print('video = '+str(ytv))
             pl_name = the_track["name"]
-            print('name = '+str(pl_name))
             
             playlist_ids.append(track_id)
             playlist_index.append(playlist_id)
@@ -405,11 +379,6 @@ def playlist_delete(playlist_id,track_id):
     """ Delete the _id of a video link from the array playlist in the database"""
     users = mongo.db.users
     username = session['username']
-    # print("Inside playlist_delete")
-
-    playlist_index = "playlist." + str(playlist_id)
-    # print("playlist_id = " + str(playlist_id))
-    # print("track_id = " + str(track_id))
 
     users.find_one_and_update({"name": username},
     {"$pull": {'playlist': { "$all":[playlist_id, track_id]} }})
@@ -425,11 +394,6 @@ def about():
 @app.route('/like/<track_id>', methods=['POST'])
 def like(track_id):
     tracks = mongo.db.tracks
-    # the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
-    # likes = the_track["likes"]
-    # print('likes=' + str(likes))
-    # tracks.update(
-    #     {"_id": ObjectId(track_id)}, {"$inc": {'likes': 1}})
     tracks.find_one_and_update(
         {"_id": ObjectId(track_id)}, {"$inc": {'likes': 1}})
 

@@ -5,8 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Document</title>
-
+	<title>Karaokean</title>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css">
@@ -14,14 +13,12 @@
 	<!-- jQuery script loaded in the head section as scripts inside block content section require it to be loaded first -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-
 </head>
-
 <body>
 	<header>
 		<nav>
 			<div class="nav-wrapper">
-				<a href="#!" class="brand-logo valign-wrapper"> <span class="hide-on-med-and-down"><img class="logo" src="{{ url_for('static', filename='images/icon-white-50.png') }}" alt="microphone logo"></span>
+				<a href="#!" class="brand-logo valign-wrapper"> <span class="hide-on-med-and-down"><img class="logo" src="{{ url_for('static', filename='images/icon-white.png') }}" alt="microphone logo"></span>
                 <span class="hide-on-large-only">
 					<img class="logo-m-s" src="{{ url_for('static', filename='images/icon-white.png') }}" alt="microphone logo"></span>Karaokean</a>
 				<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -50,7 +47,7 @@
 			<li><a class="nav-text" href="{{ url_for('genres')}}">Genres</a></li>
 			<li><a class="nav-text" href="{{ url_for('playlist_page')}}">Playlist</a></li>
 			{%  if 'username' in session %}
-			<li><a class="btn-small nav-text teal lighten-2">{{session['username']}}</a></li>
+			<li><a class="btn-flat nav-text teal lighten-2">{{session['username']}}</a></li>
 			<li><a class="waves-effect waves-light btn-small nav-text" href="{{ url_for('logout') }}">Logout</a>
 			</li>
 			{% else %}
@@ -58,15 +55,6 @@
 			{% endif %}
 		</ul>
 	</header>
-
-	<!-- {%  if 'username' in session %}
-	<div class="row">
-		<div class="col s12">
-			<p class="login">You are logged in as {{session['username']}}</p>
-			<p class="login">You are logged in as {{ message }}</p> 
-		</div>
-	</div>
-	{% endif %} -->
 
 	<!-- Main Content Block -->
 	<main>
@@ -78,23 +66,14 @@
 			<div class="row">
 				<div class="col s12 center-align">
 					<h5 class="white-text">Kareokan</h5>
-					<p class="grey-text text-lighten-4">A freely available catalogue of Karaoke videos available from
-						YouTube.Learn more about Karaokean <a class="grey-text text-lighten-3"
-							href="{{url_for('about')}}">here</a></p>
+					<p class="grey-text text-lighten-4">A freely available catalogue of Karaoke videos available from YouTube.</p>
 				</div>
-				<!-- <div class="col l4 offset-l2 s12">
-                <h5 class="white-text"> </h5>
-                <ul>
-                  <li>here</li>
-                </ul>
-              </div> -->
 			</div>
 		</div>
 		<div class="footer-copyright">
 			<div class="container">
 				<div class="row center-align">
 					© 2020 Darren Coppinger
-					<!-- <a class="grey-text text-lighten-4 right" href="#!">More Links</a> -->
 				</div>
 			</div>
 		</div>

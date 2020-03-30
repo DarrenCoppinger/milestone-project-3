@@ -41,33 +41,36 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-text {
-    font-family: 'East Sea Dokdo', cursive;
+    font-family: 'Do Hyeon', sans-serif;
     font-weight: 400;
     color:#ffffff; 
-    font-size: 2.0rem; 
+    font-size: 1.5rem; 
 }
 
 .collection {
     margin: 0;
-    border-color: #79acfb;
+    border: 1px solid #e487d8;
 }
 
 .collection-item {
-    /* background-color: #e487d8 !important;  */
-    background-color: rgba(121, 172, 251, 0.75) !important; 
+    /* background-color: #e487d8 !important;  background-color: #79acfb rgba(228, 135, 216, 0.75);*/
+
+    background-color: rgba(228, 135, 216, 0.75) !important; 
     color: #ffffff;
     line-height: 2.5rem !important;
     padding: 0;
 }
 
 .collection-header {
-    background-color: rgba(121, 172, 251, 0.75) !important; 
+    background-color:  rgba(228, 135, 216, 0.75) !important; 
     color: #ffffff;
 }
 
 .about {
     background-color: rgba(228, 135, 216, 0.75);
     color: #ffffff;
+    border: 1px solid #e487d8;
+    text-align: justify;
 }
 
 .secondary-content {
@@ -149,6 +152,12 @@ nav.brand-logo {
 .btn-small {
     background-color: #e487d8;
     /* padding: 0 5px 0 5px; */
+}
+
+.sidenav li>a.btn-flat {
+    color: #ffffff;
+    text-align: center;
+    letter-spacing: .5px;
 }
 
 .btn-large {
