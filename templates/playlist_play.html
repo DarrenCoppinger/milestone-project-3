@@ -19,8 +19,8 @@
 					<h3>Upcoming songs</h3>
 				</li>
 				<!-- <br> -->
-				{% for ytv, name in playlist_names %}
-				<li class="collection-item" id="{{ytv}}">
+				{% for ids, ytv, name in playlist_names %}
+				<li class="collection-item" id="{{ids}}">
 					{{loop.index}}. {{name}}
 					<span class="current red-text"></span>
 				</li>
@@ -54,8 +54,12 @@
 <script type="text/javascript">
 	// create playList array with each song ID
 let playList = []
+let playListId = []
 {% for ytv in playlist %}
     playList.push("{{ytv}}");
+{% endfor %}
+{% for ids in playlist_id %}
+    playListId.push("{{ids}}");
 {% endfor %}
 
 var tag = document.createElement('script');
@@ -87,8 +91,10 @@ function onPlayerReady(event) {
 function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.ENDED) {
         //  $("#" + playList[0]).hide(); // hide the first song from 'upcoming' list
-        $("#" + playList[0]).hide();
+        $("#" + playListId[0]).hide();
         playList.shift(); // remove first song from playList array
+         playListId.shift(); // remove first song from playList array
+        // playListId.shift(); // remove first id from playListId array
         if (playList.length != 0) {
             // play the next video in the playlist
             player.loadVideoById(playList[0]);
@@ -98,7 +104,8 @@ function onPlayerStateChange(event) {
         }
     } else {
         // show which song is currently playing
-        $("#" + playList[0] + " .current").text("(Currently Playing)");
+        $("#" + playListId[0] + " .current").text("(Currently Playing)");
+        console.log(playListId[0])
     }
 }
 
