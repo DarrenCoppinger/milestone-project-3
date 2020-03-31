@@ -7,18 +7,16 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col s12">
-				<div class="sort-box">
-                <span> Sorting Options |</span> 
-				<a class="dropdown-trigger" href="#"
-					data-target="dropdown"><span class="sort-description"></span><i class="material-icons">arrow_drop_down</i></a>
-				<ul id="dropdown" class="dropdown-content">
-					<li><a href="{{url_for('sort_by_newest')}}">Newest Tracks</a></li>
-					<li><a href="{{url_for('sort_by_oldest')}}">Oldest Tracks</a></li>
-					<li><a href="{{url_for('sort_by_likes')}}">Most Liked</a></li>
-					<li><a href="{{url_for('sort_by_dislikes')}}">Most Disliked</a></li>
-				</ul>
-                </div>
+			<div class="col s12 m6">
+				<div class="sort-box">Sort Order: <a class="dropdown-trigger" href="#"
+						data-target="dropdown"><span class="sort-description"></span><i class="material-icons">arrow_drop_down</i></a>
+					<ul id="dropdown" class="dropdown-content">
+						<li><a href="{{url_for('sort_by_newest')}}">Newest</a></li>
+						<li><a href="{{url_for('sort_by_oldest')}}">Oldest</a></li>
+						<li><a href="{{url_for('sort_by_likes')}}">Most Liked</a></li>
+						<li><a href="{{url_for('sort_by_dislikes')}}">Most Disliked</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 
@@ -35,15 +33,15 @@
 						<div class="row info-row">
 							<div class="col s12">
 								<div class="song-title">{{track.name}} ({{track.year}})</div>
-                                <div>by {{track.artist}}</div>
+								<div>by {{track.artist}}</div>
 							</div>
 						</div>
 						<div class="row info-row">
 							<div class="col s6">
-								<div>Likes: {{track.likes}}</div>
+								<div>Likes {{track.likes}}</div>
 							</div>
 							<div class="col s6">
-								<div>Dislikes: {{track.dislikes}}</div>
+								<div>Dislikes {{track.dislikes}}</div>
 							</div>
 						</div>
 					</div>
@@ -100,43 +98,35 @@
 
 		<!-- Pagination -->
 		<div class="row center-align">
-			<ul class="pagination">
-				<!-- Previous -->
+			<div class="col s12 m8 offset-m2 l6 offset-l3 pagination-container ">
+				<ul class="pagination">
+					<!-- Previous -->
+					<li {% if prev_url < 0 %} class="disabled" {% else %}
+						class="waves-effect waves-light blue accent-1" {% endif %}>
+						<a
+							href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=prev_url,sorting_order=sorting_order)}}">
+							<i class="material-icons">chevron_left</i>
+						</a>
+					</li>
+					<!-- page buttons -->
+					{% for track_page, track_page_args in all_track_pages_id %}
+					<li {% if track_page_args == page %} class="waves-effect waves-purple blue accent-1"
+						{%else%}class="waves-effect waves-purple" {% endif %}>
+						<a
+							href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=track_page_args,sorting_order=sorting_order)}}">{{ loop.index }}</a>
+					</li>
+					{% endfor %}
 
-				<li {% if prev_url < 0 %} class="disabled" {% else %} class="waves-effect waves-light purple accent-1"
-					{% endif %}>
-					<a
-						href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=prev_url,sorting_order=sorting_order)}}">
-						<i class="material-icons">chevron_left</i>
-					</a>
-				</li>
-
-				<!-- <li>
-            <a class="disabled" href="">
-                <i class="material-icons">chevron_left</i>
-            </a>
-        </li> -->
-
-				<!-- Page Number -->
-				<!-- {% if all_track_pages == 1 %} class="disabled" {% else %} class="waves-effect waves-purple blue accent-1"
-        {% endif %} -->
-				{% for track_page, track_page_args in all_track_pages_id %}
-				<li {% if track_page_args == page %} class="waves-effect waves-purple blue accent-1"
-					{%else%}class="waves-effect waves-purple" {% endif %}>
-					<a
-						href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=track_page_args,sorting_order=sorting_order)}}">{{ loop.index }}</a>
-				</li>
-				{% endfor %}
-
-				<!-- Next -->
-				<li {% if next_url > tracks_total %} class="disabled" {% else %}
-					class="waves-effect waves-light purple accent-1" {% endif %}>
-					<a
-						href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=next_url,sorting_order=sorting_order)}}">
-						<i class="material-icons">chevron_right</i>
-					</a>
-				</li>
-			</ul>
+					<!-- Next -->
+					<li {% if next_url > tracks_total %} class="disabled" {% else %}
+						class="waves-effect waves-light blue accent-1" {% endif %}>
+						<a
+							href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=next_url,sorting_order=sorting_order)}}">
+							<i class="material-icons">chevron_right</i>
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 	{% endblock %}
@@ -167,9 +157,9 @@
 
     // This solution was inspired by https://github.com/Code-Institute-Submissions/dhamma1991-milestone-project-3/blob/master/templates/tracks.html
     if ('{{ sorting_order }}' == 1) {
-            $('.dropdown-trigger .sort-description').text("Newest Tracks");
+            $('.dropdown-trigger .sort-description').text("Newest");
     } else if ('{{ sorting_order }}' == 2) {
-        $('.dropdown-trigger .sort-description').text("Oldest Tracks");
+        $('.dropdown-trigger .sort-description').text("Oldest");
     } else if ('{{ sorting_order }}' == 3) {
         $('.dropdown-trigger .sort-description').text("Most Liked");
     } else if ('{{ sorting_order }}' == 4) {
