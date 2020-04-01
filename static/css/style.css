@@ -62,7 +62,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .collection-header {
-    background-color:  rgba(228, 135, 216, 0.75) !important; 
+    background-color:  rgba(228, 135, 216, 0.75)!important; 
     color: #ffffff;
 }
 
@@ -162,6 +162,10 @@ nav.brand-logo {
     /* padding: 0 5px 0 5px; */
 }
 
+.btn-alt {
+    background-color:#79acfb;
+}
+
 .sidenav li>a.btn-flat {
     color: #ffffff;
     text-align: center;
@@ -231,7 +235,6 @@ nav.brand-logo {
     margin: 5px 0px;
     font-size: 1.5rem; 
 
-
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
     font-family: 'Roboto', sans-serif;
 }
@@ -257,7 +260,7 @@ nav.brand-logo {
 .upcoming-list li:first-child {
     position: sticky;
     top: 0;
-    background-color: rgba(121, 172, 251, 1.0) !important;
+    background-color:  rgba(228, 135, 216, 1.0)!important; 
 }
 
 /* ------------ footer ------------ */
@@ -347,3 +350,21 @@ body {
       /* margin:0;
       padding: 0; */
   }
+
+  .genre-text {
+    position: relative;
+    min-height: 18px;
+    display: block;
+    font-size: 12px;
+    margin-left: 3rem;
+    width: 92%;
+    width: calc(100% - 3rem);
+  }
+
+.red-text {
+    color: #F44336;
+}
+
+.green-text {
+    color: #4caf50;
+}

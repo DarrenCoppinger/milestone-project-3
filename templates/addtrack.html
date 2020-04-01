@@ -43,7 +43,8 @@
                         <option value="add-new-genre">Add a new genre</option>
                     </select>
 						<label id="genre_name_label" for="genre_name">Genre</label>
-                        <span id="genre-helper-text" class="helper-text hide" data-error="Please select a genre a e.g. Rock" data-success="Valid Entry"></span>
+						<span id="genre-helper-text-valid" class="genre-text green-text hide">Valid Entry</span>
+						<span id="genre-helper-text-invalid" class="genre-text red-text hide" >Please select a genre e.g. Rock</span>
 					</div>
 				</div>
 
@@ -98,9 +99,7 @@
             window.location.href = "{{url_for('addgenre')}}";
         }
     });
-    $('input.select-dropdown.dropdown-trigger').on("click", function () {
-        $("input.select-dropdown.dropdown-trigger").css({"border-bottom": "1px solid #F44336", "color": "#F44336", "box-shadow": "0 1px 0 0 #F44336"});
-    });
+
 </script>
 {% endblock %}
 
@@ -108,4 +107,4 @@
 <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
 {% endblock %}
 
-						<span class="helper-text" data-error="Please select a genre a e.g. Rock" data-success="Valid Entry"></span>
+<span class="helper-text" data-error="Please select a genre a e.g. Rock" data-success="Valid Entry"></span>

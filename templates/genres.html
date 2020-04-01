@@ -12,7 +12,7 @@
 					{% for genre in genres %}
 					<li class="collection-item">
 						{{genre.name}}
-						<a href="{{url_for('editgenre', genre_id=genre._id)}}" class="btn-small right">
+						<a href="{{url_for('editgenre', genre_id=genre._id)}}" class="btn-small btn-alt right">
 							Edit<i class="material-icons right">edit</i>
 						</a>
 					</li>
@@ -22,8 +22,8 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col s12">
-            <a href="{{url_for('addgenre')}}" class="btn-small right" >Add New Genre<i class="material-icons right">add_circle</i></a>
+			<div class="col s12 center-align">
+            <a href="{{url_for('addgenre')}}" class="btn-large" >Add New Genre<i class="material-icons right">add_circle</i></a>
 			</div>
 		</div>
 	</div>

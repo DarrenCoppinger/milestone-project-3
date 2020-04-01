@@ -2,9 +2,9 @@
 
 {% block content %}
 <div class="container">
-	<h2>Edit Genre</h2>
 	<div class="row">
 		<form action="{{url_for('update_genre',genre_id=genre._id)}}" method="POST" class="col s12 form-panel" novalidate>
+        <h2>Edit Genre</h2>
 			<!-- Genre Name -->
 			<div class="row form-row">
 				<div class="input-field col s12">
@@ -16,14 +16,14 @@
 			<!-- Buttons -->
 			<div class="row">
             <!-- Edit Button -->
-				<div class="input-field col s12 m6">
+				<div class="input-field col s12 m6 center-align">
 					<button class="btn-small waves-effect waves-light" type="submit" name="action">
                         Edit Genre<i class="material-icons right">edit</i>
                     </button>
 				</div>
 
 				<!-- Cancel Add Button -->
-				<div class="input-field col s12 m6">
+				<div class="input-field col s12 m6 center-align">
 					<a href="{{url_for('genres')}}"
 						class="btn-small waves-effect waves-light">Cancel
 						Edit<i class="material-icons right">cancel</i></a>
