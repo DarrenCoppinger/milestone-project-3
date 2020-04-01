@@ -9,7 +9,7 @@
 				<!-- Track Name -->
 				<div class="row form-row">
 					<div class="input-field col s12">
-						<i class="material-icons prefix">assignment</i>
+						<i class="material-icons prefix">audiotrack</i>
 						<input id="track_name" name="track_name" type="text" class="validate" data-length="125" required>
 						<label id="track_name_label" for="track_name">Track Name</label>
 						<span class="helper-text" data-error="Please enter the name of the track" data-success="Valid Entry"></span>
@@ -18,7 +18,7 @@
 				<!-- Artist Name -->
 				<div class="row form-row">
 					<div class="input-field col s12">
-						<i class="material-icons prefix">assignment</i>
+						<i class="material-icons prefix">person</i>
 						<input id="artist_name" name="artist_name" type="text" class="validate" data-length="30" required>
 						<label id="artist_name_label" for="artist_name">Artist Name</label>
 						<span class="helper-text" data-error="Please enter the Artist name" data-success="Valid Entry"></span>
@@ -34,7 +34,7 @@
 					</div>
 					<!-- Genre -->
 					<div class="input-field col s12 m6">
-						<i class="material-icons prefix">assignment</i>
+						<i class="material-icons prefix">surround_sound</i>
 						<select id="genre_name" name="genre_name" type="text" class="validate" required="required">
                         <option value="" disabled selected>Choose a genre</option>
                         {% for genre in genres %}                        
@@ -43,14 +43,14 @@
                         <option value="add-new-genre">Add a new genre</option>
                     </select>
 						<label id="genre_name_label" for="genre_name">Genre</label>
-						<span class="helper-text" data-error="Please select a genre a e.g. Rock" data-success="Valid Entry"></span>
+                        <span id="genre-helper-text" class="helper-text hide" data-error="Please select a genre a e.g. Rock" data-success="Valid Entry"></span>
 					</div>
 				</div>
 
 				<!-- Lyrics link -->
 				<div class="row form-row">
 					<div class="input-field col s12">
-						<i class="material-icons prefix">assignment</i>
+						<i class="material-icons prefix">speaker_notes</i>
 						<input id="lyrics_link" name="lyrics_link" type="text" class="validate" required>
 						<label id="lyrics_link_label" for="lyrics_link">Lyrics Link</label>
 						<span class="helper-text" data-error="Please enter a valid link e.g. www.azlyrics.com/lyrics/rickastley/nevergonnagiveyouup.html" data-success="Valid Link"></span>
@@ -60,7 +60,7 @@
 				<!-- Video link -->
 				<div class="row form-row">
 					<div class="input-field col s12">
-						<i class="material-icons prefix">assignment</i>
+						<i class="material-icons prefix">music_video</i>
 						<input id="video_link" name="video_link" type="text" class="validate" required>
 						<label id="video_link_label" for="video_link">Youtube Link</label>
 						<span class="helper-text" data-error="Please enter a valid youtube link e.g. 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' or 'https://youtu.be/dQw4w9WgXcQ'" data-success="Valid Link"></span>
@@ -71,13 +71,13 @@
 				<div class="row form-row">
 					<!-- Add Track Button -->
 
-					<div class="input-field col s12 m6 center-align">
+					<div class="col s12 m6 center-align">
 						<button id="add-track" class="btn-small waves-effect waves-light" type="submit" name="action">Add Track<i class="material-icons right">add_circle</i></button>
 					</div>
 
 
 					<!-- Cancel Add Button -->
-					<div class="input-field col s12 m6 center-align">
+					<div class="col s12 m6 center-align">
 						<a href="{{url_for('catalogue')}}" class="btn-small waves-effect waves-light">Cancel
 							Submission<i class="material-icons right">cancel</i></a>
 					</div>
@@ -98,10 +98,14 @@
             window.location.href = "{{url_for('addgenre')}}";
         }
     });
-
+    $('input.select-dropdown.dropdown-trigger').on("click", function () {
+        $("input.select-dropdown.dropdown-trigger").css({"border-bottom": "1px solid #F44336", "color": "#F44336", "box-shadow": "0 1px 0 0 #F44336"});
+    });
 </script>
 {% endblock %}
 
 {% block validation_js %}
 <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
 {% endblock %}
+
+						<span class="helper-text" data-error="Please select a genre a e.g. Rock" data-success="Valid Entry"></span>

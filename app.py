@@ -132,30 +132,25 @@ def insert_track():
 @app.route('/edittrack/<track_id>/<page>/<sorting_order>')
 def edittrack(track_id, page, sorting_order):
     the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
-    print('the_track'+ str(the_track))
-    
-    the_track_id = ObjectId(the_track["_id"]) # Need to remove this code
-    print('the_track_id '+ str(the_track_id))
 
     likes = int(the_track["likes"])
-    print('likes = '+str(likes))
     dislikes = int(the_track["dislikes"])
-    print('dislikes = '+str(dislikes))
-
     genres = mongo.db.genre.find()
-    return render_template('edittrack.html', track=the_track, track_id=the_track_id, genres=genres, page=page, sorting_order=sorting_order, likes=likes, dislikes=dislikes)
+    return render_template('edittrack.html', track=the_track, genres=genres, page=page, sorting_order=sorting_order, likes=likes, dislikes=dislikes)
 
 
 @app.route('/update_track/<track_id>/<page>/<sorting_order>/<likes>/<dislikes>', methods=['POST'])
 def update_track(track_id, page, sorting_order, likes, dislikes):
     tracks = mongo.db.tracks
     video = request.form.get('video_link')
+    print(video)
     youtube_regex = (
         r'(https?://)?(www\.)?'
         '(youtube|youtu|youtube-nocookie)\.(com|be)/'
         '(watch\?v=|embed/|v/|.+\?v=)?([^&=%\?]{11})')
 
     youtube_regex_match = re.match(youtube_regex, video)   
+    
     tracks.update({'_id': ObjectId(track_id)},
                   {
         'name': request.form.get('track_name'),
