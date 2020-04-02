@@ -260,6 +260,7 @@ nav.brand-logo {
     height: 400px;
     overflow: hidden;
     overflow-y: scroll;
+    border: none;
 }
 
 .upcoming-list li:first-child {

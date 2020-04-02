@@ -390,12 +390,6 @@ def playlist_delete(playlist_id,track_id):
 
     return redirect(url_for('playlist_page'))
 
-
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
-
 @app.route('/like/<track_id>', methods=['POST'])
 def like(track_id):
     tracks = mongo.db.tracks

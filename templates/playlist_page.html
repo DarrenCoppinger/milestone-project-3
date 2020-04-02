@@ -21,8 +21,7 @@
                             {% for idx, track_id, name in playlist_names %}
                             <li class="collection-item" id="{{idx}}">
                                 {{loop.index}}. {{name}}
-                                <span class="current red-text"></span>
-                                <a href="{{url_for('playlist_delete', playlist_id=idx, track_id=track_id)}}" class="btn-small btn-alt waves-effect waves-light right">Remove<i class="material-icons right">cancel</i></a>
+                                <a href="{{url_for('playlist_delete', playlist_id=idx, track_id=track_id)}}" class="btn-small btn-alt waves-effect waves-light right"><span class="hide-on-small-only">Remove<i class="material-icons right">cancel</i></span><i class="material-icons show-on-medium-and-up">cancel</i></a> 
                             </li>
                             {% endfor %}
                         </ul>
