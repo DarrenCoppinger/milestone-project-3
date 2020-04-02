@@ -25,10 +25,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .info-heading {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Do Hyeon', sans-serif;
     font-weight: 400;
     color:#ffffff; 
-    font-size: 1.5rem; 
+    font-size: 2rem;
+    margin-top: 2rem; 
 }
 
 /* ------------ nav bar fonts ------------ */
@@ -74,6 +75,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 2px;
     padding: 10px;
     margin: 0;
+    font-size: 1.5rem; 
 }
 
 .secondary-content {
@@ -174,7 +176,10 @@ nav.brand-logo {
 
 .btn-large {
     background-color: #e487d8;
-    /* padding: 0 5px 0 5px; */
+}
+
+.btn-large-alt {
+    background-color: #79acfb;
 }
 
 .user-btn {
