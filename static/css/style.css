@@ -73,7 +73,7 @@ h1, h2, h3, h4, h5, h6 {
     text-align: justify;
     border-radius: 2px;
     padding: 10px;
-    margin: 5px 0px;
+    margin: 0;
 }
 
 .secondary-content {
@@ -367,4 +367,32 @@ body {
 
 .green-text {
     color: #4caf50;
+}
+
+/* ------------------------ Flash messages ------------------------ */
+/* Original code credit to for styling of the flash messages: 
+https://github.com/TravelTimN/ci-milestone04-dcd/ */
+#flashToast {
+    visibility: hidden;
+    width: 100%;
+    padding: 2em 1em;
+    position: fixed;
+    z-index: 100;
+    top: 4em;
+    font-size: 1.5em;
+}
+
+#flashToast.show {
+    visibility: visible;
+    animation: flashToast-on 0.5s, flashToast-off 0.5s 3.5s;
+}
+
+@keyframes flashToast-on {
+    from {top: 0; opacity: 0;}
+    to {top: 4em; opacity: 1;}
+}
+
+@keyframes flashToast-off {
+    from {top: 4em; opacity: 1;}
+    to {top: 0; opacity: 0;}
 }

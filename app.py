@@ -1,7 +1,7 @@
 import os
 import re
 import math
-from flask import Flask, render_template, request, url_for, session, redirect
+from flask import Flask, render_template, request, url_for, flash, session, redirect
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 # Import date and time library
@@ -44,14 +44,19 @@ def login():
             if check_password_hash(login_user['password'], request.form['password']):
                 """ If password correct create session variable username and redirect to index """
                 session['username'] = request.form['username']
-                
+                username = session["username"]
+                flash("Kon'nichiwa " + username +  "!")                
                 return redirect(url_for('index'))
             else:
                 """ Password was incorrect"""
+                flash("Password was incorrect")
             return redirect(url_for('login'))
         else:
             """Username doesn't exist in database """
+            flash("Username doesn't exist")
             return redirect(url_for('login'))
+
+        flash("Username doesn't exist")   
         return redirect(url_for('login'))
     return render_template('loginpage.html')
 
@@ -61,6 +66,7 @@ def login():
 def logout():
     """ Sign out a user by using session.pop() """
     username = session["username"]
+    flash("Sayōnara " + username)
     session.pop("username")
     print("logged out")
     return redirect(url_for("index"))
@@ -78,10 +84,14 @@ def register():
             users.insert(
                 {'name': request.form['username'], 'password': hashed_value, 'playlist': []})
             session['username'] = request.form['username']
+            username = session['username']
+            flash("Welcome to Karaokean" + username + "!")
             return redirect(url_for('index'))
 
-        return 'That Username already exists'
-
+        username = request.form['username']
+        flash("Username " + username + " already exists")
+        return redirect(url_for('register'))
+    
     return render_template('register.html')
 
 
