@@ -30,7 +30,7 @@
 	</div>
 	<div class="row">
 		<div class="col s12 center-align">
-			<a id="skip-button" 
+			<a id="skip-button"
 				class="btn-large waves-effect waves-light">Skip<i class="material-icons right">skip_next</i></a>
 		</div>
 	</div>
@@ -99,8 +99,13 @@ function onPlayerStateChange(event) {
             // play the next video in the playlist
             player.loadVideoById(playList[0]);
         } else {
-            // auto-call @app.route('/catalogue')
-            window.location.href = "/catalogue";
+            // auto-call @app.route('/playlist_page')
+            $("#flashToast").slideDown(function() {
+                setTimeout(function() {
+                    $("#flashToast").slideUp();
+                }, 5000);
+            });
+            window.location.href = "/playlist_page";
         }
     } else {
         // show which song is currently playing
@@ -116,11 +121,10 @@ $('#skip-button').on('click', function () {
         // play the next video in the playlist
         player.loadVideoById(playList[0]);
     } else {
-        // auto-call @app.route('/catalogue')
-        window.location.href = "/catalogue";
+        // auto-call @app.route('/playlist_page')
+        window.location.href = "/playlist_page";
     }
 });
-
 </script>
 
 {% endblock %}

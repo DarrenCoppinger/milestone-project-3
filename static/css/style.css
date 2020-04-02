@@ -376,7 +376,7 @@ body {
 }
 
 /* ------------------------ Flash messages ------------------------ */
-/* Original code credit to for styling of the flash messages: 
+/* Original code credit to for styling and animating the flash messages: 
 https://github.com/TravelTimN/ci-milestone04-dcd/ */
 #flashToast {
     visibility: hidden;

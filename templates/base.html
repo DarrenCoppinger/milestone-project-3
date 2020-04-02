@@ -105,9 +105,7 @@
             $('.sidenav').sidenav();
             $('.dropdown-trigger').dropdown();
             $('select').formSelect();
-            $('.modal').modal();
             $('input#track_name, input#artist_name,input#genre_name').characterCounter();
-            $('.parallax').parallax();
         });
 	</script>
 
@@ -128,8 +126,8 @@
 	{% block youtube_api %}
 	{% endblock %}
 
-	<!-- JS block -->
-	{% block js %}
+	<!-- Playlist and sorting scripts -->
+	{% block playlist %}
 	{% endblock %}
 </body>
 

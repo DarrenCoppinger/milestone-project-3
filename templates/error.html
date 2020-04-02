@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Page Not Found{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col s12">
+			<div class="section-heading">Page Not Found</div>
+			<div class="background">
+				<p>What you were looking for is just not there. Return to the home page by clicking the button below</p>
+				<div class="center-align">
+					<p><a class="btn-large btn-large-alt" href="{{ url_for('index') }}">Homepage</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

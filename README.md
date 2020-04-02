@@ -1,35 +1,59 @@
-<img src="https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png" style="margin: 0;">
+<h1 align="center">
+<img src="https://i.ibb.co/Y2vw7XC/Readme.jpg" alt="Karaokean Project Image" border="0" width="100%" >
+</h1>
+<h2> 
+<a href="https://karaokean.herokuapp.com/">Deployed website here</a>
+</h2>
 
-Welcome DarrenCoppinger,
+## UX
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project.
+### Design Objectives
+### Business Strategy
+### User stories
+### Wireframe
 
-## Gitpod Reminders
+## Features
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+### Existing Features
+#### Home
+#### Catalogue
+#### Add Song 
+#### Genre 
+#### Playlist
 
-`python3 -m http.server`
+### Features left to Implement
 
-A blue button should appear to click: *Expose*,
+## Technologies Used
+## Testing
+### User Stories Testing
 
-Another blue button should appear to click: *Open Browser*.
+### Manual testing of elements and functionality on each page
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+#### Home
+#### Catalogue
+#### Add Song 
+#### Genre 
+#### Playlist
 
-A blue button should appear to click: *Expose*,
+## Development
 
-Another blue button should appear to click: *Open Browser*.
+### To Run Project Locally
+To clone or copy this project from GitHub follow these steps:
+1. Follow this link to the [project repository on GitHub] (https://github.com/DarrenCoppinger/playwright-milestone-project)
+2. On the left side of the page click the green button labelled "Clone or Download"
+3. In the pop up that appears labe;led "Clone with HTTPs" section copy the URL
+4. In your local IDE open Git Bash
+5. Change the working directory to the to the location for the cloned directory to be stored.
+6. Type "git clone" and then paste in the URL copied from GitHub in step 3
+7. Hit enter and create your local drive.
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the backend lessons.
+## Credits
+### Media
+Images ussed in this site were used with the permission of <a href="https://www.elorapautrat.com/">Elora Pautrat</a>
 
-## Updates Since The Instructional Video
+### Content
 
-We continually tweak and adjust this template to help give you the best experience. Here are the updates since the original video was made:
+### Acknowledgements
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
---------
-
-Happy coding!
+#### Disclaimer
+This Website was produced for educational purposes only.

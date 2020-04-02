@@ -7,6 +7,7 @@ from bson.objectid import ObjectId
 # Import date and time library
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.exceptions import HTTPException
 from os import path
 if path.exists("env.py"):
     import env
@@ -327,6 +328,8 @@ def playlist_page():
         users = mongo.db.users
         the_user = users.find_one({"name": username})
 
+        message = "You have come to the end of your playlist"
+
         playlist_ids = []
         playlist_index = []
         playlist_ytv = []
@@ -344,7 +347,7 @@ def playlist_page():
             playlist_ytv.append(ytv)
             playlist_names.append(pl_name)
 
-        return render_template('playlist_page.html', users=users, playlist=playlist, playlist_names=zip( playlist_index, playlist_ids, playlist_names))
+        return render_template('playlist_page.html', users=users, playlist=playlist, playlist_names=zip( playlist_index, playlist_ids, playlist_names),message=message)
     else:
         return render_template('playlist_page.html')
 
@@ -372,6 +375,7 @@ def playlist_play():
             playlist_index.append(playlist_id)
             playlist_ytv.append(ytv)
             playlist_names.append(pl_name)
+
 
 
         return render_template('playlist_play.html', users=the_user, playlist=playlist_ytv, playlist_id=playlist_index, playlist_names=zip(playlist_index, playlist_ids, playlist_names))
@@ -409,6 +413,19 @@ def dislike(track_id):
 
     return redirect(url_for('catalogue'))
 
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('error.html'), 404
+
+@app.errorhandler(500)
+def page_not_found(error):
+    return render_template('error.html'), 500
+
+@app.errorhandler(HTTPException)
+def handle_exception(e):
+    response = e.get_response()
+    return render_template('error.html'), response
 
 if __name__ == '__main__':
     app.secret_key = 'secret_key'
