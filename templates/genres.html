@@ -34,3 +34,7 @@
 </div>
 
 {% endblock %}
+
+{% block messages_js %}
+<script src="{{ url_for('static', filename='js/messages.js') }}"></script>
+{% endblock %}

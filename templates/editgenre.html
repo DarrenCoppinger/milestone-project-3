@@ -3,19 +3,21 @@
 {% block content %}
 <div class="container">
 	<div class="row">
-		<form action="{{url_for('update_genre',genre_id=genre._id)}}" method="POST" class="col s12 form-panel" novalidate>
-        <h2>Edit Genre</h2>
+		<form action="{{url_for('update_genre',genre_id=genre._id)}}" method="POST" class="col s12 form-panel"
+			novalidate>
+			<h2>Edit Genre</h2>
 			<!-- Genre Name -->
 			<div class="row form-row">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">assignment</i>
-					<input id="genre_name" name="genre_name" type="text" class="validate" value="{{genre.name}}">
+					<input id="genre_name" name="genre_name" type="text" class="validate" value="{{genre.name}}" data-length="30" required>
 					<label for="genre_name">Genre Name</label>
+					<span id="genre_name_label" class="helper-text" data-error="Please enter a new genre name" data-success="Valid Entry"></span>
 				</div>
 			</div>
 			<!-- Buttons -->
 			<div class="row">
-            <!-- Edit Button -->
+				<!-- Edit Button -->
 				<div class="input-field col s12 m6 center-align">
 					<button class="btn-small waves-effect waves-light" type="submit" name="action">
                         Edit Genre<i class="material-icons right">edit</i>
@@ -24,8 +26,7 @@
 
 				<!-- Cancel Add Button -->
 				<div class="input-field col s12 m6 center-align">
-					<a href="{{url_for('genres')}}"
-						class="btn-small waves-effect waves-light">Cancel
+					<a href="{{url_for('genres')}}" class="btn-small waves-effect waves-light">Cancel
 						Edit<i class="material-icons right">cancel</i></a>
 				</div>
 			</div>

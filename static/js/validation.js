@@ -77,3 +77,11 @@ form.addEventListener("submit", function (event) {
     validateYouTubeUrl();
 }, false);
 
+$('#genre_name').change(function () {
+    var selectedValue = $('select').val()
+    // If the genre select box's value is equal to 'add-new-genre'
+    if (selectedValue == 'add-new-genre') {
+        // launch the addgenre.html page
+        window.location.href = "/addgenre";
+    }
+});

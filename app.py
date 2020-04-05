@@ -107,6 +107,11 @@ def insert_track():
     tracks = mongo.db.tracks
     video = request.form.get('video_link')
 
+    new_track = request.form.get('track_name')
+    # change string to lower case and them capitize the first letter of each word to compared to existing names in database without taking case into account
+    track_title = new_track.lower().title()
+    existing_track = mongo.db.tracks.find_one({'name': track_title})
+
     # add the genre id
     genre = request.form.get('genre_name')
 
@@ -116,28 +121,32 @@ def insert_track():
         '(watch\?v=|embed/|v/|.+\?v=)?([^&=%\?]{11})')
 
     youtube_regex_match = re.match(youtube_regex, video)
-    print(youtube_regex_match)
-    print(youtube_regex_match[6])
 
-    try:
-        tracks.insert_one(
-            {
-                'name': request.form.get('track_name'),
-                'artist': request.form.get('artist_name'),
-                'year': int(request.form.get('year')),
-                'genre': genre,
-                'lyrics': request.form.get('lyrics_link'),
-                'video': youtube_regex_match[6],
-                'likes': int(0),
-                'dislikes': int(0)
-            }
-        )
 
-        return redirect(url_for('catalogue'))
+    if existing_track is None:
+        try:
+            tracks.insert_one(
+                {
+                    'name': track_title,
+                    'artist': request.form.get('artist_name'),
+                    'year': int(request.form.get('year')),
+                    'genre': genre,
+                    'lyrics': request.form.get('lyrics_link'),
+                    'video': youtube_regex_match[6],
+                    'likes': int(0),
+                    'dislikes': int(0)
+                }
+            )
+            flash("New song " + track_title + " added!")
+            return redirect(url_for('catalogue'))
 
-    except pymongo.errors.DuplicateKeyError:
+        except:
+            flash("Could not insert song")
+    else:
+        flash(track_title + " already exists in catalogue")
+        return redirect(url_for('addtrack'))
 
-        return redirect('addtrack')
+    return redirect('addtrack')
 
 
 @app.route('/edittrack/<track_id>/<page>/<sorting_order>')
@@ -154,7 +163,6 @@ def edittrack(track_id, page, sorting_order):
 def update_track(track_id, page, sorting_order, likes, dislikes):
     tracks = mongo.db.tracks
     video = request.form.get('video_link')
-    print(video)
     youtube_regex = (
         r'(https?://)?(www\.)?'
         '(youtube|youtu|youtube-nocookie)\.(com|be)/'
@@ -162,17 +170,34 @@ def update_track(track_id, page, sorting_order, likes, dislikes):
 
     youtube_regex_match = re.match(youtube_regex, video)   
     
-    tracks.update({'_id': ObjectId(track_id)},
-                  {
-        'name': request.form.get('track_name'),
-        'artist': request.form.get('artist_name'),
-        'year': int(request.form.get('year')),
-        'genre': request.form.get('genre_name'),
-        'lyrics': request.form.get('lyrics_link'),
-        'video': youtube_regex_match[6],
-        'likes': int(likes),
-        'dislikes': int(dislikes)
-    })
+    edit_track = request.form.get('track_name')
+    # change string to lower case and them capitize the first letter of each word to compared to existing names in database without taking case into account
+    track_title = edit_track.lower().title()
+    existing_track = mongo.db.tracks.find_one({'name': track_title})
+
+    if existing_track is None:
+        try:
+            tracks.update({'_id': ObjectId(track_id)},
+                {
+                    'name': track_title,
+                    'artist': request.form.get('artist_name'),
+                    'year': int(request.form.get('year')),
+                    'genre': request.form.get('genre_name'),
+                    'lyrics': request.form.get('lyrics_link'),
+                    'video': youtube_regex_match[6],
+                    'likes': int(0),
+                    'dislikes': int(0)
+                }
+            )
+            flash(track_title + " has been editted!")
+            return redirect(url_for('catalogue'))
+
+        except:
+            flash("Could not edit song")
+    else:
+        flash(track_title + " already exists in catalogue")
+        return redirect(url_for('edittrack',track_id=track_id, page=page, sorting_order=sorting_order))
+
     return redirect(url_for('catalogue', page=page, sorting_order=sorting_order))
 
 
@@ -199,19 +224,27 @@ def addgenre():
 def insert_genre():
     """ Insert new genre to database"""
     genres = mongo.db.genre
+    new_genre = request.form.get('genre_name')
+    # change string to lower case and them capitize the first letter of each word to compared to existing names in database without taking case into account
+    genre_title = new_genre.lower().title()
+    existing_genres = mongo.db.genre.find_one({'name': genre_title})
 
-    try:
-        genres.insert_one(
-            {
-                'name': request.form.get('genre_name'),
-            }
-        )
+    if existing_genres is None:
+        try:
+            genres.insert_one(
+                {
+                    'name': genre_title,
+                }
+            )
+            flash("New genre " + genre_title + " added!")
+            return redirect(url_for('genres'))
+        except:
+            flash("Could not insert genre")
+    else:
+        flash("Genre " + genre_title + " already exists")
+        return redirect(url_for('addgenre'))
 
-        return redirect(url_for('genres'))
-
-    except pymongo.errors.DuplicateKeyError:
-
-        return redirect(url_for('genres'))
+    return redirect(url_for('addgenre'))
 
 
 @app.route('/editgenre/<genre_id>')
