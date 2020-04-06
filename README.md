@@ -96,7 +96,7 @@ The fonts were chosen to give a japanese/eastern feel. A cursive font, East Sea 
 
 ### Existing Features
 #### All Pages
-All pages includes a responsive navigation bar and title at the top of the page. The title and logo acts as a "Home" button. On medium and small screen size the navbar reduces to just the title and logo, with the pages buttons concealed in a sidebar accessable via a menu icon in the lefthand corner of the navbar. The navbar contains the Home, Catalogue, Add Song, Genre, Playlist buttonsmenu items and a login button. The login is included as a button to draw attention to it. 
+All pages includes a responsive navigation bar and title at the top of the page. The title and logo acts as a "Home" button. On medium and small screen size the navbar reduces to just the title and logo, with the pages buttons concealed in a sidebar accessable via a menu icon in the lefthand corner of the navbar. The navbar contains the Home, Catalogue, Add Song, Genre, Playlist buttonsmenu items and a login button. The login is included as a button to draw attention to it. If the user is logged into an account  the login button will change to a "Logout" button and the users username will appear beside the button highlighed in teal.
 
 #### Home
 The home page includes an "About" section with information about the website followed by two buttons connecting to the "Add Song" and "Catalogue" page. There is also a "Most Likes Songs" section which has a leaderbaord of the top five most liked songs in the catalogue followed by a button which likes to the full catalogue page.
@@ -113,13 +113,68 @@ The video is contained in a Materialize "video-container" class which allows it 
 
 Each song in te catalogue also has an associated information panel on the rightwhich includes information on the specific songs and a number of buttons. The song title, year of release and artist are detailed at the top of the box. This is followed by text showing the current number of "Likes" and "Dislikes" that the songs has. 
 
-Below the song information panel is a number of number of buttons including: "Check Lyrics", "Add to Playlist", "Edit", "Delete", "Like" and "Dislike". When clicked the "Check Lyrics" button will launch a new page with the songs lyrics submitted when the song document was created. The "Add Playlist" button will 
-#### Add Song 
+Below the song information panel is a number of number of buttons including: "Check Lyrics", "Add to Playlist", "Edit", "Delete", "Like" and "Dislike". 
+- When clicked the "Check Lyrics" button will launch a new page with the songs lyrics submitted when the song document was created. 
+- Pressing the "Add Playlist" button will add a song to a logged in users playlist and flash a Materialize Toast message confirming the submission. If the users is not logged in an Toast message with appear telling the user to register or log into their account.
+- Clicking the "Edit" button will launch the Edit Song page where the information from the songs document is displayed. The user can alter this information if a piece of it is incorrect. 
+- Clicking the "Delete" button will permenantly remove the song document from the database and the catalogue.
+- Clicking the "Like" or "Dislike" buttons will increase the number of likes or dislikes that a song has and a toast message will confirm that this has been completed. However, the number displayed does not update until the page is reloaded. This issue is due to time constaints working on the project and a feature left to implement in the next development sprint will be to use ajax to allow the numbers to increase on the information panel without the page reloading.
+
+#### Add Song / Edit Song Page / Add Genre / Edit Genre
+The Add Song/ Edit Song pages include input fields for all of the required fields in the song document in the database. The Much of this work was inspired by the validation done on this previous code institute [project](https://github.com/Code-Institute-Submissions/dhamma1991-milestone-project-3).
+
+Each of field must be populated with it data for the form to be submitted. The "Song Name" and "Artist Name" fields must be text below a stated character length which appears underneath the input field. The "Year" field must be 4 numbers long with the first number being either 1 or 2. 
+
+The "Genre" field is a drop down menu from which the use must select an existing option or select the final entry of the list which is "Add a new genre".
+
+The "Lyric Link" field must be populated with a url.
+
+The "YouTube Link" field must have a youtube link for a video placed in it to work. This is achieved by check that the link follows the YouTube format. This solution was inspired by the article found [here](https://stackoverflow.com/questions/28735459/how-to-validate-youtube-url-in-client-side-in-text-box) on Stackoverflow.
+
+If the information does not satisty the validation checks the form will not submit and each field that is not validate will be underlines with a redline and an error message will be displayed underneath the field. 
+
+If the data entered into the input field is the correct type (text, number, url or youtube link) 
 #### Genre 
+
+The Genre page lists all of the genres added to the database by the website users. Each genre name entry can be editted. If and entry is edit it must the name must still be a text entry of no more than 30 character. However, as each song is associated with a genre, through the genre Object_id it is not possible to completely delete a genre, as this might result in a number of songs having no genre. It is possible however, to change the genre of any song through the Edit song page. 
+
+At the bottom of the Genre page is a button which a user can click to add a new Genre to the list. THis is the same page that is accessible though the dropdown list on the Add Song and Edit Song pages.
+
+#### Add Genre / Edit Genre
+Add Genre/ Edit Genre are similar forms are similar to the Add Song / Edit Song pages already discussed above. They require for validation one entry which is of the text type in the input field. There is also a characted limit of 30 put on the field. 
+
 #### Playlist
+The playlist pages has two parts: the Playlist Editor page and the Playlist Player page. To access either of these pages a user must be logged into an account. 
+
+##### Playlist Editor
+If they visit the Playlist page without being logged in they will be greeted by a message asking them to register for an account by clicking the register button or logging in by clicking the Login button both of which are presented on the page.
+
+If the users is logged into an account but has no songs added to the playlist and visits the playlist page they will be greeted by a message that say they don't have any songs on their playlist and directs them to the Catalogue page and presents a button called Catalogue to follow.
+
+If the user is logged in to an account and has added songs to their playlist the user will be presented with the Playlist Editor page. The user see a list of the songs they have picked and a button on the right of each song name allows the user to remove the song from their playlist. If the user is finished edit their playlist they can click the "Play Playlist" Button at the bottom of the page to initiate the playlist.
+
+##### Playlist Player
+The Playlist Player page has two elements the video-container on the lefthand 2 thirds of the page and in the final third a list of the songs they have picked. The song on the top of the list that is currently playing will also have the text "Currently playing" in red next to it.
+
+The video will autoplay on the page loading as each song in the playlist will play through until the end is reached. At the bottom of the page is a "Skip" button which allows the user to skip to the next song at any stage during the currently playing song. When the end of the playlist is reached the user will see a tost message telling them that the end of the playlist has beeen reached. After a delay of 4 seconds for the toast to be read the page will auto redirect back to the Playlist Editor page.
+
+#### Login 
+The login page is access via a button on teh navbar of the site. Clicking this brings the user to a typical user login form screen with a submit button labelled "Login". 
+- If the users does not have an account but tries to login with a made up username they will receive a flash message saying the "Username doesn't exist".
+- If the users has already register for an account and has input a username that already exists in the database then they will receive the flash message "Password was incorrect".
+- If the user enters both an existing username and a correct password they will be redirected to the home page of the site and shown a flash message saying "Kon'nichiwa *their username*".
+- If the user doesn't have have an account already they can click the "Sign up Here!" button at the bottom of the page to be directed to the registeration page.
+
+Also note that if the user is logged into an account  the "login" button in the navbar will change to a "Logout" button and the users username will appear beside the button highlighed in teal. This is the same in the case of the side nav bar for mobile devices.
+If the user clicks the Logout button the button will return to "Login" the highlighted username will disappear and they will be redirect to the home page were they will receive the flash message "Sayōnara *username*".
+
+#### Registeration
+The registration page has the same two inputs as the login with username and password fields. - If the user enters an existing username from the data (with a password) a flash message will appear saying "*username* already exists"
+- If the users enters in a new unique username (along with a password) they will be redirected to the home page of the site and see the flash message "Welcome to Karaokean *username*".
 
 ### Features left to Implement
-Search by genre
+- Live updating of the like and dislike numbers on the catalogue page
+- Sorting of catalogue by genre
 ## Technologies Used
 ### Front-End Technologies
 - [HTML](https://www.w3schools.com/html/html5_intro.asp) - Employed for markup text. 

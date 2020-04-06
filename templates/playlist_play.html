@@ -1,4 +1,4 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% block title %}Playlist Player |{% endblock %}
 {% block content %}
 <div class="background-image">
@@ -77,7 +77,6 @@ function onYouTubeIframeAPIReady() {
         videoId: playList[0],
         playerVars: {
             'autoplay': 1,
-            'controls': 1
         },
         events: {
             'onReady': onPlayerReady,
@@ -102,12 +101,10 @@ function onPlayerStateChange(event) {
             player.loadVideoById(playList[0]);
         } else {
             // auto-call @app.route('/playlist_page')
-            $("#flashToast").slideDown(function() {
-                setTimeout(function() {
-                    $("#flashToast").slideUp();
-                }, 5000);
-            });
-            window.location.href = "/playlist_page";
+            M.toast({html: "You have reached the end of your playlist!"});
+            setTimeout(function() {
+                window.location.href = "/playlist_page"; //Allow a short time delay for the toast msg to display
+            }, 4000);
         }
     } else {
         // show which song is currently playing
@@ -124,7 +121,10 @@ $('#skip-button').on('click', function () {
         player.loadVideoById(playList[0]);
     } else {
         // auto-call @app.route('/playlist_page')
-        window.location.href = "/playlist_page";
+        M.toast({html: "You have reached the end of your playlist!"});
+        setTimeout(function() {
+            window.location.href = "/playlist_page"; //Allow a short time delay for the toast msg to display
+        }, 4000);
     }
 });
 </script>

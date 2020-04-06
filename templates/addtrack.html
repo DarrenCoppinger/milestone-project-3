@@ -5,13 +5,13 @@
 	<div class="container">
 		<div class="row">
 			<form action="{{url_for('insert_track')}}" method="POST" class="col s12 form-panel " novalidate>
-				<h1>Add Track</h1>
-				<!-- Track Name -->
+				<h1>Add Song</h1>
+				<!-- Song Name -->
 				<div class="row form-row">
 					<div class="input-field col s12">
 						<i class="material-icons prefix">audiotrack</i>
 						<input id="track_name" name="track_name" type="text" class="validate" data-length="20" required>
-						<label id="track_name_label" for="track_name">Track Name</label>
+						<label id="track_name_label" for="track_name">Song Name</label>
 						<span class="helper-text" data-error="Please enter the name of the track" data-success="Valid Entry"></span>
 					</div>
 				</div>
