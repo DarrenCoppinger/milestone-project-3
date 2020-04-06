@@ -36,6 +36,20 @@ Appropiate technologies were used to design the website such as [Materialize](ht
 
 ### User stories
 
+"As a user of this website, I would like to- _____________________"
+
+- view the website from all device types (mobile, tablet or desktop)
+- view the entire catalogue of available songs on the site (even while not logged in as a user)
+- sort catalogue by newest entry, oldest entry, most liked song, most disliked song
+- add a new song to the catalogue
+- edit a song that already exist within the catalogue
+- delete a song that exists within the catalogue
+- like a song that exists within the catalogue
+- dislike a song that exists within the catalogue
+- create a playlist of songs that a user wishes to playlist
+- edit a playlist created by the user (delete unwanted or duplicate songs)
+- 
+
 ### Design
 
 The style of the site is inspired by the asetetic of japanese karaoke bars (called Karaokeans). These places tend to have neon signs on the outside and have cyber punky interior with lots of lights brightly color lights and vibrant colors. To communicated this a vapourwave color scheme was chosen using pinks, blues and a small amounts of teal green. 
@@ -64,7 +78,7 @@ The fonts were chosen to give a japanese/eastern feel. A cursive font, East Sea 
 - [Edit Song](https://i.ibb.co/8bpfRmV/Edit-Song.png)
 - [Catalogue](https://i.ibb.co/X3kpZxv/Catalogue.png)
 - [Genre](https://i.ibb.co/kGVr9n1/Genres.png)
-- [Add Genre](hhttps://i.ibb.co/x7JNqrx/Add-Genre.png)
+- [Add Genre](https://i.ibb.co/x7JNqrx/Add-Genre.png)
 - [Edit Genre](https://i.ibb.co/dGkhdSn/Edit-Genre.png)
 - [Playlist Editor](https://i.ibb.co/7XHybqx/Playlist-list.png)
 - [Playlist Player](https://i.ibb.co/L1wDFs4/Playlist.png)
@@ -132,6 +146,10 @@ Images ussed in this site were used with the permission of <a href="https://www.
 ### Content
 
 ### Acknowledgements
+- [Antonio Rodriguez](https://github.com/AkaAnto)
+    - My Code Institute mentor.
+- [Tim Nelson](https://github.com/TravelTimN/)
+    - Code Institute tutor who helped me with the jQuery and JavaScript code required for this project.
 
 #### Disclaimer
 This Website was produced for educational purposes only.

@@ -148,6 +148,11 @@ nav.brand-logo {
     margin-bottom: 5px;
 }
 
+.lyrics-link {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
 /* ------------------------ Buttons ------------------------ */
 
 .btn-small {
