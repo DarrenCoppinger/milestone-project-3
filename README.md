@@ -46,15 +46,22 @@ Appropiate technologies were used to design the website such as [Materialize](ht
 - delete a song that exists within the catalogue
 - like a song that exists within the catalogue
 - dislike a song that exists within the catalogue
-- create a playlist of songs that a user wishes to playlist
-- edit a playlist created by the user (delete unwanted or duplicate songs)
-- 
+- check the lyrics of a song that exists within the catalogue
+- create an user account for the website by registering
+- be able to log into an existing user account
+- be able to log out of an existing user account
+- create a playlist of songs that a user wishes to play
+- edit a playlist created by the user by delete unwanted songs
+- play the playlist created by the users
+- have a live upcoming song sidebar that allows users to see what song will be played next
 
 ### Design
 
 The style of the site is inspired by the asetetic of japanese karaoke bars (called Karaokeans). These places tend to have neon signs on the outside and have cyber punky interior with lots of lights brightly color lights and vibrant colors. To communicated this a vapourwave color scheme was chosen using pinks, blues and a small amounts of teal green. 
 
 #### Framework
+For this project I used the framework [Flask](https://flask.palletsprojects.com/en/1.1.x/) to render the python code which is in place at the back-end of the website. I also used the framework [Materialize](https://materializecss.com/) as I wished to uses something other than bootstrap and I likes the clean modern look the framework. It's documentation was also concise and easy to read. [jQuery](https://code.jquery.com/jquery/) was also used to as I found it slightly simpler to used than basic JavaScript. 
+
 #### Colors
 The main colors used are as follows:
 
@@ -88,8 +95,25 @@ The fonts were chosen to give a japanese/eastern feel. A cursive font, East Sea 
 ## Features
 
 ### Existing Features
+#### All Pages
+All pages includes a responsive navigation bar and title at the top of the page. The title and logo acts as a "Home" button. On medium and small screen size the navbar reduces to just the title and logo, with the pages buttons concealed in a sidebar accessable via a menu icon in the lefthand corner of the navbar. The navbar contains the Home, Catalogue, Add Song, Genre, Playlist buttonsmenu items and a login button. The login is included as a button to draw attention to it. 
+
 #### Home
+The home page includes an "About" section with information about the website followed by two buttons connecting to the "Add Song" and "Catalogue" page. There is also a "Most Likes Songs" section which has a leaderbaord of the top five most liked songs in the catalogue followed by a button which likes to the full catalogue page.
 #### Catalogue
+The "Catalogue" page present all of the songs added to the database broken up with the use of pagination. Each pages displays 5 songs from the database. 
+
+At the bottom of the page are a collection of pagination buttons which inlcude a previous and next chevron and a list of all the available pages of songs. On the first page the previous chevron is disabled and on the last page the next chevron is disabled thereby preventing the calling of a catalogue page that doesn't have any songs associated with it. Each of the page number buttons is clickable with the current page number highlighted in a outline box. 
+
+At the top of the page is a sort box which is a dropdown menu box. There are 4 options of sorting to chose from: Most Likes, Most Disliked, Newest Song, Oldest Song. The default sort value is the "Most Liked" option.
+
+Each song in the catalogue is displayed in the order that is specified. The video associated with the song is displayed on the left handside of the screen that are greater then 600px using the YouTube iFrame API with the information panel and buttons displayed on the right hand third of the viewport. For viewports less that 600px in width the display changes to the video container on top with the information panel and buttons below.  
+
+The video is contained in a Materialize "video-container" class which allows it to change size responsively. Click the YouTube play logo will play the embedded video on the page. Each song video has YouTube controls active including clicking the song title to launch the song on Youtube, adding to a personal "Watch Later" list, and a share the video using the YouTube link. 
+
+Each song in te catalogue also has an associated information panel on the rightwhich includes information on the specific songs and a number of buttons. The song title, year of release and artist are detailed at the top of the box. This is followed by text showing the current number of "Likes" and "Dislikes" that the songs has. 
+
+Below the song information panel is a number of number of buttons including: "Check Lyrics", "Add to Playlist", "Edit", "Delete", "Like" and "Dislike". When clicked the "Check Lyrics" button will launch a new page with the songs lyrics submitted when the song document was created. The "Add Playlist" button will 
 #### Add Song 
 #### Genre 
 #### Playlist

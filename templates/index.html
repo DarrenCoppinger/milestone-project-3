@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% block title %}Home |{% endblock %}
 {% block content %}
 <div class="background-image">
 	<div class="container">
@@ -18,14 +18,24 @@
 					<p>
 						On this page you will see a list of the most liked songs currently available on our catalogue.
 						If
-						see one that's missing why not add a song to this list by clicking the button below!
+						see one that's missing why not add a song to this list by clicking the "Add Song" button below!
+						Or if you want to take a look at all the songs currently available on Karaokean click the
+						"Catalogue" button!
 					</p>
-                    <div class="center-align">
-                        <p>
-                            <a class="waves-effect waves-light btn-large btn-large-alt" href="{{url_for('addtrack')}}">Add
-                                Song!</a>
-                        </p>
-                    </div>
+					<div class="row">
+						<div class="col s6 center-align">
+							<p>
+								<a class="waves-effect waves-light btn-small btn-alt" href="{{url_for('addtrack')}}">Add
+									Song</a>
+							</p>
+						</div>
+						<div class="col s6 center-align">
+							<p>
+								<a class="waves-effect waves-light btn-small btn-alt"
+									href="{{url_for('catalogue')}}">Catalogue</a>
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -38,6 +48,7 @@
 					<li class="collection-item">{{loop.index}}. {{track.name}} ({{track.year}})
 						<span class="secondary-content">{{track.likes}}</span></li>
 					{% endfor %}
+                    <li class="collection-item"><a class="waves-effect waves-light btn-small btn-alt" href="{{url_for('catalogue')}}">See full list</a></li>
 				</ul>
 			</div>
 		</div>

@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block title %}Catalogue | {% endblock %}
+{% block content %}
 <div class="background-image">
 	<div class="container ">
 		<div class="row">
@@ -11,16 +13,18 @@
 				<div class="sort-box">Sort Order: <a class="dropdown-trigger" href="#"
 						data-target="dropdown"><span class="sort-description"></span><i class="material-icons">arrow_drop_down</i></a>
 					<ul id="dropdown" class="dropdown-content">
-						<li><a href="{{url_for('sort_by_newest')}}">Newest</a></li>
-						<li><a href="{{url_for('sort_by_oldest')}}">Oldest</a></li>
 						<li><a href="{{url_for('sort_by_likes')}}">Most Liked</a></li>
 						<li><a href="{{url_for('sort_by_dislikes')}}">Most Disliked</a></li>
+						<li><a href="{{url_for('sort_by_newest')}}">Newest</a></li>
+						<li><a href="{{url_for('sort_by_oldest')}}">Oldest</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 
-		{% if tracks_total > 0 %} {% for track in tracks %} <div class="row ">
+		{% if tracks_total > 0 %} 
+        {% for track in tracks %} 
+        <div class="row ">
 			<div class="col s12 m8 info-row">
 				<div class="video-container">
 					<iframe src="{{'https://www.youtube.com/embed/' ~ track.video}}" frameborder="0"
@@ -52,7 +56,8 @@
 					<div class="row info-row">
 						<!-- Lyrics button -->
 						<div class="col s12">
-							<a class="waves-effect waves-light btn-small button1" target="_blank" href="{{track.lyrics}}">Check Lyrics<i class="material-icons right">music_note</i></a>
+							<a class="waves-effect waves-light btn-small button1" target="_blank"
+								href="{{track.lyrics}}">Check Lyrics<i class="material-icons right">music_note</i></a>
 						</div>
 					</div>
 
@@ -141,11 +146,48 @@
 			</div>
 		</div>
 	</div>
+
+	<script>
+    $(".btn-like, .btn-dislike, .btn-playlist-add").on("click", function() {
+        let urlFor;
+        let toastMsg;
+        let trackID = $(this).attr("id");  // get .btn ID (track._id)
+        if ($(this).hasClass("btn-like")) {  // if clicking "LIKE" button
+            // create url_for path
+            urlFor = "{{ url_for('like', track_id='fakeID') }}".replace("fakeID", trackID);
+            toastMsg = "You Like this Song!";
+        } else if ($(this).hasClass("btn-dislike")) {  // if clicking "DISLIKE" button
+            // create url_for path
+            urlFor = "{{ url_for('dislike', track_id='fakeID') }}".replace("fakeID", trackID);
+            toastMsg = "You Dislike this Song!";
+        } else if ($(this).hasClass("btn-playlist-add")) {  // if clicking "ADD TO PLAYLIST" button
+            {%  if 'username' in session %} // if user is logged in add to playlist and flash message
+                urlFor = "{{ url_for('playlist_addto', track_id='fakeID') }}".replace("fakeID", trackID);
+                toastMsg = "Song added to your Playlist!";
+            {% else %} // if user is not logged in flash message
+                toastMsg = "To add song to your Playlist either register or login to your an account!";
+                M.toast({html: toastMsg});
+            {% endif %}
+        };
+        $.ajax({type: "POST", url: urlFor}).done(function () {  // ajax without page reload
+            M.toast({html: toastMsg});  // flash message to user
+        });
+    });
+
+    // This solution was inspired by https://github.com/Code-Institute-Submissions/dhamma1991-milestone-project-3/blob/master/templates/tracks.html
+    if ('{{ sorting_order }}' == 1) {
+        $('.dropdown-trigger span').text("Most Liked");
+    } else if ('{{ sorting_order }}' == 2) {
+        $('.dropdown-trigger span').text("Most Disliked");
+    } else if ('{{ sorting_order }}' == 3) {
+        $('.dropdown-trigger span').text("Newest");
+    } else if ('{{ sorting_order }}' == 4) {
+        $('.dropdown-trigger span').text("Oldest");
+    }
+	</script>
+
 	{% endblock %}
 
-	{% block playlist %}
-	<script src="{{ url_for('static', filename='js/playlist.js') }}"></script>
-	{% endblock %}
 	{% block messages_js %}
 	<script src="{{ url_for('static', filename='js/messages.js') }}"></script>
 	{% endblock %}
