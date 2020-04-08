@@ -171,32 +171,26 @@ def update_track(track_id, page, sorting_order, likes, dislikes):
     youtube_regex_match = re.match(youtube_regex, video)   
     
     edit_track = request.form.get('track_name')
-    # change string to lower case and them capitize the first letter of each word to compared to existing names in database without taking case into account
+    # change string to lower case and them capitize the first letter of each word 
     track_title = edit_track.lower().title()
-    existing_track = mongo.db.tracks.find_one({'name': track_title})
+    try:
+        tracks.update({'_id': ObjectId(track_id)},
+            {
+                'name': track_title,
+                'artist': request.form.get('artist_name'),
+                'year': int(request.form.get('year')),
+                'genre': request.form.get('genre_name'),
+                'lyrics': request.form.get('lyrics_link'),
+                'video': youtube_regex_match[6],
+                'likes': int(likes),
+                'dislikes': int(dislikes)
+            }
+        )
+        flash(track_title + " has been editted!")
+        return redirect(url_for('catalogue', page=page, sorting_order=sorting_order))
 
-    if existing_track is None:
-        try:
-            tracks.update({'_id': ObjectId(track_id)},
-                {
-                    'name': track_title,
-                    'artist': request.form.get('artist_name'),
-                    'year': int(request.form.get('year')),
-                    'genre': request.form.get('genre_name'),
-                    'lyrics': request.form.get('lyrics_link'),
-                    'video': youtube_regex_match[6],
-                    'likes': int(0),
-                    'dislikes': int(0)
-                }
-            )
-            flash(track_title + " has been editted!")
-            return redirect(url_for('catalogue'))
-
-        except:
-            flash("Could not edit song")
-    else:
-        flash(track_title + " already exists in catalogue")
-        return redirect(url_for('edittrack',track_id=track_id, page=page, sorting_order=sorting_order))
+    except:
+        flash("Could not edit song")
 
     return redirect(url_for('catalogue', page=page, sorting_order=sorting_order))
 

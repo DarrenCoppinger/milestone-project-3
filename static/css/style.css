@@ -224,7 +224,6 @@ nav.brand-logo {
 .sort-box {
     background-color: #e487d8;
     color: #ffffff;
-    border: 1px solid #e487d8;
     text-align: center;
     border-radius: 2px;
     padding: 10px;
@@ -264,6 +263,10 @@ nav.brand-logo {
     padding-top: 0;
 }
 
+.link {
+    color: #ffffff;
+    text-decoration: underline;
+}
 /* ------------ pagination ------------ */
 
 .pagination {
@@ -325,14 +328,14 @@ body {
     padding-bottom: 25px;
   }
 
-  /* .genre-text {
+  .genre-text {
     position: relative;
     min-height: 18px;
     display: block;
     font-size: 12px;
     margin-left: 3rem;
     width: calc(100% - 3rem);
-  } */
+  }
 
 .red-text {
     color: #F44336;

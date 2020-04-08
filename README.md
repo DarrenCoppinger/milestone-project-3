@@ -55,6 +55,12 @@ Appropiate technologies were used to design the website such as [Materialize](ht
 - play the playlist created by the users
 - have a live upcoming song sidebar that allows users to see what song will be played next
 
+A user who visits the website might follow one of the follow forms:
+- I am interested to see what tracks are available on the website
+- I find a karaoke songs on youtube that would like to add it to Karaoke so that the other users of the site can play and rate it.
+- I am having a karaoke party and would like to use the site to generate a playlist of existing songs in the catalogue.
+
+
 ### Design
 
 The style of the site is inspired by the asetetic of japanese karaoke bars (called Karaokeans). These places tend to have neon signs on the outside and have cyber punky interior with lots of lights brightly color lights and vibrant colors. To communicated this a vapourwave color scheme was chosen using pinks, blues and a small amounts of teal green. 
@@ -175,6 +181,7 @@ The registration page has the same two inputs as the login with username and pas
 ### Features left to Implement
 - Live updating of the like and dislike numbers on the catalogue page
 - Sorting of catalogue by genre
+- pagination for large numbers of pages. 
 ## Technologies Used
 ### Front-End Technologies
 - [HTML](https://www.w3schools.com/html/html5_intro.asp) - Employed for markup text. 
@@ -196,31 +203,121 @@ The registration page has the same two inputs as the login with username and pas
     - [Heroku](https://www.heroku.com) - Used for hosting the deployed website.
 
 ## Testing
+### Code Validators
+The follow validators were used to check the code developed from this project:
+- 
+- 
+
+#### HTML
+ [WC3 Markup Validator](https://validator.w3.org/) was used to validate the HTML code. However, unfortunately the validator is not able to recognise the Jinja templating sentax so some errors were recorded. All code other than the jinja sentax was successfully validated.
+
+#### CSS
+[W3C Jigsaw CSS Validator](https://jigsaw.w3.org/css-validator/) was used to validate my CSS code. The CSS successfully pass the check with no errors.
+
+
+This website was tested on multiple browsers. They included:
+- [Google Chrome](https://www.google.com/chrome/)
+- [Microsoft Edge](https://www.microsoft.com/en-us/edge)
+- [Firefox](https://www.mozilla.org/en-US/firefox/new/)
+
 ### User Stories Testing
+#### I am interested to see what tracks are available on the website
+1. User loads the  app and is directed to the index.html page. The users sees About Karaokean section of the page and reads the instructions. They also see the table beside this section which list the songs with the most "likes" in the catalogue. 
+2. The user choses to see the full list of liked videos by clicking the "See Full catalogue" button at the bottom of the "Most Liked Songs" section which redirects the user to the Catalogue page. The default sort setting for the catalogue page is to sort likes in descending order.
+3. The users scrolls down the page and at the bottom clicks the next cheveron to go the the second 5 entries in this sorting setting. 
+4. The user see as song that they think they might enjoy. They click the play button in the centre of the video to play it. They see that the name of the song in the video is mispelled so they click the edit button which directs them to the edit page.
+5. The users changes the typo in the "song name" input field, the color of the boxes underline changes reflecting that it is a valid entry. The users then saves the edits by clicking the "Save Edits" on the bottom left of the screen.
+6. The user is returned to same catalogue screen they left when they clicked the edit button (same sorting order and same page).
+7. The user sees a song they like and click the like button beside it. They see another song which they dislike and click the dislike button beside that. Both clicks reult in a toast message popping up on the right hand side of their screen confirming the like or dislike of the particular song.
+8. 
+#### A user user wishes to an a karaoke song, found on youtube, to the catalogue so that the other users of the site can play and rate it.
+1. The user finds a karaoke song on YouTube and copies the link.
+2. The user loads the  app and is directed to the index.html page. The users sees About Karaokean section of the page and reads the instructions.
+3. User Clicks the "Add Song" button at the bottom of the About section and is redirected to the Add Song page (addtrack.html).
+4. The user paste in the youtube link and add in the other required information but forgets to choose a genre for the song. On clicking the "Add Track" button the field and it's underline go red and an error message "Please select a genre e.g. Rock" is displayed. All the other fields underline turn green and the display a success message.
+5. The user clicks the dropdown trigger icon and a list of all the currently record genres is displayed. They choose their genre of the son then press submit.
+
+#### A user wants to use the site to generate a playlist of existing songs in the catalogue.
+1. User loads the  app and is directed to the index.html page. The users sees About Karaokean section of the page and reads the instructions.
+2. The user then clicks the "See Full Catalogue" button on the page or the Catalogue menu item in the navbar.
+3. On the Catalogue page the user see a song that they like that they wish to add to a playlist so they click the "add to playlist button". However, they are not logged into an account so they receive the toast message "To add song to your Playlist either register or login to your account!".
+4. The user clicks the "Login" button and are brought to the login page. They do not have an account so they click the "Sign Up here" button and are redirected to the registeration page. 
+5. The user inputs a username and a password and is redirected to the home page of the site and see the flash message "Welcome to Karaokean *username*". The username also appears in a container on the right of the navbar beside the "Logout" (previously "Login" button). 
+6. The user then can click the "Catalogue" button again to go to the Catalogue page. They can then click the "Add to Playlist" button to add a song to the playlist. This will generate a toast message of "Song added to your Playlist!".
+7. The user can go though the full catalogue by clicking the pagination buttons on the bottom of the catalogue page or changing the sorting order by clicking the sort button at the top of the page with the dropdown trigger give four different sorting options (# Likes, # Dislikes, Newest, Oldest)
 
 ### Manual testing of elements and functionality on each page
-
 #### Home
 #### Catalogue
 #### Add Song 
 #### Genre 
 #### Playlist
 
-## Development
+#### Known Issues
+If a users partially inputs the data for a song into the input field on the "Add Track" page but doesn't see their desired genre in the drop down list their next step would be to click the Add new genre option at the botttom of the list. This will bring them to the "Add Genre" page. However, when they return to the "Add Track" page they will have lost the data that they had enter before clicking this option on the list. 
 
-### To Run Project Locally
+## Deployment
+
+### Local Deployment
+To run this project locally on any system the following will need to be installed
+
+- [Python3](https://www.python.org/downloads/) to run the app.py files and the application
+- [PIP](https://pip.pypa.io/en/stable/)
+- An IDE such as [Gitpod](https://gitpod.io/) or [Microsoft Visual Studio](https://code.visualstudio.com/)
+- [GIT](https://www.atlassian.com/git/tutorials/install-git)
+- [MongoDB](https://www.mongodb.com/)
+
 To clone or copy this project from GitHub follow these steps:
-1. Follow this link to the [project repository on GitHub] (https://github.com/DarrenCoppinger/playwright-milestone-project)
+1. Follow this link to the [project repository on GitHub] (https://github.com/DarrenCoppinger/milestone-project-3.git)
 2. On the left side of the page click the green button labelled "Clone or Download"
 3. In the pop up that appears labe;led "Clone with HTTPs" section copy the URL
 4. In your local IDE open Git Bash
 5. Change the working directory to the to the location for the cloned directory to be stored.
-6. Type "git clone" and then paste in the URL copied from GitHub in step 3
+6. Type "git clone" into the GIT CLI terminal and then paste in the URL copied from GitHub in step 3 (i.e. git clone https://github.com/DarrenCoppinger/milestone-project-3.git )
 7. Hit enter and create your local drive.
+8. Install the necessary requirements from the requirements.txt file using the command `pip3 install -r requirements.txt`
+9. Generated a env.py file where you will store your MONGO_URI and SERCRET_KEY environmental variables. 
+10. Set the SERCRET_KEY to your preferred value. 
+11. Sign up for [MongoDB](https://www.mongodb.com) and make a database called **Karaokean**. The app will uses the following *Collections* in that database with the following titles and fields (fields will be generated by app):
+
+**genre**
+```
+    _id: <ObjectId>
+    name: <string>
+```
+**tracks**
+```
+    _id: <ObjectId>
+    name: <string>
+    artist: <string>
+    year: <int32>
+    genre: <string>
+    lyrics: <string>
+    video: <string>
+    likes: <int32>
+    dislikes: <int32>
+```
+**users**
+```
+    _id: <ObjectId>
+    name: <string>
+    password: <string>
+    playlist (array)
+```
+
+10. Go to your created cluster in MongoDB and click the connect button, click "Connect your application". Then copy the connection string and set it equal to MONGO_URI in the env.py file. The connection string the will be of the form: 
+```
+mongodb+srv://<username>:<password>@<cluster_name>.mongodb.net/<database>?retryWrites=true&w=majority
+```
+11. Run the application by typing the follow command into the CLI:
+    - python3 app.py
+
+
+### Remote Deployment on Heroku
 
 ## Credits
 ### Media
-Images ussed in this site were used with the permission of <a href="https://www.elorapautrat.com/">Elora Pautrat</a>
+Images used in this site were used with the permission of [Elora Pautrat](https://www.elorapautrat.com/).
 
 ### Content
 

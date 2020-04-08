@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Edit Song |{% endblock %}
+{% block title %}Edit Track |{% endblock %}
 {% block content %}
 <div class="background-image">
 	<div class="container">
@@ -38,7 +38,7 @@
 					<!-- Genre -->
 					<div class="input-field col s12 m6 form-row">
 						<i class="material-icons prefix">surround_sound</i>
-						<select id="genre_name" name="genre_name" type="text" class="validate" required>
+						<select id="genre_name" name="genre_name" class="validate" required>
                             <option value="" disabled>Choose a genre</option>
                             {% for genre in genres %}
                                 {% if genre._id|string == track.genre|string %}             
@@ -61,7 +61,7 @@
 						<i class="material-icons prefix">speaker_notes</i>
 						<input id="lyrics_link" name="lyrics_link" type="url" class="validate" value="{{track.lyrics}}" required>
 						<label for="lyrics_link">Lyrics Link</label>
-						<span class="helper-text" data-error="Please enter a valid link e.g. www.azlyrics.com/lyrics/rickastley/nevergonnagiveyouup.html" data-success="Valid Link"></span>
+						<span class="helper-text" data-error="Please enter a valid link to this songs lyrics. Try searching www.azlyrics.com" data-success="Valid Link"></span>
 					</div>
 				</div>
 				<!-- Video link -->

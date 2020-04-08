@@ -1,190 +1,185 @@
 {% extends "base.html" %} 
 {% block title %}Catalogue | {% endblock %}
 {% block content %}
-<div class="background-image">
-	<div class="container ">
-		<div class="row">
-			<div class="col s12 ">
-				<div class="section-heading"> Catalogue </div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col s12 m6">
-				<div class="sort-box">Sort Order: <a class="dropdown-trigger" href="#"
-						data-target="dropdown"><span class="sort-description"></span><i class="material-icons">arrow_drop_down</i></a>
-					<ul id="dropdown" class="dropdown-content">
-						<li><a href="{{url_for('sort_by_likes')}}">Most Liked</a></li>
-						<li><a href="{{url_for('sort_by_dislikes')}}">Most Disliked</a></li>
-						<li><a href="{{url_for('sort_by_newest')}}">Newest</a></li>
-						<li><a href="{{url_for('sort_by_oldest')}}">Oldest</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
+<div class="container ">
+    <div class="row">
+        <div class="col s12 ">
+            <div class="section-heading"> Catalogue </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="sort-box">Sort Order: <a class="dropdown-trigger" href="#"
+                    data-target="dropdown"><span class="sort-description"></span><i class="material-icons">arrow_drop_down</i></a>
+                <ul id="dropdown" class="dropdown-content">
+                    <li><a href="{{url_for('sort_by_likes')}}"># Likes</a></li>
+                    <li><a href="{{url_for('sort_by_dislikes')}}"># Dislikes</a></li>
+                    <li><a href="{{url_for('sort_by_newest')}}">Newest</a></li>
+                    <li><a href="{{url_for('sort_by_oldest')}}">Oldest</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-		{% if tracks_total > 0 %} 
-        {% for track in tracks %} 
-        <div class="row ">
-			<div class="col s12 m8 info-row">
-				<div class="video-container">
-					<iframe src="{{'https://www.youtube.com/embed/' ~ track.video}}" frameborder="0"
-						allowfullscreen></iframe>
-				</div>
-			</div>
-			<div class="col s12 m4">
-				<div class="panel">
-					<div class="info-panel">
-						<div class="row info-row">
-							<div class="col s12">
-								<div class="song-title">{{track.name}} ({{track.year}})</div>
-							</div>
-						</div>
-						<div class="row info-row">
-							<div class="col s12">
-								<div>by {{track.artist}}</div>
-							</div>
-						</div>
-						<div class="row info-row">
-							<div class="col s6">
-								<div>Likes {{track.likes}}</div>
-							</div>
-							<div class="col s6">
-								<div>Dislikes {{track.dislikes}}</div>
-							</div>
-						</div>
-					</div>
-					<div class="row info-row">
-						<!-- Lyrics button -->
-						<div class="col s12">
-							<a class="waves-effect waves-light btn-small button1" target="_blank"
-								href="{{track.lyrics}}">Check Lyrics<i class="material-icons right">music_note</i></a>
-						</div>
-					</div>
+    {% if tracks_total > 0 %} 
+    {% for track in tracks %} 
+    <div class="row ">
+        <div class="col s12 m8 info-row">
+            <div class="video-container">
+                <iframe src="{{'https://www.youtube.com/embed/' ~ track.video}}" frameborder="0"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <div class="panel">
+                <div class="info-panel">
+                    <div class="row info-row">
+                        <div class="col s12">
+                            <div class="song-title">{{track.name}} ({{track.year}})</div>
+                        </div>
+                    </div>
+                    <div class="row info-row">
+                        <div class="col s12">
+                            <div>by {{track.artist}}</div>
+                        </div>
+                    </div>
+                    <div class="row info-row">
+                        <div class="col s6">
+                            <div>Likes {{track.likes}}</div>
+                        </div>
+                        <div class="col s6">
+                            <div>Dislikes {{track.dislikes}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row info-row">
+                    <!-- Lyrics button -->
+                    <div class="col s12">
+                        <a class="waves-effect waves-light btn-small button1" target="_blank"
+                            href="{{track.lyrics}}">Check Lyrics<i class="material-icons right">music_note</i></a>
+                    </div>
+                </div>
+                <div class="row info-row">
+                    <!-- ADD TO PLAYLIST button -->
+                    <div class="col s12">
+                        <button id="{{track._id}}" class="waves-effect waves-light btn-small button1 btn-playlist-add">Add to Playlist<i class="material-icons right">add</i></button>
+                    </div>
+                </div>
 
+                <div class="row info-row">
+                    <!-- EDIT button -->
+                    <div class="col-button col s6">
+                        <a href="{{url_for('edittrack', track_id=track._id, page=page, sorting_order=sorting_order)}}"
+                            class="waves-effect waves-light btn-small button2">
+                            <i class="material-icons right">edit</i>Edit
+                        </a>
+                    </div>
+                    <!-- DELETE button -->
+                    <div class="col-button col s6">
+                        <a href="{{url_for('delete_track', track_id=track._id, page=page, sorting_order=sorting_order)}}"
+                            class="waves-effect waves-light btn-small button2">
+                            <i class="material-icons right">delete</i>Delete
+                        </a>
+                    </div>
+                </div>
+                <div class="row info-row">
+                    <!-- LIKE button -->
+                    <div class="col s6">
+                        <button id="{{ track._id }}" class="waves-effect waves-light btn-small button2 btn-like">
+                Like<i class="material-icons right">thumb_up</i>
+            </button>
+                    </div>
+                    <!-- DISLIKE button -->
+                    <div class="col s6">
+                        <button id="{{track._id}}" class="waves-effect waves-light btn-small button2 btn-dislike">
+                Dislike<i class="material-icons right">thumb_down</i>
+            </button>
+                    </div>
 
-					<div class="row info-row">
-						<!-- ADD TO PLAYLIST button -->
-						<div class="col s12">
-							<button id="{{ track._id }}" class="waves-effect waves-light btn-small button1 btn-playlist-add">
-                    Add to Playlist<i class="material-icons right">add</i>
-                </button>
-						</div>
-					</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-					<div class="row info-row">
-						<!-- EDIT button -->
-						<div class="col-button col s6">
-							<a href="{{url_for('edittrack', track_id=track._id, page=page, sorting_order=sorting_order)}}"
-								class="waves-effect waves-light btn-small button2">
-								<i class="material-icons right">edit</i>Edit
-							</a>
-						</div>
-						<!-- DELETE button -->
-						<div class="col-button col s6">
-							<a href="{{url_for('delete_track', track_id=track._id, page=page, sorting_order=sorting_order)}}"
-								class="waves-effect waves-light btn-small button2">
-								<i class="material-icons right">delete</i>Delete
-							</a>
-						</div>
-					</div>
-					<div class="row info-row">
-						<!-- LIKE button -->
-						<div class="col s6">
-							<button id="{{ track._id }}" class="waves-effect waves-light btn-small button2 btn-like">
-                    Like<i class="material-icons right">thumb_up</i>
-                </button>
-						</div>
-						<!-- DISLIKE button -->
-						<div class="col s6">
-							<button id="{{ track._id }}" class="waves-effect waves-light btn-small button2 btn-dislike">
-                    Dislike<i class="material-icons right">thumb_down</i>
-                </button>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-
-		{% endfor %}
-		{% else %}
-		<p>No tracks available</p>
-		<p>Add a karaoke track to the catalogue <a href="{{url_for('register')}}">here</a> </p>
-		{% endif %}
+    {% endfor %}
+    {% else %}
+    <p>No tracks available</p>
+    <p>Add a karaoke track to the catalogue <a href="{{url_for('register')}}">here</a> </p>
+    {% endif %}
 
 
-		<!-- Pagination -->
-		<div class="row center-align">
-			<div class="col s12 m8 offset-m2 l6 offset-l3 pagination-container ">
-				<ul class="pagination">
-					<!-- Previous -->
-					<li {% if prev_url < 0 %} class="disabled" {% else %} class="waves-effect waves-light blue accent-1"
-						{% endif %}>
-						<a
-							href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=prev_url,sorting_order=sorting_order)}}">
-							<i class="material-icons">chevron_left</i>
-						</a>
-					</li>
-					<!-- page buttons -->
-					{% for track_page, track_page_args in all_track_pages_id %}
-					<li {% if track_page_args == page %} class="waves-effect waves-purple blue accent-1"
-						{%else%}class="waves-effect waves-purple" {% endif %}>
-						<a
-							href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=track_page_args,sorting_order=sorting_order)}}">{{ loop.index }}</a>
-					</li>
-					{% endfor %}
+    <!-- Pagination -->
+    <div class="row center-align">
+        <div class="col s12 m8 offset-m2 l6 offset-l3 pagination-container ">
+            <ul class="pagination">
+                <!-- Previous -->
+                <li {% if prev_url < 0 %} class="disabled" {% else %} class="waves-effect waves-light blue accent-1"
+                    {% endif %}>
+                    <a
+                        href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=prev_url,sorting_order=sorting_order)}}">
+                        <i class="material-icons">chevron_left</i>
+                    </a>
+                </li>
+                <!-- page buttons -->
+                {% for track_page, track_page_args in all_track_pages_id %}
+                <li {% if track_page_args == page %} class="waves-effect waves-purple blue accent-1"
+                    {%else%}class="waves-effect waves-purple" {% endif %}>
+                    <a
+                        href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=track_page_args,sorting_order=sorting_order)}}">{{ loop.index }}</a>
+                </li>
+                {% endfor %}
 
-					<!-- Next -->
-					<li {% if next_url > tracks_total %} class="disabled" {% else %}
-						class="waves-effect waves-light blue accent-1" {% endif %}>
-						<a
-							href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=next_url,sorting_order=sorting_order)}}">
-							<i class="material-icons">chevron_right</i>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+                <!-- Next -->
+                <li {% if next_url > tracks_total %} class="disabled" {% else %}
+                    class="waves-effect waves-light blue accent-1" {% endif %}>
+                    <a
+                        href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=next_url,sorting_order=sorting_order)}}">
+                        <i class="material-icons">chevron_right</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 
-	<script>
-    $(".btn-like, .btn-dislike, .btn-playlist-add").on("click", function() {
-        let urlFor;
-        let toastMsg;
-        let trackID = $(this).attr("id");  // get .btn ID (track._id)
-        if ($(this).hasClass("btn-like")) {  // if clicking "LIKE" button
-            // create url_for path
-            urlFor = "{{ url_for('like', track_id='fakeID') }}".replace("fakeID", trackID);
-            toastMsg = "You Like this Song!";
-        } else if ($(this).hasClass("btn-dislike")) {  // if clicking "DISLIKE" button
-            // create url_for path
-            urlFor = "{{ url_for('dislike', track_id='fakeID') }}".replace("fakeID", trackID);
-            toastMsg = "You Dislike this Song!";
-        } else if ($(this).hasClass("btn-playlist-add")) {  // if clicking "ADD TO PLAYLIST" button
-            {%  if 'username' in session %} // if user is logged in add to playlist and flash message
-                urlFor = "{{ url_for('playlist_addto', track_id='fakeID') }}".replace("fakeID", trackID);
-                toastMsg = "Song added to your Playlist!";
-            {% else %} // if user is not logged in flash message
-                toastMsg = "To add song to your Playlist either register or login to your an account!";
-                M.toast({html: toastMsg});
-            {% endif %}
-        };
-        $.ajax({type: "POST", url: urlFor}).done(function () {  // ajax without page reload
-            M.toast({html: toastMsg});  // flash message to user
-        });
+<script>
+$(".btn-like, .btn-dislike, .btn-playlist-add").on("click", function() {
+    let urlFor;
+    let toastMsg;
+    let trackID = $(this).attr("id");  // get .btn ID (track._id)
+    if ($(this).hasClass("btn-like")) {  // if clicking "LIKE" button
+        // create url_for path
+        urlFor = "{{ url_for('like', track_id='fakeID') }}".replace("fakeID", trackID);
+        toastMsg = "You Like this Song!";
+    } else if ($(this).hasClass("btn-dislike")) {  // if clicking "DISLIKE" button
+        // create url_for path
+        urlFor = "{{ url_for('dislike', track_id='fakeID') }}".replace("fakeID", trackID);
+        toastMsg = "You Dislike this Song!";
+    } else if ($(this).hasClass("btn-playlist-add")) {  // if clicking "ADD TO PLAYLIST" button
+        {%  if 'username' in session %} // if user is logged in add to playlist and flash message
+            urlFor = "{{ url_for('playlist_addto', track_id='fakeID') }}".replace("fakeID", trackID);
+            toastMsg = "Song added to your Playlist!";
+        {% else %} // if user is not logged in flash message
+            toastMsg = "To add song to your Playlist either register or login to your account!";
+            M.toast({html: toastMsg});
+        {% endif %}
+    };
+    $.ajax({type: "POST", url: urlFor}).done(function () {  // ajax without page reload
+        M.toast({html: toastMsg});  // flash message to user
     });
+});
 
-    // This solution was inspired by https://github.com/Code-Institute-Submissions/dhamma1991-milestone-project-3/blob/master/templates/tracks.html
-    if ('{{ sorting_order }}' == 1) {
-        $('.dropdown-trigger span').text("Most Liked");
-    } else if ('{{ sorting_order }}' == 2) {
-        $('.dropdown-trigger span').text("Most Disliked");
-    } else if ('{{ sorting_order }}' == 3) {
-        $('.dropdown-trigger span').text("Newest");
-    } else if ('{{ sorting_order }}' == 4) {
-        $('.dropdown-trigger span').text("Oldest");
-    }
-	</script>
+// This solution was inspired by https://github.com/Code-Institute-Submissions/dhamma1991-milestone-project-3/blob/master/templates/tracks.html
+if ('{{ sorting_order }}' == 1) {
+    $('.dropdown-trigger span').text("# Likes");
+} else if ('{{ sorting_order }}' == 2) {
+    $('.dropdown-trigger span').text("# Dislikes");
+} else if ('{{ sorting_order }}' == 3) {
+    $('.dropdown-trigger span').text("Newest");
+} else if ('{{ sorting_order }}' == 4) {
+    $('.dropdown-trigger span').text("Oldest");
+}
+</script>
 
 	{% endblock %}
 

@@ -29,7 +29,7 @@
 				<ul class="right hide-on-med-and-down">
 					<li><a class="nav-text" href="{{ url_for('index')}}">Home</a></li>
 					<li><a class="nav-text" href="{{ url_for('catalogue')}}">Catalogue</a></li>
-					<li><a class="nav-text" href="{{ url_for('addtrack')}}">Add Song</a></li>
+					<li><a class="nav-text" href="{{ url_for('addtrack')}}">Add Track</a></li>
 					<li><a class="nav-text" href="{{ url_for('genres')}}">Genres</a></li>
 					<li><a class="nav-text" href="{{ url_for('playlist_page') }}">Playlist</a></li>
 					{%  if 'username' in session %}
@@ -47,7 +47,7 @@
 		<ul class="sidenav" id="mobile-demo">
 			<li><a class="nav-text" href="{{ url_for('index')}}">Home</a></li>
 			<li><a class="nav-text" href="{{ url_for('catalogue')}}">Catalogue</a></li>
-			<li><a class="nav-text" href="{{ url_for('addtrack')}}">Add Song</a></li>
+			<li><a class="nav-text" href="{{ url_for('addtrack')}}">Add Track</a></li>
 			<li><a class="nav-text" href="{{ url_for('genres')}}">Genres</a></li>
 			<li><a class="nav-text" href="{{ url_for('playlist_page')}}">Playlist</a></li>
 			{%  if 'username' in session %}
@@ -77,7 +77,7 @@
 			<div class="row">
 				<div class="col s12 center-align">
 					<h5 class="white-text">Kareokan</h5>
-					<p class="grey-text text-lighten-4">A freely available catalogue of Karaoke videos available from <a href="https://www.youtube.com/">YouTube</a>.</p>
+					<p class="grey-text text-lighten-4">A freely available catalogue of Karaoke videos available from <a class="link" target="_blank" href="https://www.youtube.com/">YouTube</a>.</p>
 				</div>
 			</div>
 		</div>
@@ -92,7 +92,7 @@
 
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-	<script type="text/javascript">
+	<script>
 		$(document).ready(function(){
             $('.sidenav').sidenav();
             $('.dropdown-trigger').dropdown();
