@@ -123,8 +123,8 @@
                 <!-- page buttons -->
                 {% for track_page, track_page_args in all_track_pages_id %}
                 <li {% if track_page_args == page %} class="waves-effect waves-purple blue accent-1"
-                    {%else%}class="waves-effect waves-purple" {% endif %}>
-                    <a
+                    {%else%} class="waves-effect waves-purple" {% endif %}>
+                    <a class=""
                         href="{{ url_for('catalogue', tracks=tracks, tracks_total=tracks_total, page=track_page_args,sorting_order=sorting_order)}}">{{ loop.index }}</a>
                 </li>
                 {% endfor %}

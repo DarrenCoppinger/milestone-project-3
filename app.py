@@ -106,7 +106,6 @@ def addtrack():
 def insert_track():
     tracks = mongo.db.tracks
     video = request.form.get('video_link')
-
     new_track = request.form.get('track_name')
     # change string to lower case and them capitize the first letter of each word to compared to existing names in database without taking case into account
     track_title = new_track.lower().title()
@@ -122,7 +121,7 @@ def insert_track():
 
     youtube_regex_match = re.match(youtube_regex, video)
 
-
+    sorting_order = 3 # load catalogue sorted by newest entry so user sees their update if successful 
     if existing_track is None:
         try:
             tracks.insert_one(
@@ -138,7 +137,7 @@ def insert_track():
                 }
             )
             flash("New song " + track_title + " added!")
-            return redirect(url_for('catalogue'))
+            return redirect(url_for('catalogue', sorting_order=sorting_order))
 
         except:
             flash("Could not insert song")
@@ -197,6 +196,9 @@ def update_track(track_id, page, sorting_order, likes, dislikes):
 
 @app.route('/delete_track/<track_id>/<page>/<sorting_order>')
 def delete_track(track_id, page, sorting_order):
+    the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
+    track_name = the_track["name"]
+    flash(track_name + " deleted from catalogue")
     mongo.db.tracks.remove( {'_id': ObjectId(track_id)})
     return redirect(url_for('catalogue', page=page, sorting_order=sorting_order))
 
@@ -222,7 +224,6 @@ def insert_genre():
     # change string to lower case and them capitize the first letter of each word to compared to existing names in database without taking case into account
     genre_title = new_genre.lower().title()
     existing_genres = mongo.db.genre.find_one({'name': genre_title})
-
     if existing_genres is None:
         try:
             genres.insert_one(
@@ -249,13 +250,30 @@ def editgenre(genre_id):
 
 @app.route('/update_genre/<genre_id>', methods=['POST'])
 def update_genre(genre_id):
-    genres = mongo.db.genres
+    genres = mongo.db.genre
+    edit_genre = request.form.get('genre_name')
+    # change string to lower case and them capitize the first letter of each word to compared to existing names in database without taking case into account
+    genre_title =  edit_genre.lower().title()
+    existing_genres = mongo.db.genre.find_one({'name': genre_title}) #Check the new genre name is not already in database (this prevents duplicate genres)
 
-    genres.update({'_id': ObjectId(genre_id)},
-                  {
-        'name': request.form.get('genre_name'),
-    })
-    return redirect(url_for('genres'))
+    if existing_genres is None: # if no genre with the same name
+
+        try:
+            genres.update({'_id': ObjectId(genre_id)},
+                {
+                    'name': genre_title
+                }
+            )
+            flash("Genre " + genre_title + " editted!")
+            return redirect(url_for('genres'))
+
+        except:
+            flash("Could not edit genre")
+    else:
+        flash("Genre " + genre_title + " already exists")
+        return redirect(url_for('editgenre',genre_id=genre_id))
+
+    return redirect(url_for('editgenre',genre_id=genre_id))
 
 
 @app.route('/catalogue/')
