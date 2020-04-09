@@ -9,6 +9,7 @@
     </div>
     <div class="row">
         <div class="col s12 m6">
+            <!-- Sorting dropdown Menu -->
             <div class="sort-box">Sort Order: <a class="dropdown-trigger" href="#"
                     data-target="dropdown"><span class="sort-description"></span><i class="material-icons">arrow_drop_down</i></a>
                 <ul id="dropdown" class="dropdown-content">
@@ -24,12 +25,14 @@
     {% if tracks_total > 0 %} 
     {% for track in tracks %} 
     <div class="row ">
+    <!-- YouTube Video player -->
         <div class="col s12 m8 info-row">
             <div class="video-container">
                 <iframe src="{{'https://www.youtube.com/embed/' ~ track.video}}" frameborder="0"
                     allowfullscreen></iframe>
             </div>
         </div>
+        <!-- Song Information Panel -->
         <div class="col s12 m4">
             <div class="panel">
                 <div class="info-panel">
@@ -95,7 +98,6 @@
                 Dislike<i class="material-icons right">thumb_down</i>
             </button>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -103,6 +105,7 @@
 
     {% endfor %}
     {% else %}
+    <!-- Message if there are no songs in catalogue -->
     <p>No tracks available</p>
     <p>Add a karaoke track to the catalogue <a href="{{url_for('register')}}">here</a> </p>
     {% endif %}

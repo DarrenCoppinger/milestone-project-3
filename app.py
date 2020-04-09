@@ -4,7 +4,6 @@ import math
 from flask import Flask, render_template, request, url_for, flash, session, redirect
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
-# Import date and time library
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.exceptions import HTTPException
@@ -26,11 +25,6 @@ def index():
     all_tracks = mongo.db.tracks
     tracks = all_tracks.find().sort('likes', pymongo.DESCENDING).skip(0).limit(5)
     return render_template("index.html", tracks=tracks)
-
-
-@app.route('/loginpage')
-def loginpage():
-    return render_template("loginpage.html")
 
 # -------------------- LOGIN --------------------
 
@@ -59,7 +53,7 @@ def login():
 
         flash("Username doesn't exist")   
         return redirect(url_for('login'))
-    return render_template('loginpage.html')
+    return render_template('login.html')
 
 # -------------------- LOGOUT --------------------
 
@@ -69,7 +63,6 @@ def logout():
     username = session["username"]
     flash("Sayōnara " + username)
     session.pop("username")
-    print("logged out")
     return redirect(url_for("index"))
 
 
@@ -109,11 +102,12 @@ def insert_track():
     new_track = request.form.get('track_name')
     # change string to lower case and them capitize the first letter of each word to compared to existing names in database without taking case into account
     track_title = new_track.lower().title()
-    existing_track = mongo.db.tracks.find_one({'name': track_title})
 
-    # add the genre id
+    # Check if there is another track in the catalogue with the same name
+    existing_track = mongo.db.tracks.find_one({'name': track_title})
     genre = request.form.get('genre_name')
 
+    # Check URL for YouTube address characterists
     youtube_regex = (
         r'(https?://)?(www\.)?'
         '(youtube|youtu|youtube-nocookie)\.(com|be)/'
@@ -122,7 +116,8 @@ def insert_track():
     youtube_regex_match = re.match(youtube_regex, video)
 
     sorting_order = 3 # load catalogue sorted by newest entry so user sees their update if successful 
-    if existing_track is None:
+    
+    if existing_track is None: #If no other track with the same name exists
         try:
             tracks.insert_one(
                 {
@@ -151,7 +146,6 @@ def insert_track():
 @app.route('/edittrack/<track_id>/<page>/<sorting_order>')
 def edittrack(track_id, page, sorting_order):
     the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
-
     likes = int(the_track["likes"])
     dislikes = int(the_track["dislikes"])
     genres = mongo.db.genre.find()
@@ -162,6 +156,8 @@ def edittrack(track_id, page, sorting_order):
 def update_track(track_id, page, sorting_order, likes, dislikes):
     tracks = mongo.db.tracks
     video = request.form.get('video_link')
+
+    # Check URL for YouTube address characterists
     youtube_regex = (
         r'(https?://)?(www\.)?'
         '(youtube|youtu|youtube-nocookie)\.(com|be)/'
@@ -170,6 +166,7 @@ def update_track(track_id, page, sorting_order, likes, dislikes):
     youtube_regex_match = re.match(youtube_regex, video)   
     
     edit_track = request.form.get('track_name')
+
     # change string to lower case and them capitize the first letter of each word 
     track_title = edit_track.lower().title()
     try:
@@ -221,10 +218,12 @@ def insert_genre():
     """ Insert new genre to database"""
     genres = mongo.db.genre
     new_genre = request.form.get('genre_name')
+
     # change string to lower case and them capitize the first letter of each word to compared to existing names in database without taking case into account
     genre_title = new_genre.lower().title()
     existing_genres = mongo.db.genre.find_one({'name': genre_title})
-    if existing_genres is None:
+
+    if existing_genres is None: # If there is no genre in the catalogue with the same names as that input
         try:
             genres.insert_one(
                 {
@@ -285,7 +284,7 @@ def catalogue():
     page_args = int(args("page")) if args(
         "page") else 0  # page_args are initial set to 0
     sorting_order = int(args("sorting_order")) if args("sorting_order") else 1
-    limit_args = 5
+    limit_args = 5 # Limit of 5 tracks per page
 
     all_track_count = (range(1, (math.ceil(tracks_total / limit_args)) + 1))
 
@@ -351,6 +350,14 @@ def playlist_addto(track_id):
 
     the_user = users.find_one({"name": username})
 
+    """
+    It is not possible using pymongo to delete an entry in an array that is a document using just the array index. As this is the case, an array entry must be identified by it's content.
+
+    The datestamp array parameter was added to the playlist array to provide a way to uniquely identify a song on a list that may have duplicates (i.e. The same song might appear multiple times on the playlist)
+
+    It the array parameter was simply an increasing integer equal to the arrau index (1,2,3...) there may be times that due to deletions of first entries, the array might have the entries with the same parameters. This would mean that if the user made a request to delete one (i.e. calling the route/view) both entries would be deleted. Using the timestamp prevents this.
+
+    """
     timestamp = datetime.now().strftime("%d-%m-%y-%H-%M-%S-%f")
 
     users.find_one_and_update(
@@ -368,26 +375,22 @@ def playlist_page():
         users = mongo.db.users
         the_user = users.find_one({"name": username})
 
-        message = "You have come to the end of your playlist"
-
-        playlist_ids = []
-        playlist_index = []
-        playlist_ytv = []
-        playlist_names = []
+        playlist_index = [] # list of timestamp index values from playlist array
+        playlist_ids = [] # list of track track_id 
+        playlist_names = [] # list of track song names
 
         playlist = the_user["playlist"]
 
         for playlist_id, track_id in the_user["playlist"]:
-            the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
-            ytv = the_track["video"]
-            pl_name = the_track["name"]
-            playlist_ids.append(track_id)
-            playlist_index.append(playlist_id)
-            
-            playlist_ytv.append(ytv)
-            playlist_names.append(pl_name)
+            playlist_index.append(playlist_id) # Add timestamp to playlist_index array
 
-        return render_template('playlist_page.html', users=users, playlist=playlist, playlist_names=zip( playlist_index, playlist_ids, playlist_names),message=message)
+            playlist_ids.append(track_id) # Add track_id to playlist_ids array
+
+            the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
+            pl_name = the_track["name"]
+            playlist_names.append(pl_name) # Add song name to playlist_names array
+
+        return render_template('playlist_page.html', users=users, playlist=playlist, playlist_names=zip( playlist_index, playlist_ids, playlist_names))
     else:
         return render_template('playlist_page.html')
 
@@ -407,16 +410,15 @@ def playlist_play():
         playlist_names = []
 
         for playlist_id, track_id in the_user["playlist"]:
+            playlist_index.append(playlist_id) # Add timestamp to playlist_index array
+            playlist_ids.append(track_id)  # Add track_id to playlist_ids array
+
             the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
             ytv = the_track["video"]
+            playlist_ytv.append(ytv) # Add YouTube video link if to playlist_ytv array
+
             pl_name = the_track["name"]
-            
-            playlist_ids.append(track_id)
-            playlist_index.append(playlist_id)
-            playlist_ytv.append(ytv)
-            playlist_names.append(pl_name)
-
-
+            playlist_names.append(pl_name) # Add song name to playlist_names array
 
         return render_template('playlist_play.html', users=the_user, playlist=playlist_ytv, playlist_id=playlist_index, playlist_names=zip(playlist_index, playlist_ids, playlist_names))
     else:
@@ -429,14 +431,16 @@ def playlist_delete(playlist_id,track_id):
     users = mongo.db.users
     username = session['username']
 
+    """find and remove ($pull) array entry with both($all) the correct playlist_id and track_id"""
     users.find_one_and_update({"name": username},
-    {"$pull": {'playlist': { "$all":[playlist_id, track_id]} }})
+    {"$pull": {'playlist': { "$all":[playlist_id, track_id]} }})  
 
     return redirect(url_for('playlist_page'))
 
 @app.route('/like/<track_id>', methods=['POST'])
 def like(track_id):
     tracks = mongo.db.tracks
+    """Find correct track and increase Likes by 1"""
     tracks.find_one_and_update(
         {"_id": ObjectId(track_id)}, {"$inc": {'likes': 1}})
 
@@ -446,13 +450,14 @@ def like(track_id):
 @app.route('/dislike/<track_id>', methods=['POST'])
 def dislike(track_id):
     tracks = mongo.db.tracks
-    the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
-    dislikes = the_track["dislikes"]
+
+    """Find correct track and increase Dislikes by 1"""
     tracks.find_one_and_update({"_id": ObjectId(track_id)}, {
                                "$inc": {'dislikes': 1}})
 
     return redirect(url_for('catalogue'))
 
+# ---------- Error Handlers ----------
 
 @app.errorhandler(404)
 def page_not_found(error):

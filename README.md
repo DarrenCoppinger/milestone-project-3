@@ -1,12 +1,16 @@
-<img src="https://i.ibb.co/Y2vw7XC/Readme.jpg" alt="Karaokean Project Image" border="0" width="100%" >
+# Karaokean - Milestone 3 Project
 
-# [Deployed Karaokean website here](https://karaokean.herokuapp.com/)
+![Karaokean Project Image](https://i.ibb.co/Y2vw7XC/Readme.jpg)
+
+## [Deployed Karaokean website here](https://karaokean.herokuapp.com/)
 
 ---
 
+## Introduction
 This website, [Karaokean](https://karaokean.herokuapp.com/), is an online catalogue of Karaoke track freely available on Youtube[YouTube](https://www.youtube.com/). It is a designed to be a website for parties where groups of friends can enjoy their favourite Karaoke numbers! Users can sign up to get their own free account and create their own personal playlist. Users can add songs to the catalogue as well as liking/disliking existing songs on the website. 
 
 ## Table of Contents
+0. [**Introduction**](#introduction)
 1. [**UX**](#ux)
     - [**Design Objectives**](#design-objectives)
         - [**Appropriate for Audience**](#appropriate-for-audience)
@@ -56,9 +60,14 @@ This website, [Karaokean](https://karaokean.herokuapp.com/), is an online catalo
     - [**Known Issues**](#known-issues)
 
 3. [**Deployment**](#deployment)
-   - [**Local Deployment**](#local-deployment)
+    - [**Local Deployment**](#local-deployment)
+    - [**Remote Deployment on Heroku**](#remote-deployment-on-heroku)
+4. [**Credits**](#credits)
+    - [**Media**](#media)
+    - [**Acknowledgements**](#acknowledgements)
+    - [**Disclaimer**](#isclaimer)
 
-### Local Deployment
+
 ---
 
 ## UX
@@ -107,7 +116,6 @@ A user who visits the website might follow one of the follow forms:
 
 
 ### Design
-
 The style of the site is inspired by the asetetic of japanese karaoke bars (called Karaokeans). These places tend to have neon signs on the outside and have cyber punky interior with lots of lights brightly color lights and vibrant colors. To communicated this a vapourwave color scheme was chosen using pinks, blues and a small amounts of teal green. 
 
 #### Framework
@@ -457,13 +465,12 @@ This app is currently deployed on heroku. The deployment is the code stored on t
 ### Media
 Images used in this site were used with the permission of [Elora Pautrat](https://www.elorapautrat.com/).
 
-### Content
-
 ### Acknowledgements
 - [Antonio Rodriguez](https://github.com/AkaAnto)
     - My Code Institute mentor.
 - [Tim Nelson](https://github.com/TravelTimN/)
     - Code Institute tutor who helped me with the jQuery and JavaScript code required for this project.
 
-#### Disclaimer
+### Disclaimer
 This Website was produced for educational purposes only.
+
