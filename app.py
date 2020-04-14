@@ -382,13 +382,16 @@ def playlist_page():
         playlist = the_user["playlist"]
 
         for playlist_id, track_id in the_user["playlist"]:
-            playlist_index.append(playlist_id) # Add timestamp to playlist_index array
-
-            playlist_ids.append(track_id) # Add track_id to playlist_ids array
-
             the_track = mongo.db.tracks.find_one({"_id": ObjectId(track_id)})
-            pl_name = the_track["name"]
-            playlist_names.append(pl_name) # Add song name to playlist_names array
+
+            if the_track: # If track with id exists in the catalogue do not add to list
+                playlist_index.append(playlist_id) # Add timestamp to playlist_index array
+                playlist_ids.append(track_id) # Add track_id to playlist_ids array
+
+                pl_name = the_track["name"]
+                playlist_names.append(pl_name) # Add song name to playlist_names array
+            else: # If no track with id in the catalogue do not add to list
+                return redirect(url_for('playlist_delete', playlist_id=playlist_id, track_id=track_id))
 
         return render_template('playlist_page.html', users=users, playlist=playlist, playlist_names=zip( playlist_index, playlist_ids, playlist_names))
     else:
@@ -475,5 +478,4 @@ def handle_exception(e):
 if __name__ == '__main__':
     app.secret_key = 'secret_key'
     app.run(host=os.environ.get('IP'),
-            port=int(os.environ.get('PORT')),
-            debug=True)
+            port=int(os.environ.get('PORT')))
