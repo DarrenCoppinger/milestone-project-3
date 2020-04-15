@@ -65,8 +65,6 @@ form.addEventListener("submit", function (event) {
         event.preventDefault();
     }
 
-
-
     if (!lyrics.validity.valid) {
         $("#lyrics_link").removeClass("valid");
         $("#lyrics_link").addClass("invalid");

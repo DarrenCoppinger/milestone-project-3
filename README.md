@@ -413,6 +413,14 @@ There are a small number of known issues not dealt with during this development 
 
 If a users partially inputs the data for a song into the input field on the "Add Track" page but doesn't see their desired genre in the drop-down list their next step would be to click the Add new genre option at the bottom of the list. This will bring them to the "Add Genre" page. However, when they return to the "Add Track" page, they will have lost the data that they had enter before clicking this option on the list. 
 
+**Console Error on Playlist Player Page**
+On the Playlist Player page (playlist_play.html), if the page is reloaded, a console error appears. This error states the following:
+
+```
+Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://www.youtube.com') does not match the recipient window's origin ('https://karaokean.herokuapp.com').
+```
+The source of this error is unclear as an origin parameter is provided in the YouTube API parameters code (see line 82 on playlist_play.html page). Reseach online fail to provide a solution to this error. However, it does not affect the performance of the API or the application overall so I was deem acceptable to submit the project with this error. This decision was discussed with my Mentor before submission.
+
 ## Deployment
 
 ### Local Deployment

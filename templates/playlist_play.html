@@ -20,8 +20,9 @@
 				<li class="collection-header">
 					<h3>Upcoming songs</h3>
 				</li>
-				<!-- <br> -->
+
 				{% for ids, ytv, name in playlist_names %}
+                <!-- cycle through the timestamp id, YouTube Video id and name for each song in playlist  -->
 				<li class="collection-item" id="{{ids}}">
 					{{loop.index}}. {{name}}
 					<span class="current red-text"></span>
@@ -30,6 +31,7 @@
 			</ul>
 		</div>
 	</div>
+    <!-- Skip Button -->
 	<div class="row">
 		<div class="col s12 center-align">
 			<a id="skip-button"
@@ -57,15 +59,16 @@
 	// create playList array with each song ID
 let playList = []
 let playListId = []
+// Add YouTube video ids to the PlayList matrix
 {% for ytv in playlist %}
     playList.push("{{ytv}}");
 {% endfor %}
+// Add timestamp ids to the PlayListId matrix
 {% for ids in playlist_id %}
     playListId.push("{{ids}}");
 {% endfor %}
 
 var tag = document.createElement('script');
-tag.id = 'iframe-demo';
 tag.src = 'https://www.youtube.com/iframe_api';
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
@@ -75,6 +78,7 @@ var player;
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         videoId: playList[0],
+        // Parameters turn on autoplay, disable progress back and play controls and provide embedded origin address
         playerVars: {
             'autoplay': 1,
             'controls': 0,

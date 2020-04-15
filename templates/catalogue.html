@@ -23,93 +23,92 @@
     </div>
 
     {% if tracks_total > 0 %} 
-    {% for track in tracks %} 
-    <div class="row ">
-    <!-- YouTube Video player -->
-        <div class="col s12 m8 info-row">
-            <div class="video-container">
-                <iframe src="{{'https://www.youtube.com/embed/' ~ track.video}}" frameborder="0"
-                    allowfullscreen></iframe>
-            </div>
-        </div>
-        <!-- Song Information Panel -->
-        <div class="col s12 m4">
-            <div class="panel">
-                <div class="info-panel">
-                    <div class="row info-row">
-                        <div class="col s12">
-                            <div class="song-title">{{track.name}} ({{track.year}})</div>
-                        </div>
-                    </div>
-                    <div class="row info-row">
-                        <div class="col s12">
-                            <div>by {{track.artist}}</div>
-                        </div>
-                    </div>
-                    <div class="row info-row">
-                        <div class="col s6">
-                            <div>Likes {{track.likes}}</div>
-                        </div>
-                        <div class="col s6">
-                            <div>Dislikes {{track.dislikes}}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row info-row">
-                    <!-- Lyrics button -->
-                    <div class="col s12">
-                        <a class="waves-effect waves-light btn-small button1" target="_blank"
-                            href="{{track.lyrics}}">Check Lyrics<i class="material-icons right">music_note</i></a>
-                    </div>
-                </div>
-                <div class="row info-row">
-                    <!-- ADD TO PLAYLIST button -->
-                    <div class="col s12">
-                        <button id="{{track._id}}" class="waves-effect waves-light btn-small button1 btn-playlist-add">Add to Playlist<i class="material-icons right">add</i></button>
-                    </div>
-                </div>
-
-                <div class="row info-row">
-                    <!-- EDIT button -->
-                    <div class="col-button col s6">
-                        <a href="{{url_for('edittrack', track_id=track._id, page=page, sorting_order=sorting_order)}}"
-                            class="waves-effect waves-light btn-small button2">
-                            <i class="material-icons right">edit</i>Edit
-                        </a>
-                    </div>
-                    <!-- DELETE button -->
-                    <div class="col-button col s6">
-                        <a href="{{url_for('delete_track', track_id=track._id, page=page, sorting_order=sorting_order)}}"
-                            class="waves-effect waves-light btn-small button2">
-                            <i class="material-icons right">delete</i>Delete
-                        </a>
-                    </div>
-                </div>
-                <div class="row info-row">
-                    <!-- LIKE button -->
-                    <div class="col s6">
-                        <button id="{{ track._id }}" class="waves-effect waves-light btn-small button2 btn-like">
-                Like<i class="material-icons right">thumb_up</i>
-            </button>
-                    </div>
-                    <!-- DISLIKE button -->
-                    <div class="col s6">
-                        <button id="{{track._id}}" class="waves-effect waves-light btn-small button2 btn-dislike">
-                Dislike<i class="material-icons right">thumb_down</i>
-            </button>
-                    </div>
+        {% for track in tracks %} 
+        <div class="row ">
+        <!-- YouTube Video player -->
+            <div class="col s12 m8 info-row">
+                <div class="video-container">
+                    <iframe src="{{'https://www.youtube.com/embed/' ~ track.video}}" frameborder="0"
+                        allowfullscreen></iframe>
                 </div>
             </div>
-        </div>
-    </div>
+            <!-- Song Information Panel -->
+            <div class="col s12 m4">
+                <div class="panel">
+                    <div class="info-panel">
+                        <div class="row info-row">
+                            <div class="col s12">
+                                <div class="song-title">{{track.name}} ({{track.year}})</div>
+                            </div>
+                        </div>
+                        <div class="row info-row">
+                            <div class="col s12">
+                                <div>by {{track.artist}}</div>
+                            </div>
+                        </div>
+                        <div class="row info-row">
+                            <div class="col s6">
+                                <div>Likes {{track.likes}}</div>
+                            </div>
+                            <div class="col s6">
+                                <div>Dislikes {{track.dislikes}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row info-row">
+                        <!-- Lyrics button -->
+                        <div class="col s12">
+                            <a class="waves-effect waves-light btn-small button1" target="_blank"
+                                href="{{track.lyrics}}">Check Lyrics<i class="material-icons right">music_note</i></a>
+                        </div>
+                    </div>
+                    <div class="row info-row">
+                        <!-- ADD TO PLAYLIST button -->
+                        <div class="col s12">
+                            <button id="{{track._id}}" class="waves-effect waves-light btn-small button1 btn-playlist-add">Add to Playlist<i class="material-icons right">add</i></button>
+                        </div>
+                    </div>
 
-    {% endfor %}
+                    <div class="row info-row">
+                        <!-- EDIT button -->
+                        <div class="col-button col s6">
+                            <a href="{{url_for('edittrack', track_id=track._id, page=page, sorting_order=sorting_order)}}"
+                                class="waves-effect waves-light btn-small button2">
+                                <i class="material-icons right">edit</i>Edit
+                            </a>
+                        </div>
+                        <!-- DELETE button -->
+                        <div class="col-button col s6">
+                            <a href="{{url_for('delete_track', track_id=track._id, page=page, sorting_order=sorting_order)}}"
+                                class="waves-effect waves-light btn-small button2">
+                                <i class="material-icons right">delete</i>Delete
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row info-row">
+                        <!-- LIKE button -->
+                        <div class="col s6">
+                            <button id="{{ track._id }}" class="waves-effect waves-light btn-small button2 btn-like">
+                    Like<i class="material-icons right">thumb_up</i>
+                </button>
+                        </div>
+                        <!-- DISLIKE button -->
+                        <div class="col s6">
+                            <button id="{{track._id}}" class="waves-effect waves-light btn-small button2 btn-dislike">
+                    Dislike<i class="material-icons right">thumb_down</i>
+                </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
     {% else %}
-    <!-- Message if there are no songs in catalogue -->
-    <p>No tracks available</p>
-    <p>Add a karaoke track to the catalogue <a href="{{url_for('register')}}">here</a> </p>
+        <!-- Message if there are no songs in catalogue -->
+        <p>No tracks available</p>
+        <p>Add a karaoke track to the catalogue <a href="{{url_for('register')}}">here</a> </p>
     {% endif %}
-
 
     <!-- Pagination -->
     <div class="row center-align">
@@ -184,8 +183,7 @@ if ('{{ sorting_order }}' == 1) {
 }
 </script>
 
-	{% endblock %}
-
-	{% block messages_js %}
-	<script src="{{ url_for('static', filename='js/messages.js') }}"></script>
-	{% endblock %}
+{% endblock %}
+{% block messages_js %}
+<script src="{{ url_for('static', filename='js/messages.js') }}"></script>
+{% endblock %}
