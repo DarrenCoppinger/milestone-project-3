@@ -87,7 +87,13 @@ The content to the site must be relevant to the audience. To accomplise this, th
 The website content is grouped into easily understood sections (Home, Catalogue page, Add Track page, Genres page, playlist page, login page)
 
 #### Technology 
-Appropriate technologies were used to design the website such as [Materialize](https://materializecss.com/) and the [Youtube iFrame API](https://developers.google.com/youtube/iframe_api_reference) to provide the user with a high-quality experience.
+Appropriate technologies were used to design the website such as [Materialize](https://materializecss.com/) and the [Youtube iFrame API](https://developers.google.com/youtube/iframe_api_reference) to provide the user with a high-quality experience. 
+
+[MongoDB](https://www.mongodb.com/) was used to manage the date for the website. A schatic for the database model used for this project are shown below:
+
+![database model](https://i.ibb.co/9Zwb4Zz/Database-Model.jpg)
+
+As this database model links data from different collections (as shown above) a relational database may have been a better choice. However, I wished to use this project to use a non-relational/NoSQL database, like MongoDB, in a milestone project as I will have the opportunity to use a relational database in the Fullstack Development Module.
 
 ### User stories
 
@@ -264,16 +270,20 @@ The registration page has the same two inputs as the login with username and pas
 - [Materialize 1.0.0](https://materializecss.com/) - Used for the design framework.
 
 ### Back-End Technologies
-- **Python**
+**Python**
     - [Python 3.7.6](https://www.python.org/) - Used as the programming language at the back-end.
-    - [PyMongo 3.10.1](https://api.mongodb.com/python/current/) - Used as the Python API for MongoDB.
+    - [PyMongo 3.10.1](https://pymongo.readthedocs.io/en/stable/) - Used as the Python API for MongoDB.
 
-- **Flask**
+**Flask**
     - [Flask 1.1.1](https://flask.palletsprojects.com/en/1.1.x/) - Used as mirocframework. 
+    - [Flask-Pymongo](https://flask-pymongo.readthedocs.io/en/latest/) - Flask-PyMongo bridges Flask and PyMongo and provides some convenience helpers.
     - [Jinja 2.10](https://jinja.palletsprojects.com/en/2.11.x/) - The templating language with Flask. 
     - [Werkzeug 1.0.0](https://werkzeug.palletsprojects.com/en/1.0.x/) - Used for password hashing and checking. 
 
-- **Heroku**
+**MongoDB**
+    - [MongoDB](https://www.mongodb.com/) - MongoDB is the database used to manage the data for this website. It is a cross-platform document-oriented database program.
+
+**Heroku**
     - [Heroku](https://www.heroku.com) - Used for hosting the deployed website.
 
 ## Testing
