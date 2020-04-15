@@ -77,7 +77,8 @@ function onYouTubeIframeAPIReady() {
         videoId: playList[0],
         playerVars: {
             'autoplay': 1,
-            'controls': 0
+            'controls': 0,
+            'origin': 'https://karaokean.herokuapp.com'
         },
         events: {
             'onReady': onPlayerReady,

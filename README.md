@@ -140,17 +140,33 @@ The fonts were chosen to evoke a jJapanese aesthetic. A cursive font, East Sea D
 - [Roboto](https://fonts.google.com/specimen/Roboto)
 
 ### Wireframe
-- [Home](https://i.ibb.co/PxL7h23/Home.png)
-- [Add Track](https://i.ibb.co/V9zCxHt/Add-Song.png)
-- [Edit Song](https://i.ibb.co/8bpfRmV/Edit-Song.png)
-- [Catalogue](https://i.ibb.co/X3kpZxv/Catalogue.png)
-- [Genre](https://i.ibb.co/kGVr9n1/Genres.png)
-- [Add Genre](https://i.ibb.co/x7JNqrx/Add-Genre.png)
-- [Edit Genre](https://i.ibb.co/dGkhdSn/Edit-Genre.png)
-- [Playlist Editor](https://i.ibb.co/7XHybqx/Playlist-list.png)
-- [Playlist Player](https://i.ibb.co/L1wDFs4/Playlist.png)
-- [Login](https://i.ibb.co/D5W147z/Login.png)
-- [Register](https://i.ibb.co/Vw1RrVH/Register.png)
+Wireframes for both the desktop and mobile versions of the website were produced. They are include below:
+
+#### Desktop Wireframes
+- [Home](https://i.ibb.co/LSw1K0d/Home.png)
+- [Add Track](https://i.ibb.co/rx1xzCK/Add-Song.png)
+- [Edit Track](https://i.ibb.co/5v8mWKy/Edit-Song.png)
+- [Catalogue](https://i.ibb.co/HL8S3pC/Catalogue.png)
+- [Genre](https://i.ibb.co/B4fS0fS/Genres.png)
+- [Add Genre](https://i.ibb.co/HP5QrV8/Add-Genre.png)
+- [Edit Genre](https://i.ibb.co/60RRTJw/Edit-Genre.png)
+- [Playlist Editor](https://i.ibb.co/02tBHnJ/Playlist-Editor.png)
+- [Playlist Player](https://i.ibb.co/ZYBdJ3D/Playlist-Player.png)
+- [Login](https://i.ibb.co/PcsFkS1/Login.png)
+- [Register](https://i.ibb.co/GMSLpXJ/Register.png)
+
+#### Mobile Wireframes
+- [Home - mobile](https://i.ibb.co/7QJFcJB/Home-mobile.png)
+- [Add Track - mobile](https://i.ibb.co/566NYPx/Add-Song-mobile.png)
+- [Edit Track - mobile](https://i.ibb.co/hYPJPMP/Edit-Song-mobile.png)
+- [Catalogue - mobile](https://i.ibb.co/WnvKMzZ/Catalogue-mobile.png)
+- [Genre - mobile](https://i.ibb.co/7Rg8ZNG/Genre-mobile.png)
+- [Add Genre - mobile](https://i.ibb.co/Kr2dMHj/Add-Genre-mobile.png)
+- [Edit Genre - mobile](https://i.ibb.co/1Zn05Zt/Edit-Genre-mobile.png)
+- [Playlist Editor - mobile](https://i.ibb.co/ZGBDY6j/Playlist-Editor-mobile.png)
+- [Playlist Player - mobile](https://i.ibb.co/ZX594Ry/Playlist-Player-mobile.png)
+- [Login - mobile](https://i.ibb.co/6DKdgxs/Login-mobile.png)
+- [Register - mobile](https://i.ibb.co/GPdP2kC/Register-mobile.png)
 
 ## Features
 
