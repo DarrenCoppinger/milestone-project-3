@@ -76,26 +76,34 @@ This website was designed as a part of my Code Institute Full Stack Development 
 The website provides users with a location to collect and rate great karaoke tracks as well as putting together their own playlist for a Karaoke party. 
 
 ### Design Objectives
-The following are the main design objectives for the project
-#### Appropriate for Audience
-The website must be appropriate for the audience. The audience for this website will be English speaking, technology savvy and will likely access the site on mobile devices. Although the website will accommodate all visitors, its primary audience will be technology literate. A mobile first approach was considered appropriate for this type of audience however, the site will perform just as well on a large screen sizes. 
+The following are the main design objectives for the project:
+
+#### Deign a Application Appropriate for Audience
+The website must be appropriate for the audience. The audience for this website will be English speaking, technology savvy and will likely access the site on mobile devices. Although the website will accommodate all visitors, its primary audience will be technology literate. THe site will perform well on a large screen sizes but also has the ability to perform on mobile devices.
 
 #### Content Relevance and Accuracy
 The content to the site must be relevant to the audience. To accomplise this, the users of the website have the ability to add their own choice of karaoke songs to the catalogue. The users can also edit the catalogue and delete specific song entries. It is essential to include a delete feature for songs in the catalogue as this is one of the requirements for the project's assessment. However, it does make the catalogue vulnerable to being completely deleted, whether by accident or by a nefarious user.
 
 #### Content Grouping
-The website content is grouped into easily understood sections (Home, Catalogue page, Add Track page, Genres page, playlist page, login page)
+The website content is grouped into easily understood sections (Home, Catalogue page, Add Track page, Genres page, playlist page, login page). Additionally, the catalogue page sorts the songs in the catalogue by most "Likes", most "Dislikes", "Newest" by date added, and Oldest by date added. 
 
 #### Technology 
 Appropriate technologies were used to design the website such as [Materialize](https://materializecss.com/) and the [Youtube iFrame API](https://developers.google.com/youtube/iframe_api_reference) to provide the user with a high-quality experience. 
 
-[MongoDB](https://www.mongodb.com/) was used to manage the date for the website. A schatic for the database model used for this project are shown below:
+[MongoDB](https://www.mongodb.com/) was used to manage the date for the website. A schematic for the database model used for this project are shown below:
 
 ![database model](https://i.ibb.co/9Zwb4Zz/Database-Model.jpg)
 
-As this database model links data from different collections (as shown above) a relational database may have been a better choice. However, I wished to use this project to use a non-relational/NoSQL database, like MongoDB, in a milestone project as I will have the opportunity to use a relational database in the Fullstack Development Module.
+As this database model links data from different collections (as shown above in schematic) a relational (SQL) database may have been used for this project. However, I wished to use this project to use a non-relational(NoSQL) database, such as MongoDB, in a milestone project. I will have the opportunity to use a relational database in a milestone project in the Fullstack Development Module.
 
 ### User stories
+A user who visits the website might follow one of these forms:
+- A user wants to see what tracks are available on the website
+- A user wants to add a karaoke song, found on YouTube, to the catalogue so that the other users of the site can play and rate it.
+- A user wants to use the site to generate a playlist of existing songs in the catalogue.
+
+
+Additionally, the following requirements should be met by the website:
 
 "As a user of this website, I would like to- _____________________"
 
@@ -114,16 +122,10 @@ As this database model links data from different collections (as shown above) a 
 - create a playlist of songs that a user wishes to play
 - edit a playlist created by the user by deleting unwanted songs
 - play the playlist created by the users
-- have a live upcoming song sidebar that allows users to see what song will be played next
-
-A user who visits the website might follow one of these forms:
-- A user wants to see what tracks are available on the website
-- A user wants to add a karaoke song, found on YouTube, to the catalogue so that the other users of the site can play and rate it.
-- A user wants to use the site to generate a playlist of existing songs in the catalogue.
-
+- have a live upcoming song sidebar that allows me to see what song will be played next
 
 ### Design
-The style of the site is inspired by the aesthetic of Japanese karaoke bars (called Karaokeans). These places tend to have neon signs on the outside and have cyber punk inspired interior with lots of brightly color lights and vibrant colors. To communicated this a [vapourwave](https://en.wikipedia.org/wiki/Vaporwave) color scheme was chosen using pinks, blues and a small amounts of teal green. 
+The style of the site is inspired by the aesthetic of Japanese karaoke bars (called Karaokeans). These places tend to have neon signs on the outside and have cyberpunk inspired interior with lots of brightly color lights and vibrant colors. To communicated this a [vapourwave](https://en.wikipedia.org/wiki/Vaporwave) color scheme was chosen using pinks, blues and a small amounts of teal green. 
 
 #### Framework
 For this project, I used the framework [Flask](https://flask.palletsprojects.com/en/1.1.x/) to render the python code which is in place at the backend of the website. I also used the framework [Materialize](https://materializecss.com/) as I wished to use an alternative to bootstrap and I like the clean modern look of the framework. Its documentation was also concise and easy to read. [jQuery](https://code.jquery.com/jquery/) was also used to as I found it more straight forward to used than basic JavaScript. 
@@ -175,6 +177,21 @@ Wireframes for both the desktop and mobile versions of the website were produced
 - [Register - mobile](https://i.ibb.co/GPdP2kC/Register-mobile.png)
 
 ## Features
+Major features to be developed and deployed on this website are summarized in the following table and graph. In the below opportunites analysis, the viability/feasibility is lower than the importance total. Therefore, all the features on this list will not be implemented. The “Sort by Genre” feature was left for a later development sprint as a result.
+
+| Opportunities | Importance | Viability/feasibility | Difficulty |
+|:---|:---:|:---:|:---:|
+| Catalogue page to display all songs with pagination | 5 | 4 | 4 |
+| General sorting for songs on catalogue page | 5 | 3 | 2 | 
+| User Registration and Login | 4 | 5 | 3 | 
+| Add/ Edit songs page | 4 | 4 | 3 | 
+| Playlist Player and upcoming songs list  | 4 | 3 | 4 | 
+| Playlist editor  | 3 | 3 | 3 | 
+| Genre editor | 2 | 3 | 5 | 
+| Sort by Genre | 2 | 2 | 5 | 
+| **Total** | **29** | **27** |  | 
+ 
+![feasibility-viability analysis](https://i.ibb.co/G2jcJ74/viability-feasibility.jpg)
 
 ### Existing Features
 #### All Pages
@@ -217,8 +234,8 @@ The "YouTube Link" field must have a YouTube link for a video placed in it to wo
 If the information does not satisfy the validation checks the form will not submit, and each field that is not validate will be underlines with a redline and an error message will appear underneath the field. 
 
 If the data entered into the input field is the correct type (text, number, URL or YouTube link) 
-#### Genre 
 
+#### Genre 
 The Genre page lists all the genres added to the database by the website users. Each genre name entry can be edited. If an entry is edited, it must still be a text entry of between 1 and 30 character. However, as each song is associated with a genre, through the genre Object_id, it is not possible to completely delete a genre, as this might result in a number of songs having no genre. It is possible however, to change the genre of any song through the Edit song page. 
 
 At the bottom of the Genre page is a "Add Genre" button which a user can click to add a new Genre to the list. THis is the same page that is accessible though the drop-down list on the Add Track and Edit Song pages.
@@ -241,10 +258,10 @@ If the user added a track to their playlist and then deletes that track from the
 ##### Playlist Player
 The Playlist Player page has two elements the video-container on the lefthand 2 thirds of the page and in the final third a list of the songs they have picked. The song on the top of the list that is currently playing will also have the text "Currently playing" in red next to it.
 
-The video will autoplay on the page loading as each song in the playlist will play through until the end is reached. At the bottom of the page is a "Skip" button which allows the user to skip to the next song at any stage during the currently playing song. When the end of the playlist is reached the user will see a tost message telling them that the end of the playlist has beeen reached. After a delay of 4 seconds for the toast to be read the page will auto-redirect back to the Playlist Editor page.
+The video will autoplay on the page loading as each song in the playlist will play through until the end is reached. When the video player is ready to autoplay the border around the video will turn pink and the video will autoplay. At the bottom of the page is a "Skip" button which allows the user to skip to the next song at any stage during the currently playing song. When the end of the playlist is reached the user will see a tost message telling them that the end of the playlist has beeen reached. After a delay of 4 seconds for the toast to be read the page will auto-redirect back to the Playlist Editor page.
 
 #### Login 
-The login page is access via a button on tehneavbar o or the sidenav on mobile devicesClicking this brings the user to a typical user login form screen with a submit button labelled "Login". 
+The login page is accessed via a button on the navbar or the sidenav on mobile devices. Clicking this brings the user to a typical user login form screen with a submit button labelled "Login". 
 - If the users has not registered for an account but tries to login by inputing an unregistered username and password they will receive a flash message saying the "Username doesn't exist".
 - If the user has previously registered for an account and input a username that already exists in the database then they will receive the flash message "Password was incorrect".
 - If the user enters both an existing username and a correct password they will be redirected to the home page of the site and shown a flash message saying "Kon'nichiwa *their username*".
@@ -258,9 +275,10 @@ The registration page has the same two inputs as the login with username and pas
 - If the users enters in a new unique username (along with a password) they will be redirected to the home page of the site and see the flash message "Welcome to Karaokean *username*".
 
 ### Features Left to Implement
-- Live updating of the like and dislike numbers on the catalogue page
-- Sorting of catalogue by genre
-- Pagination for large numbers of pages
+During planning this project it was decided that the feature of sorting songs by genre on the catalogue page would be left for a future development sprint. During development and testing of this application, additional features where imagined to be added in a later date. These addtional features are as follows: 
+- Sorting of songs in the catalogue by genre
+- Pagination of catalogue for large numbers of pages, where all pages are not displayed as buttons
+- Live updating of the like and dislike numbers on the catalogue page (currently page must be reloaded for numbers to update)
 
 ## Technologies Used
 ### Frontend Technologies
@@ -290,14 +308,14 @@ The registration page has the same two inputs as the login with username and pas
 ### Code Validators
 
 The follow validators were used to check the code developed from this project:
-- WC3 Markup Validator
-- W3C Jigsaw CSS Validator
+- [WC3 Markup Validator](https://validator.w3.org/)
+- [W3C Jigsaw CSS Validator](https://jigsaw.w3.org/css-validator/)
 
 #### WC3 Markup Validator
  [WC3 Markup Validator](https://validator.w3.org/) was used to validate the HTML code. However, the validator is not able to recognise the Jinja templating syntax so some errors were recorded. All code other than the jinja syntax was successfully validated.
 
 #### W3C Jigsaw CSS Validator
-[W3C Jigsaw CSS Validator](https://jigsaw.w3.org/css-validator/) was used to validate my CSS code. The CSS successfully pass the check with no errors.
+[W3C Jigsaw CSS Validator](https://jigsaw.w3.org/css-validator/) was used to validate my CSS code. The CSS successfully passed this check with no errors.
 
 ### Browers Testing
 This website was tested on multiple browsers. They included:
@@ -401,7 +419,6 @@ This website was tested on multiple browsers. They included:
 - Check that when the end of the last song on the playlist is reached that the toast message "You have reached the end of your playlist!" is displayed and that after three seconds the user is directed to the Playlist Editor page.
 
 #### Login
-
 - Check that if an unregistered user but tries to login with a unregistered username and password that they will receive a flash message saying the "Username doesn't exist".
 - Check that if a registered user, who has input a existing username by incorrect password receives the flash message "Password was incorrect".
 - Check that if  the user enters both an existing username and a correct password they will be redirected to the home page of the site and shown a flash message saying "Kon'nichiwa *their username*".
@@ -419,11 +436,11 @@ This website was tested on multiple browsers. They included:
 #### Known Issues
 There are a small number of known issues not dealt with during this development print. They are noted below and will be fixed in a future development sprint.
 
-**Lost Data when adding Genre**
+##### Lost Data when adding Genre
 
 If a users partially inputs the data for a song into the input field on the "Add Track" page but doesn't see their desired genre in the drop-down list their next step would be to click the Add new genre option at the bottom of the list. This will bring them to the "Add Genre" page. However, when they return to the "Add Track" page, they will have lost the data that they had enter before clicking this option on the list. 
 
-**Console Error on Playlist Player Page**
+##### Console Error on Playlist Player Page
 On the Playlist Player page (playlist_play.html), if the page is reloaded, a console error appears. This error states the following:
 
 ```
@@ -432,7 +449,6 @@ Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('htt
 The source of this error is unclear as an origin parameter is provided in the YouTube API parameters code (see line 82 on playlist_play.html page). Reseach online fail to provide a solution to this error. However, it does not affect the performance of the API or the application overall so I was deem acceptable to submit the project with this error. This decision was discussed with my Mentor before submission.
 
 ## Deployment
-
 ### Local Deployment
 To run this project locally on any system the following will need to be installed
 
