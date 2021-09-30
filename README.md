@@ -133,9 +133,9 @@ For this project, I used the framework [Flask](https://flask.palletsprojects.com
 #### Colors
 The main colors used are as follows:
 
-- ![#9C27B0](https://placehold.it/15/e487d8/e487d8) `#e487d8` (**light pink** - *primary color*)
-- ![#79acfb](https://placehold.it/15/79acfb/79acfb) `#79acfb` (**light blu3** - *secondary color*)
-- ![#4db6ac](https://placehold.it/15/4db6ac/4db6ac) `#79acfb` (**light blu3** - *tertiary color*)
+- ![#9C27B0](https://via.placeholder.com/15/E487D8/E487D8) `#e487d8` (**light pink** - *primary color*)
+- ![#79acfb](https://via.placeholder.com/15/79acfb/79acfb) `#79acfb` (**light blue** - *secondary color*)
+- ![#4db6ac](https://via.placeholder.com/15/4db6ac/4db6a) `#79acfb` (**light green** - *tertiary color*)
 
 #### Icons
 - [Materialize Icons](https://materializecss.com/icons.html)
